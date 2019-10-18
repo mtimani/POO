@@ -1,9 +1,12 @@
-public class SelfishRunner extends Thread { 
+import java.util.Timer;
+import java.lang.*;
+
+public class PoliteRunner extends Thread { 
     
     private int tick = 1;
     private int num;
 
-    public SelfishRunner(int num) {
+    public PoliteRunner(int num) {
         this.num = num;
     }
 
@@ -13,6 +16,7 @@ public class SelfishRunner extends Thread {
             if ((tick % 50000) == 0) {
                 System.out.println("Thread #" + num + ", tick = " + tick);
             }
+            Thread.yield();
         }
     }
 }
