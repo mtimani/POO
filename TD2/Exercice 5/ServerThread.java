@@ -33,7 +33,7 @@ class ClientServiceThread extends Thread {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
             while(running){
                 String clientCommand = in.readLine();
-                System.out.println("Le client a envoyé : " + clientCommand);
+                System.out.println("Le client (ID : " + clientID + " ) a envoyé : " + clientCommand);
                 if (clientCommand.equalsIgnoreCase("quit")) {
                     running = false;
                     System.out.println("Arrêt du thread client pour le client : " + clientID);
