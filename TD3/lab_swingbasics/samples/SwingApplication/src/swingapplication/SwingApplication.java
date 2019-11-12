@@ -24,12 +24,6 @@ public class SwingApplication implements ActionListener {
         button.addActionListener(this);
         label.setLabelFor(button);
         
-        // Create a second button. The same event handler will be used.
-        JButton button2 = new JButton("I'm 2nd Swing button!");
-        button2.setMnemonic(KeyEvent.VK_L);
-        button2.addActionListener(this);
-        label.setLabelFor(button2);
-        
         /*
          * An easy way to put space between a top-level container
          * and its contents is to put the contents in a JPanel
@@ -37,8 +31,6 @@ public class SwingApplication implements ActionListener {
          */
         JPanel pane = new JPanel(new GridLayout(0, 1));
         pane.add(button);
-        // Add 2nd button to the JPanel
-        pane.add(button2);
         pane.add(label);
         pane.setBorder(BorderFactory.createEmptyBorder(
                 30, //top
@@ -50,20 +42,8 @@ public class SwingApplication implements ActionListener {
         return pane;
     }
     
-    // Modify the event handler code depending on which button is pressed.
-    // If the 1st button is pressed, increase the numClicks value by 1, else
-    // increase the value by 1000.
-    
     public void actionPerformed(ActionEvent e) {
-        
-        // Using getActionCommand() method is a bit of a hack, but for the
-        // sake of this exercise, it serves its purpose.
-        if (e.getActionCommand().equals("I'm a Swing button!")){
-            numClicks++;
-        }
-        else{
-            numClicks += 1000;
-        }
+        numClicks++;
         label.setText(labelPrefix + numClicks);
     }
     
