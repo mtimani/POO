@@ -19,7 +19,7 @@ public class AnnoyingBeep {
     }
     
     class RemindTask extends TimerTask {
-        int numWarningBeeps = 3;
+        int numWarningBeeps = 4;
 
         public void run() {
             if(numWarningBeeps > 0) {
