@@ -3,7 +3,6 @@ package ChatSystem;
 import java.io.*;
 import java.util.*;
 import java.net.*;
-import java.security.*;
 
 /**
  * Représente un utilisateur de l'application de chat
