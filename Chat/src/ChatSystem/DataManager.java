@@ -3,7 +3,9 @@ package ChatSystem;
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * Classe permettant de se charger de la sauvegarde et récupération de données dans la mémoire
+ */
 public class DataManager {
 	
 	/**
