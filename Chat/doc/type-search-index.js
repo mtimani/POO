@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ChatSystem","l":"Group"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ChatSystem","l":"Controller"},{"p":"ChatSystem","l":"DataManager"},{"p":"ChatSystem","l":"Group"},{"p":"ChatSystem","l":"Message"},{"p":"ChatSystem","l":"Udp"},{"p":"ChatSystem","l":"User"}]
