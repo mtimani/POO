@@ -72,6 +72,62 @@ public class Udp extends Thread {
 	@Override
 	public void run() {
 		
+		//Variables
+		byte [] buffer = new byte[1024];
+		DatagramPacket in = new DatagramPacket(buffer, buffer.length);
+		int status = NONE_STATUS;
+		User receivedUser = null;
+		int udpIdentity = -1;
+		
+		while (true) {
+			
+			try {
+				this.socket.receive(in);
+				
+				//Réception des paquets
+				byte [] receivedMessage = in.getData();
+				ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(receivedMessage));
+				udpIdentity = (int) inStream.readInt();
+				
+				//Vérification si on peut traiter le paquet
+				if (udpIdentity != UDP_IDENTITY) continue;
+				
+				//Récupération de la charge utile des messages
+				status = (int) inStream.readInt();
+				receivedUser = (User) inStream.readObject();
+				inStream.close();
+				
+				//Choix du traîtement et traîtement du message
+				switch(status) {
+				
+					case CONNECTION_STATUS:
+						if (!controller.getUser().getIP().equals(in.getAddress())) {
+							controller.receivedConnection(receivedUser);
+							sendUdpMessage(createMessage(CONNECTION_RESPONSE_STATUS, controller.getUser(), in.getAddress()));
+						}
+						break;
+					case DECONNEXION_STATUS:
+						controller.receivedDeconnection(receivedUser);
+						break;
+					case CONNECTION_RESPONSE_STATUS:
+						controller.receiveConnection(receivedUser);
+						break;
+					case USERNAME_CHANGED_STATUS:
+						if (!controller.getUser().getIP().equals(in.getAddress())) 
+							controller.receiveUsernameChanged(receivedUser);
+						break;
+						
+				}
+				
+			}
+			catch (EOFException | StreamCorruptedException e1) {
+				//Message nous concerne pas, aucine action nécessaire
+			}
+			catch (IOException | ClassNotFoundException e2) {
+				//Faire un message push sur le GUI
+			}
+			
+		}
 	}
 	
 }
