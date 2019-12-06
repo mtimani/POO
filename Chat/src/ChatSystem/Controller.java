@@ -156,7 +156,7 @@ public class Controller {
 	/***************************************************************************** Internet Addresses Methods *****************************************************************************/
 	
 	/**
-	 * Recupere toutes les adresses IP de la machine et les adresses de broadcast associees
+	 * Recupere toutes les adresses IP de la machine et les adresses de broadcast associées
 	 * @return Map avec toutes les addresses IP
 	 * @throws SocketException
 	 */
