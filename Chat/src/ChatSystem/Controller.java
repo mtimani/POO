@@ -41,6 +41,10 @@ public class Controller {
 	/**
 	 * Constructeur du controlleur de l'application
 	 * @param ipBroadcast L'adresse IP de la machine hôte
+	 * @throws SocketException
+	 * @throws ClassNotFoundException
+	 * @throws FileNotFoundException
+	 * @throws IOException
 	 */
 	public Controller (InetAddress ipBroadcast) throws SocketException, ClassNotFoundException, FileNotFoundException, IOException  {
 		this.connectedUsers = new ArrayList<User>();
@@ -143,14 +147,19 @@ public class Controller {
 	
 	/**
 	 * Permet au Threads d'écriture d'indiquer que le message a bien été envoyé
-	 * @ref SocketWriter class
 	 */
+	//@see SocketWriter class
 	public void messageSent() {
 		messageToSend = null;
 	}
 	
 	/***************************************************************************** Internet Addresses Methods *****************************************************************************/
 	
+	/**
+	 * Recupere toutes les adresses IP de la machine et les adresses de broadcast associees
+	 * @return Map avec toutes les addresses IP
+	 * @throws SocketException
+	 */
 	public static Map<InetAddress, InetAddress> getAllIpAndBroadcast() throws SocketException {
 		
 		Map<InetAddress, InetAddress> listIP = new HashMap<>();

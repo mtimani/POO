@@ -31,6 +31,7 @@ public class Udp extends Thread {
 	 * Création d'un Thread UDP
 	 * @param controller Controlleur associé au Thread UDP
 	 * @param port Port que le Thread UDP utilise
+	 * @throws SocketException
 	 */
 	public Udp(Controller controller, int port) throws SocketException {
 		super("UDP");
@@ -45,6 +46,7 @@ public class Udp extends Thread {
 	 * @param status Information dur le statut de Connection
 	 * @param user L'utilisateur qui envoie le message
 	 * @return Le message UDP sous forme binaire
+	 * @throws IOException
 	 */
 	public byte[] createMessage(int status, User user) throws IOException {
 		ByteArrayOutputStream bStream = new ByteArrayOutputStream();
@@ -60,6 +62,7 @@ public class Udp extends Thread {
 	 * Envoi d'un message UDP
 	 * @param message Message à envoyer
 	 * @param ipAddress Adresse IP a laquelle envoyer le message
+	 * @throws IOException
 	 */
 	public void sendUdpMessage(byte[] message, InetAddress ipAddress) throws IOException {
 		DatagramPacket out = new DatagramPacket(message, message.length, ipAddress, port);

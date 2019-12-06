@@ -30,6 +30,7 @@ public class Message implements Serializable {
 	 * @param content Contenu du message
 	 * @param sender ID de l'envoyeur du message
 	 * @param receiverGroup ID du groupe du receveur du message
+	 * @param function Fonction à implémenter
 	 */
 	public Message(Date date, String content, User sender, Group receiverGroup, int function) {
 		this.date = date;
@@ -87,6 +88,10 @@ public class Message implements Serializable {
 		return this.function;
 	}
 	
+	/**
+	 * Fonction qui met à jour l'envoyeur du message
+	 * @param newVersionSender Username du nouvel envoyeur
+	 */
 	public void updateSender(User newVersionSender) {
 		if (this.sender.equals(newVersionSender)) {
 			this.sender = newVersionSender;

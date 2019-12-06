@@ -49,6 +49,8 @@ public class DataManager {
 	 * Permet de voir si les donnees de connexion sont correctes
 	 * @param username Username de l'utilisateur
 	 * @return L'ID de l'utilisateur si les donnees sont correctes, -1 sinon
+	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
 	public static int checkUser(String username) throws IOException, ClassNotFoundException {
 
@@ -73,6 +75,8 @@ public class DataManager {
 	/**
 	 * Permet de changer le username de l'utilisateur dans la mémoire
 	 * @param newUsername Le nouveau username
+	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
 	public static void changeUsername(String newUsername) throws IOException, ClassNotFoundException {
 		File usersFile = new File(PATH_USER);
@@ -100,6 +104,8 @@ public class DataManager {
 	/**
 	 * Sauvegarde sur la machine de tous les messages de l'utilisateur
 	 * @param messages Messages à stocker
+	 * @throws IOException
+	 * @throws FileNotFoundException
 	 */
 	public static void writeAllMessages(ArrayList<Message> messages) throws FileNotFoundException, IOException {
 		// Verfication de l'existance du dossier "data", création du dossier dans le cas où il n'existe pas
@@ -121,6 +127,9 @@ public class DataManager {
 	/**
 	 * Retourne l'ensemble des messages sauvegardés sur la machine de l'utilisateur
 	 * @return La liste de tous les messages sauvegardés sur la machine
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
 	 */
 	public static ArrayList<Message> readAllMessages() throws FileNotFoundException, IOException, ClassNotFoundException {
 		ArrayList<Message> messages = new ArrayList<Message>();
@@ -151,6 +160,8 @@ public class DataManager {
 	/**
 	 * Sauvegarde sur la machine de tous les groupes de l'utilisateur
 	 * @param groups La liste de tous les Groupes a sauvegarder
+	 * @throws IOException
+	 * @throws FileNotFoundException
 	 */
 	public static void writeAllGroups(ArrayList<Group> groups) throws FileNotFoundException, IOException {
 		
@@ -173,6 +184,9 @@ public class DataManager {
 	/**
 	 * Retourne la liste de tous les groupes sauvegardés sur la machine
 	 * @return La liste de tous les groupes sauvegardés sur la machine
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
 	 */
 	public static ArrayList<Group> readAllGroups() throws FileNotFoundException, IOException, ClassNotFoundException{
 		
