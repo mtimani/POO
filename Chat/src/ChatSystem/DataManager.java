@@ -2,6 +2,9 @@ package ChatSystem;
 
 import java.io.*;
 import java.util.*;
+import java.util.prefs.Preferences;
+
+import org.ini4j.*;
 
 /**
  * Classe permettant de se charger de la sauvegarde et récupération de données dans la mémoire
@@ -15,6 +18,7 @@ public class DataManager {
 	private static final String PATH_USER = "data/user.bin";
 	private static final String PATH_MESSAGES = "data/messages.bin";
 	private static final String PATH_GROUPS = "data/groups.bin";
+	private static final String PATH_CONFIG = "settings.ini";
 	
 	//Password code here if it appears afterwards in the project
 	
@@ -197,6 +201,28 @@ public class DataManager {
 		}
 		
 		return groups;
+	}
+	
+	/**
+	 * Permet de lire un paramètre du fichier ini
+	 * @param node Section du fichier
+	 * @param setting Nom du paramètre
+	 * @param defaultValue Valeur par défault à retourner si paramètre non existant
+	 * @return Valeur du paramètre
+	 */
+	public static String getSetting(String node, String setting, String defaultValue) {
+		File iniFile = new File(PATH_CONFIG);
+		if(!iniFile.exists() || iniFile.isDirectory()) return defaultValue;
+		
+		try {
+			Ini ini;
+			ini = new Ini(iniFile);
+			Preferences prefs = new IniPreferences(ini);
+			return prefs.node(node).get(setting, defaultValue);
+		}
+		catch (Exception e) {
+			return defaultValue;
+		}
 	}
 	
 }

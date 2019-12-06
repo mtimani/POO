@@ -18,7 +18,9 @@ public class Udp extends Thread {
 	 */
 	private static final int UDP_IDENTITY = 64525789;
 	
-	//Statuts de connexion
+	/**
+	 * Statuts de connexion
+	 */
 	public static final int NONE_STATUS = -1;
 	public static final int CONNECTION_STATUS = 0;
 	public static final int DECONNEXION_STATUS = 1;
@@ -101,20 +103,20 @@ public class Udp extends Thread {
 				switch(status) {
 				
 					case CONNECTION_STATUS:
-						if (!controller.getUser().getIP().equals(in.getAddress())) {
+						if (!controller.getUser().getIp().equals(in.getAddress())) {
 							controller.receivedConnection(receivedUser);
-							sendUdpMessage(createMessage(CONNECTION_RESPONSE_STATUS, controller.getUser(), in.getAddress()));
+							sendUdpMessage(createMessage(CONNECTION_RESPONSE_STATUS, controller.getUser()), in.getAddress());
 						}
 						break;
 					case DECONNEXION_STATUS:
-						controller.receivedDeconnection(receivedUser);
+						controller.receivedDisconnection(receivedUser);
 						break;
 					case CONNECTION_RESPONSE_STATUS:
-						controller.receiveConnection(receivedUser);
+						controller.receivedConnection(receivedUser);
 						break;
 					case USERNAME_CHANGED_STATUS:
-						if (!controller.getUser().getIP().equals(in.getAddress())) 
-							controller.receiveUsernameChanged(receivedUser);
+						if (!controller.getUser().getIp().equals(in.getAddress())) 
+							controller.receivedUsernameChanged(receivedUser);
 						break;
 						
 				}

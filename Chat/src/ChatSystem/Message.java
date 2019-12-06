@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Message implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3L;
 
 	private Date date;
 	private String content;
@@ -16,7 +16,9 @@ public class Message implements Serializable {
 	private Group receiverGroup;
 	private int function;
 	
-	//Fonctions du message
+	/**
+	 * Fonctions du message
+	 */
 	public static final int FUNCTION_NORMAL = 0;
 	public static final int FUNCTION_STOP = 1;
 	public static final int FUNCTION_FILE = 2;
