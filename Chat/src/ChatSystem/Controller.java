@@ -10,7 +10,6 @@ import java.nio.*;
  */
 public class Controller {
 
-	//Ajouter GUI
 	private User user;
 	private volatile ArrayList<User> connectedUsers;
 	private ArrayList<Message> messages;
@@ -19,6 +18,7 @@ public class Controller {
 	private InetAddress ipBroadcast;
 	private volatile Message messageToSend = null;
 	private Timer timer;
+	private GUI gui;
 	
 	/**
 	 * Constantes
@@ -136,6 +136,10 @@ public class Controller {
 		return false;
 	}
 	
+	public void setGUI(GUI gui) {
+		this.gui = gui;
+	}
+	
 	/**
 	 * Retourne le message à envoyer 
 	 * Null dans le cas où aucun message à envoyer
@@ -179,36 +183,206 @@ public class Controller {
 	
 	/************************************************************************* Connection and Disconnection Methods ***********************************************************************/
 	
+	/**
+	 * Connexion de l'Utilisateur à l'application et envoi d'un message de signalisation de sa présence
+	 * @param id ID de l'Utilisateur
+	 * @param username Username de l'Utilisateur
+	 * @param ip L'adresse IP de l'Utilisateur
+	 * @throws IOException
+	 */
 	public void connection(int id, String username, InetAddress ip) throws IOException {
+		//Création du User associé au controlleur
+		user = new User(id,username,ip);
 		
+		//Choix du port random pour le nouveau User, compris entre 20000 et 65500
+		Random rand = new Random();
+		int randomUserPort = rand.nextInt(65500 - 20000 + 1) + 20000;
+		user.setPort(randomUserPort);
+		
+		// Démarage du serveur d'écoute (Cas dans lequel un autre User veuille communiquer avec notre User)
+		int serverPort = user.getPort();
+		ServerSocket serverSocket = new ServerSocket(serverPort);
+		ServerSocketWaiter serverSocketWaiter = new ServerSocketWaiter(serverSocket,this);
+		serverSocketWaiter.start();
+		
+		//Démarage du service UDP et l'envoi du message de connexion
+		udp.start();
+		udp.sendUdpMessage(udp.createMessage(Udp.CONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+		
+		//Ajout des groupes sauvegardés auparavant au GUI
+		for(Group g : groups) gui.addGroup(g);
 	}
 	
-	public void disconnection() throws IOException, ConnectionError, SendDeconnectionError {
+	/**
+	 * Déconnexion de l'Utilisateur de l'application et envoi d'un message de signalisation de son départ
+	 * @throws IOException
+	 */
+	public void disconnection() throws IOException {
+		//Tous les groupes du User passent en mode hors-ligne
+		for (Group g : groups) {
+			g.setOnline(false);
+		}
 		
+		//Enregistrement de toutes les données
+		DataManager.writeAllMessages(messages);
+		DataManager.writeAllGroups(groups);
+		
+		//Envoi du message de déconnexion
+		udp.sendUdpMessage(udp.createMessage(Udp.DECONNEXION_STATUS, this.getUser()), this.ipBroadcast);
 	}
 	
+	/**
+	 * Récéption et traîtement du packet qui signale la connexion d'un nouvel utilisateur
+	 * @param receivedUser User qui signale sa connexion 
+	 */
 	public void receivedConnection(User receivedUser) {
+		if (receivedUser == null) return;
+		
+		boolean listHasChanged = false;
+		boolean userHasChanged = false;
+		
+		//Vérification que le user reçu n'est pas encore connu et que l'on ne reçoit pas son propre message
+		if (!connectedUsers.contains(receivedUser) && !receivedUser.equals(this.user)) {
+			listHasChanged = true;
+			userHasChanged = true;
+			connectedUsers.add(receivedUser);
+		}
+		
+		//Mise a jour des groupes avec les nouvelles informations sur le user mis-à-jour
+		String oldUsername, newUsername;
+		for (Group g : groups) {
+			oldUsername = g.getGroupNameForUser(this.user);
+			userHasChanged = userHasChanged || g.updateMember(receivedUser);
+			newUsername = g.getGroupNameForUser(this.user);
+			
+			//Mise à jour des information sur l'envoyeur du message (si c'est lui qui a changé) 
+			if (userHasChanged) {
+				listHasChanged = true;
+				for (Message m : messages) {
+					m.updateSender(receivedUser);
+				}
+			}
+			
+			//Ajout de l'utilisateur au GUI
+			if (gui != null) {
+				gui.updateConnectedUsers();
+			}
+			
+			//Mise à jour du User dans le GUI
+			if (listHasChanged) gui.replaceUsernameInList(oldUsername, newUsername);
+		}
 		
 	}
 	
+	/**
+	 * Récéption et traîtement du packet qui signale la déconnexion d'un utilisateur
+	 * @param receivedUser User qui signale sa déconnexion 
+	 */
 	public void receivedDisconnection(User receivedUser) {
+		if (receivedUser == null) return;
 		
+		//Suppréssion de l'utilisateur qui se déconnecte de la liste des utilisateurs en ligne
+		User userDisconnecting;
+		
+		for (User u : this.connectedUsers) {
+			if (u.equals(receivedUser)) {
+				userDisconnecting = u;
+			}
+		}
+		
+		if (userDisconnecting != null) this.connectedUsers.remove(userDisconnecting);
+		
+		//Mise à jour des groupes, ce dernier passe en mode offline
+		for (Group g : groups) {
+			if (g.isMember(receivedUser)) {
+				g.setOnline(false);
+				g.setOrigin(this.user);
+			}
+		}
+		
+		//Mise à jour des Users dans le GUI
+		if (gui != null) gui.updateConnectedUsers();
 	}
 	
 	/***************************************************************************** User Management Methods ********************************************************************************/
 	
+	/**
+	 * Modifie le Username de l'Utilisateur
+	 * @param newUsername Le nouveau Username
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void changeUsername(String newUsername) throws IOException, ClassNotFoundException {
+		//Sauvegarde du nouveau Username
+		DataManager.changeUsername(newUsername);
+		this.user.setUsername(newUsername);
 		
+		//Envoi du message signalant aux autres Users que le Username a été changé
+		udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_CHANGED_STATUS, this.user), this.ipBroadcast);
 	}
 	
+	/**
+	 * Indique le changement d'un Username d'un User
+	 * @param receivedUser User qui a changé de Username
+	 */
 	public void receivedUsernameChanged(User receivedUser) {
+		String oldUsername;
 		
+		//Mise à jour du User dans la liste des Users connectés
+		for (User u : this.connectedUsers) {
+			if (u.equals(receivedUser)) {
+				oldUsername = u.getUsername();
+				this.connectedUsers.remove(u);
+				this.connectedUsers.add(receivedUser);
+				break;
+			}
+		}
+		
+		//Mise à jour des groupes avec les nouvelles informations sur le User
+		for (Group g : groups) {
+			g.updateMember(receivedUser);
+		}
+		
+		//Mise à jour des messages avec les nouvelles informations sur le User
+		for (Message m : messages) {
+			m.updateSender(receivedUser);
+		}
+		
+		//Mise à jour du User dans le GUI
+		if (gui != null) gui.replaceUsernameInList(oldUsername, receivedUser.getUsername());
 	}
 	
 	/***************************************************************** Sending Messages Methods / Conversation Management Methods *********************************************************/
 
+	/**
+	 * Fonction d'envoi de messages
+	 * @param textToSend Charge Utile du message a envoyer
+	 * @param receiverGroupNameForThisUser Le groupe destinataire du message
+	 * @param function Fonction du message
+	 * @throws IOException
+	 */
 	public void sendMessage(String textToSend, String receiverGroupNameForThisUser, int function) throws IOException {
+		Group group = getGroupByName(receiverGroupNameForThisUser);
 		
+		if (group != null) {
+			//Liste de Users membres du groupe
+			ArrayList<User> groupMembers = group.getMembers();
+			
+			User destinataire;
+			if (groupMembers.get(0).equals(this.user)) {
+				destinataire = groupMembers.get(1); 
+			} 
+			else {
+				destinataire = groupMembers.get(0);
+			}
+			
+			if (!group.isOnline() && this.connectedUsers.contains(destinataire)) {
+				restartGroup(group);
+			}
+		}
+		else {
+			
+		}
 	}
 	
 	public void receiveMessage(Message message) {

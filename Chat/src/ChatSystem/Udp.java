@@ -129,7 +129,7 @@ public class Udp extends Thread {
 				//Message nous concerne pas, aucine action nécessaire
 			}
 			catch (IOException | ClassNotFoundException e2) {
-				//Faire un message push sur le GUI
+				GUI.showError("Erreur de lecture d'un message UDP.");
 			}
 			
 		}
