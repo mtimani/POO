@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 import java.nio.*;
+import java.nio.file.Files;
 
 /**
  * Controlleur de l'application de Chat
@@ -352,8 +353,67 @@ public class Controller {
 		if (gui != null) gui.replaceUsernameInList(oldUsername, receivedUser.getUsername());
 	}
 	
-	/***************************************************************** Sending Messages Methods / Conversation Management Methods *********************************************************/
+	/***************************************************************** Conversation Management Methods / Sending Messages Methods *********************************************************/
 
+	/**
+	 * Démarage d'une nouvelle conversation
+	 * @param members Membres de la communication
+	 * @return Groupe crée
+	 * @throws IOException
+	 */
+	private Group startGroup(ArrayList<User> groupMembers) throws IOException {
+		User contact = groupMembers.get(0);
+
+		// Random pour l'ID du nouveau groupe
+		Random rand = new Random();
+		int idGroup = rand.nextInt(999999999);
+		
+		// Demarrage d'un groupe
+		Group group = new Group(idGroup, groupMembers, user);
+		groups.add(group);
+		
+		
+		// Creation d'un socket client : l'utilisateur se connecte a l'utilisateur distant
+		Socket socket = new Socket(contact.getIp(), contact.getPort());
+		
+		SocketWriter socketWriter = new SocketWriter("clientSocketWriter",socket, this, group);
+		SocketReader socketReader = new SocketReader("clientSocketReader", socket, this);
+		socketWriter.start();
+		socketReader.start();
+		
+		// Mise à jour de la liste des groupes au sein GUI
+		gui.addGroup(group);
+		gui.selectGroupInList(group);
+		
+		return group;
+	}
+	/**
+	 * Fonction permettant de relancer une conversation déjà existante
+	 * @param group Groupe à restart
+	 * @throws IOException
+	 */
+	private void restartGroup(Group group) throws IOException {
+		// On passe le groupe est mode actif
+		group.setOrigin(user);
+		group.setOnline(true);
+					
+		ArrayList<User> groupMembers = group.getMembers();
+		User contact;
+				
+		if(groupMembers.get(0).equals(user))
+			contact = groupMembers.get(1);
+		else
+			contact = groupMembers.get(0);
+				
+		// On recree un socket client : l'utilisateur se reconnecte a l'utilisateur distant
+		Socket socket = new Socket(contact.getIp(), contact.getPort());
+				
+		SocketWriter socketWriter = new SocketWriter("restartclientSocketWriter",socket, this, group);
+		SocketReader socketReader = new SocketReader("restartclientSocketReader", socket, this);
+		socketWriter.start();
+		socketReader.start();
+	}
+	
 	/**
 	 * Fonction d'envoi de messages
 	 * @param textToSend Charge Utile du message a envoyer
@@ -381,22 +441,59 @@ public class Controller {
 			}
 		}
 		else {
-			
+			// Creation d'un nouveau groupe si ce dernier n'existe pas
+			ArrayList<User> groupMembers = new ArrayList<User>();
+			groupMembers.add(findUserByName(receiverGroupNameForThisUser));
+			groupMembers.add(this.user);
+			group = startGroup(groupMembers);
 		}
+		
+		// Transformation d'un message "FILE" en message "IMAGE" si besoin
+		// Dans le cas d'un fichier, le contenu est son chemin vers le fichier
+		if(function == Message.FUNCTION_FILE) {
+			File file = new File(textToSend);
+			String mimeType = Files.probeContentType(file.toPath());
+						
+			if(mimeType != null) {
+				switch(mimeType) {
+					case "image/jpeg":
+					case "image/png":
+					case "image/gif":
+						function = Message.FUNCTION_IMAGE;
+				}
+			}
+		}
+					
+		// Envoi du message
+		Message message = new Message(new Date(), textToSend, this.user, group, function);
+		messageToSend = message;
+					
+		// Enregsitrement du message
+		messages.add(message);
 	}
 	
+	/**
+	 * Remontée d'un message reçu vers le controlleur 
+	 * @param message Message reçu
+	 */
 	public void receiveMessage(Message message) {
-		
+		//Création et ajout du groupe si ce dernier n'existe pas
+		Group group = message.getReceiverGroup();
+				
+		if(!groupKnownByController(group)) {
+			this.groups.add(group);
+			gui.addGroup(group);
+		}
+		else {
+			// Si le groupe est connu, on le set online
+			Group groupToUpdate = getGroupByID(group.getId());
+			groupToUpdate.setOnline(true);
+		}
+				
+		// Enregistrement du message reçu
+		messages.add(message);
+				
+		gui.setGroupNoRead(group);
 	}
-	
-	private Group startGroup(ArrayList<User> members) throws IOException {
-		return null;
-	}
-	
-	private void restartGroup(Group group) throws IOException {
-		
-	}
-	
-	
 	
 }
