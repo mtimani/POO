@@ -8,18 +8,43 @@ import javax.swing.*;
 public class GUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel panel; 
+	
+	private JTextField textArea;   
+	
 	private JButton send; 
 	private Icon icon = null; // A modifier
+
+	
+	private JButton userProfile;  
 	
 	
 	public GUI(String title, GraphicsConfiguration gc) {
 		super(title, gc); 
 		panel = new JPanel(); 
+		
+		/* Ecrire un message */ 
+		textArea = new JTextField("ecrire un message..."); 
+		textArea.addActionListener(this);
+		panel.add(textArea); 
+		
+		/* Envoyer un message */ 
 		send = new JButton("Envoyer", icon);
+		send.addActionListener(this);
 		panel.add(send); 
 		
-		add(panel); 
-		setVisible(true); 
+		/* Editer le profil */
+		userProfile = new JButton("Profil");
+		userProfile.addActionListener(this);
+		
+		
+		JFrame frame = new JFrame("ChatSystem");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.getContentPane().add(panel, BorderLayout.CENTER);
+	    
+	    
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
