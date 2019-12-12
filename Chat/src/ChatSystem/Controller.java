@@ -283,7 +283,7 @@ public class Controller {
 		if (receivedUser == null) return;
 		
 		//Suppréssion de l'utilisateur qui se déconnecte de la liste des utilisateurs en ligne
-		User userDisconnecting;
+		User userDisconnecting = null;
 		
 		for (User u : this.connectedUsers) {
 			if (u.equals(receivedUser)) {
@@ -327,7 +327,7 @@ public class Controller {
 	 * @param receivedUser User qui a changé de Username
 	 */
 	public void receivedUsernameChanged(User receivedUser) {
-		String oldUsername;
+		String oldUsername = "";
 		
 		//Mise à jour du User dans la liste des Users connectés
 		for (User u : this.connectedUsers) {
