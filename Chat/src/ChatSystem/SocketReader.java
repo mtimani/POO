@@ -16,19 +16,27 @@ public class SocketReader extends Thread {
 	private volatile Group group = null;
 
 	/**
-	 * Cree un SocketReader
+	 * Crée un SocketReader
 	 * @param name Nom du thread
-	 * @param socket Socket a utiliser
-	 * @param controller Controller de l'application
+	 * @param socket Socket associé
+	 * @param controller Controller associé
 	 */
 	public SocketReader(String name, Socket socket, Controller controller) {
 		super(name);
 		this.socket = socket;
 		this.controller = controller;
 	}
+	
+	/**
+	 * Retourne le groupe qui utilise ce SocketReader
+	 * @return Le groupe qui utilise ce SocketReader
+	 */
+	public Group getGroup() {
+		return group;
+	}
 
 	/**
-	 * Thread qui permet de lire les messages recus
+	 * Définition du Thread qui permet de lire les messages reçus
 	 */
 	@Override
 	public void run() {
@@ -36,49 +44,51 @@ public class SocketReader extends Thread {
 		try {
 
 			Message message = null;
-			//System.out.println("SocketReader connected...");
-
-			BufferedReader in_data = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-			// Recupere les donnees recues
-			String stringData = in_data.readLine();
-
+			
+			BufferedReader inputData = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+			
+			// Récupère les donnees reçues
+			String stringData = inputData.readLine();
+			
 			// Tant que la connexion est ouverte, on lit les messages
 			while (stringData != null) {
-
-				// On decode le message recu et on l'envoie au controller
+				
+				// On décode le message reçu et on l'envoie au controlleur
 				message = decodeMessageFromString(stringData);
 				
-				if (group == null)
-					group = message.getReceiverGroup();
+				if (this.group == null) {
+					this.group = message.getReceiverGroup();
+				}
 				
-				// Reception d'un fichier ou d'une image
+				// Réception d'un fichier ou d'une image
 				if(message.getFunction() == Message.FUNCTION_FILE || message.getFunction() == Message.FUNCTION_IMAGE) {
 					
-					String newFileString = (message.getFunction() == Message.FUNCTION_IMAGE) ? "une nouvelle image" : "un nouveau fichier";
+					String FileString = "un nouveau fichier";
+					if (message.getFunction() == Message.FUNCTION_IMAGE) FileString = "une nouvelle image";
 					
-					// On demande a l'utilisateur s'il veut enregistrer le message
+					// On demande à l'utilisateur s'il souhaîte enregistrer le fichier ou l'image
 					int dialogResult = JOptionPane.showConfirmDialog(null,
-							"Vous avez recu " + newFileString + " de la part de " + message.getSender().getUsername() +
-							".\nVoulez-vous l'enregistrer ?", 
-							"Nouveau fichier recu", JOptionPane.YES_NO_OPTION);
+							"Vous avez reçu " + FileString + " de la part de " + message.getSender().getUsername() +
+							".\nSouhaitez-vous l'enregistrer ?", 
+							"Fichier reçu", JOptionPane.YES_NO_OPTION);
 					
-					// On lit le deuxieme message recu (le fichier)
-					String fileData = in_data.readLine();
 					
 					if(dialogResult == JOptionPane.YES_OPTION) {
 					
-						File sentFile = new File(message.getContent());
+						// On lit le deuxième message reçu (le fichier)
+						String fileData = inputData.readLine();
 						
-						// Selection de l'emplacement ou enregistrer le fichier
+						File receivedFile = new File(message.getContent());
+						
+						// Séléction de l'emplacement de l'enregistrement du fichier reçu
 						JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-						chooser.setDialogTitle("Selectionner ou enregistrer le fichier");
+						chooser.setDialogTitle("Selectionner où enregistrer le fichier reçu");
 						chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 						chooser.setMultiSelectionEnabled(false);
-						chooser.setSelectedFile(sentFile);
+						chooser.setSelectedFile(receivedFile);
 						int returnValue = chooser.showSaveDialog(null);
 						
-						// On enregistre que si l'utilisateur le veut
+						// On enregistre que si l'utilisateur le souhaite
 						if(returnValue == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = chooser.getSelectedFile();
 	
@@ -93,68 +103,57 @@ public class SocketReader extends Thread {
 				controller.receiveMessage(message);
 				
 				// Lecture du prochain message
-				stringData = in_data.readLine();
+				stringData = inputData.readLine();
 			
 			}
 			
 		} catch (SocketException e) {
 
-			// Socket deja ferme : pas d'erreur
+			// Socket fermé : pas d'erreur
 
 		} catch (Exception e) {
-			GUI.showError("Erreur dans la lecture des messages recus.");
+			GUI.showError("Erreur dans la lecture des messages reçus.");
 			
 		} finally {
-			//System.out.println("Deconnecting reader...");
-			
 			try {
 				socket.close();
 			} catch (Exception e) {
-				GUI.showError("Erreur lors de la deconnexion du lecteur des messages recus.");
+				GUI.showError("Erreur lors de la déconnexion du lecteur des messages reçus.");
 			}
-			//System.out.println("Reader deconnected");
 		}
 
 	}
-
+	
 	/**
-	 * Retourne le groupe qui utilise ce SocketReader
-	 * @return Le groupe qui utilise ce SocketReader
-	 */
-	public Group getGroup() {
-		return group;
-	}
-
-	/**
-	 * Permet de decoder un message a partir d'une chaine de caracteres
-	 * @param stringData La chaine de caracteres
-	 * @return Le Message decode
-	 * @throws ClassNotFoundException Si une erreur survient
-	 * @throws IOException Si une erreur survient
+	 * Permet de décoder un message à partir d'une chaîne de caractères
+	 * @param stringData La chaîne de caractères à décoder
+	 * @return Le Message decodé
+	 * @throws ClassNotFoundException
+	 * @throws IOException
 	 */
 	private Message decodeMessageFromString(String stringData) throws ClassNotFoundException, IOException {
 
 		byte[] data = Base64.getDecoder().decode(stringData);
 
-		ObjectInputStream iStream = new ObjectInputStream(new ByteArrayInputStream(data));
-		return (Message) iStream.readObject();
+		ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(data));
+		return (Message) inputStream.readObject();
 	
 	}
 	
 	/**
-	 * Permet de decoder un fichier a partir d'une chaine de caracteres et de l'enregistrer
-	 * @param fileData La chaine de caracteres
-	 * @param filePath Ou enregistrer le fichier sur le disque
-	 * @throws IOException Si une erreur survient
+	 * Permet de décoder un fichier à partir d'une chaîne de caractères et de l'enregistrer
+	 * @param fileData La chaîne de caractères à décoder
+	 * @param filePath Déstination finale dans laquelle enregistrer le fichier sur le disque
+	 * @throws IOException 
 	 */
 	private void decodeAndSaveFileFromString(String fileData, Path filePath) throws IOException {
 		
 		byte[] data = Base64.getDecoder().decode(fileData);
 		
-		FileOutputStream imageOutputFile = new FileOutputStream(filePath.toString());
+		FileOutputStream OutputFile = new FileOutputStream(filePath.toString());
 
-        imageOutputFile.write(data);
-        imageOutputFile.close();
+        OutputFile.write(data);
+        OutputFile.close();
 	}
 	
 }

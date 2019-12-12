@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ * Classe permettant l'écriture des messages
+ */
 public class SocketWriter extends Thread {
 
 	private Socket socket;
@@ -11,10 +14,10 @@ public class SocketWriter extends Thread {
 	private Group group;
 	
 	/**
-	 * Cree le SocketWriter (thread)
-	 * @param name Le nom du thread
-	 * @param socket Le socket a utiliser
-	 * @param controller Le controller de l'application
+	 * Crée le SocketWriter
+	 * @param name Nom du thread
+	 * @param socket Socket associé
+	 * @param controller Controlleur associé
 	 * @param group Le groupe associe a ce SocketWriter
 	 */
 	public SocketWriter(String name, Socket socket, Controller controller, Group group) {
@@ -25,47 +28,45 @@ public class SocketWriter extends Thread {
 	}
 	
 	/**
-	 * Thread qui envoie les messages vers les utilisateurs concernes
+	 * Définition du Thread qui permet d'envoier les messages vers les utilisateurs souhaités
 	 */
 	@Override
 	public void run() {
 		
 		try {
 		
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			PrintWriter outputData = new PrintWriter(socket.getOutputStream(), true);
 			
 			Message messageToSend;
 
 			while(!socket.isClosed()) {
 				
-				// On recupere le message a envoyer
+				// On récupère le message à envoyer
 				messageToSend = controller.getMessageToSend();
 				
 				if(messageToSend != null) {
 
-					// On regarde si le message est un message de fin de conversation (deconnexion)
-					if(messageToSend.getFunction() == Message.FUNCTION_STOP)
-						break;
+					// On vérifie si le message est un message de fin de conversation (déconnexion)
+					if(messageToSend.getFunction() == Message.FUNCTION_STOP) break;
 					
-					// On envoie le message s'il est bien destine a ce groupe
-					if(group.equals(messageToSend.getReceiverGroup())) {	
+					// On envoie le message s'il est bien destiné à ce groupe
+					if(this.group.equals(messageToSend.getReceiverGroup())) {	
 						
 						// Envoi d'un fichier ou d'une image
 						if(messageToSend.getFunction() == Message.FUNCTION_FILE || messageToSend.getFunction() == Message.FUNCTION_IMAGE) {
-							
-							// Envoi de deux messages : le message prevu + un message contenant le fichier
-							out.println(encodeMessageToString(messageToSend));
+						    
+							// Envoi de deux messages : le message prévu + un message contenant le fichier
+							outputData.println(encodeMessageToString(messageToSend));
 							
 							File file = new File(messageToSend.getContent());
-							out.println(encodeFileToString(file));
+							outputData.println(encodeFileToString(file));
 							
 							controller.messageSent();
 						}
 						
 						// Envoi d'un message texte
 						else {
-							out.println(encodeMessageToString(messageToSend));
-							//System.out.println("Message envoye");
+							outputData.println(encodeMessageToString(messageToSend));
 							controller.messageSent();
 						}
 						
@@ -82,52 +83,50 @@ public class SocketWriter extends Thread {
 		}
 		
 		finally {
-			//System.out.println("Deconnecting writer...");
-
 			if (socket != null) {
 				try {
 					socket.close();
 				} catch (Exception e) {
-					GUI.showError("Erreur lors de la deconnexion du writer des messages envoyes.");
+					GUI.showError("Erreur lors de la déconnexion du writer des messages envoyés.");
 				}
 			}
 		}
 	}
 	
 	/**
-	 * Permet d'encoder un message sous forme de chaine de caracteres
-	 * @param message Le Message a encoder
-	 * @return Le Message encode sous forme de chaine de caracteres
-	 * @throws IOException Si une erreur survient
+	 * Permet d'encoder un message sous forme de chaine de caractères
+	 * @param message Message à encoder
+	 * @return Message encodé sous forme de chaine de caractères
+	 * @throws IOException
 	 */
 	private static String encodeMessageToString(Message message) throws IOException {
 		
-		ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-		ObjectOutput oo;
+		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+		ObjectOutput objOutput;
 		
-		oo = new ObjectOutputStream(bStream);
-		oo.writeObject(message);
-		oo.close();
+		objOutput = new ObjectOutputStream(byteStream);
+		objOutput.writeObject(message);
+		objOutput.close();
 		
-		return Base64.getEncoder().encodeToString(bStream.toByteArray());
+		return Base64.getEncoder().encodeToString(byteStream.toByteArray());
 	}
 	
 	/**
-	 * Permet d'encoder un fichier sous forme de chaine de caracteres
-	 * @param file Le fichier a encoder
-	 * @return Le fichier encode sous forme de chaine de caracteres
-	 * @throws IOException Si une erreur survient
+	 * Permet d'encoder un fichier sous forme de chaîne de caractères
+	 * @param file Le fichier à encoder
+	 * @return Le fichier encode sous forme de chaine de caractères
+	 * @throws IOException
 	 */
 	private static String encodeFileToString(File file) throws IOException {
 		
-		FileInputStream imageFile = new FileInputStream(file);
+		FileInputStream receivedFile = new FileInputStream(file);
 		
-		byte[] imageData = new byte[(int) file.length()];
-		imageFile.read(imageData);
+		byte[] fileData = new byte[(int) file.length()];
+		receivedFile.read(fileData);
 		
-		imageFile.close();
+		receivedFile.close();
 		
-		return Base64.getEncoder().encodeToString(imageData);
+		return Base64.getEncoder().encodeToString(fileData);
 	}
 	
 }

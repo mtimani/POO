@@ -12,9 +12,9 @@ public class ServerSocketWaiter extends Thread {
 	private Controller controller;
 	
 	/**
-	 * Cree le ServerSocketWaiter (thread)
-	 * @param serverSocket Le ServerSocket a utiliser
-	 * @param controller Le controller de l'application
+	 * Crée le ServerSocketWaiter 
+	 * @param serverSocket ServerSocket à utiliser
+	 * @param controller Controlleur de l'application
 	 */
 	public ServerSocketWaiter(ServerSocket serverSocket, Controller controller) {
 		super("ServerSocketWaiter");
