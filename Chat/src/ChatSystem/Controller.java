@@ -3,7 +3,6 @@ package ChatSystem;
 import java.io.*;
 import java.util.*;
 import java.net.*;
-import java.nio.*;
 import java.nio.file.*;
 
 /**
@@ -18,7 +17,6 @@ public class Controller {
 	private Udp udp;
 	private InetAddress ipBroadcast;
 	private volatile Message messageToSend = null;
-	private Timer timer;
 	private GUI gui;
 	
 	/**
