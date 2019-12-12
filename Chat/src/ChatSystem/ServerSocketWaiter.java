@@ -23,7 +23,7 @@ public class ServerSocketWaiter extends Thread {
 	}
 	
 	/**
-	 * Thread qui gere la connexion avec de nouveaux utilisateurs
+	 * Thread qui gère la connexion avec des nouveaux utilisateurs
 	 */
 	@Override
 	public void run() {
@@ -32,7 +32,7 @@ public class ServerSocketWaiter extends Thread {
 		
 		try {
 		
-			// Cette boucle permet d'etre toujours en ecoute meme apres une premiere connexion
+			// Cette boucle permet d'être toujours en écoute même après une première connexion
 			while(true) {
 				// On attent que quelqu'un se connecte
 				socket = serverSocket.accept();
@@ -43,8 +43,6 @@ public class ServerSocketWaiter extends Thread {
 				
 				SocketWriter socketWriter = new SocketWriter("ServerSocketWriter", socket, controller, socketReader.getGroup());
 				socketWriter.start();
-
-				//System.out.println("Server started");
 			}
 			
 		} catch (IOException e) {
