@@ -283,7 +283,7 @@ public class Controller {
 		if (receivedUser == null) return;
 		
 		//Suppréssion de l'utilisateur qui se déconnecte de la liste des utilisateurs en ligne
-		User userDisconnecting;
+		User userDisconnecting = null;
 		
 		for (User u : this.connectedUsers) {
 			if (u.equals(receivedUser)) {
