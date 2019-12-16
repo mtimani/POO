@@ -28,6 +28,65 @@ public class GUI extends JFrame {
 			}
 		});
 	}
+
+	/**
+	 * Create the application.
+	 */
+	public GUI() throws SocketException {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	@SuppressWarnings("unchecked")
+	private void initialize() throws SocketException {
+		frmChatConnection = new JFrame();
+		frmChatConnection.setTitle("Chat Connection");
+		frmChatConnection.setBounds(100, 100, 389, 175);
+		frmChatConnection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmChatConnection.getContentPane().setLayout(null);
+		frmChatConnection.setLocationRelativeTo(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(12, 0, 364, 140);
+		frmChatConnection.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton btnConnexion = new JButton("Log in");
+		btnConnexion.setBounds(12, 103, 137, 25);
+		//btnConnexion.addActionListener(new ConnectListener());
+		panel.add(btnConnexion);
+		
+		JButton btnNewButton = new JButton("Sign up");
+		btnNewButton.setBounds(206, 103, 146, 25);
+		btnNewButton.addActionListener(new CreateUserListener());
+		panel.add(btnNewButton);
+		
+		ArrayList<InetAddress> allIP = new ArrayList<InetAddress>(Controller.getAllIpAndBroadcast().keySet());
+		@SuppressWarnings("rawtypes")
+		JComboBox comboBox = new JComboBox(allIP.toArray());
+		comboBox.setBounds(12, 12, 340, 25);
+		panel.add(comboBox);
+		
+		JLabel lblTypeYourLogin = new JLabel("Type your login");
+		lblTypeYourLogin.setBounds(25, 49, 106, 15);
+		panel.add(lblTypeYourLogin);
+		
+		textField = new JTextField();
+		textField.setBounds(12, 72, 137, 25);
+		panel.add(textField);
+		textField.setColumns(10);
+	}
+	
+	public class CreateUserListener implements ActionListener {
+		private GUI gui;
+		
+		public void actionPerformed(ActionEvent e) {
+			setEnabled(false);
+			new GUISignup(gui);
+		}
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 	}
@@ -49,52 +108,7 @@ public class GUI extends JFrame {
 	
 	public static void showError(String error) {	
 	}
-
-	/**
-	 * Create the application.
-	 */
-	public GUI() throws SocketException {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() throws SocketException {
-		frmChatConnection = new JFrame();
-		frmChatConnection.setTitle("Chat Connection");
-		frmChatConnection.setBounds(100, 100, 389, 175);
-		frmChatConnection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmChatConnection.getContentPane().setLayout(null);
-		frmChatConnection.setLocationRelativeTo(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(12, 0, 364, 140);
-		frmChatConnection.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JButton btnConnexion = new JButton("Log in");
-		btnConnexion.setBounds(12, 103, 137, 25);
-		panel.add(btnConnexion);
-		
-		JButton btnNewButton = new JButton("Sign up");
-		btnNewButton.setBounds(206, 103, 146, 25);
-		panel.add(btnNewButton);
-		
-		ArrayList<InetAddress> allIP = new ArrayList<InetAddress>(controller.getAllIpAndBroadcast().keySet());
-		JComboBox comboBox = new JComboBox(allIP.toArray());
-		comboBox.setBounds(12, 12, 340, 25);
-		panel.add(comboBox);
-		
-		JLabel lblTypeYourLogin = new JLabel("Type your login");
-		lblTypeYourLogin.setBounds(25, 49, 106, 15);
-		panel.add(lblTypeYourLogin);
-		
-		textField = new JTextField();
-		textField.setBounds(12, 72, 137, 25);
-		panel.add(textField);
-		textField.setColumns(10);
-	}
+	
 }
 
 
