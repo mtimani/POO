@@ -233,8 +233,9 @@ public class Controller {
 	/**
 	 * Récéption et traîtement du packet qui signale la connexion d'un nouvel utilisateur
 	 * @param receivedUser User qui signale sa connexion 
+	 * @throws IOException
 	 */
-	public void receivedConnection(User receivedUser) {
+	public void receivedConnection(User receivedUser) throws IOException {
 		if (receivedUser == null) return;
 		
 		boolean listHasChanged = false;
@@ -245,6 +246,9 @@ public class Controller {
 			listHasChanged = true;
 			userHasChanged = true;
 			connectedUsers.add(receivedUser);
+		}
+		else if (receivedUser.getUsername().equals(this.user.getUsername())) {
+			udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_OCCUPIED, this.getUser()), this.ipBroadcast);
 		}
 		
 		//Mise a jour des groupes avec les nouvelles informations sur le user mis-à-jour
@@ -271,6 +275,18 @@ public class Controller {
 			if (listHasChanged) gui.replaceUsernameInList(oldUsername, newUsername);
 		}
 		
+	}
+	
+	/**
+	 * Fonction qui permet de prévenir l'utilisateur qu'un login est occupé
+	 * @param receivedUser User reçu
+	 */
+	public void receivedUsernameOccupied(User receivedUser) {
+		if (receivedUser == null) return;
+		
+		if (gui != null) {
+			gui.showError("Username already in use by other user.");;
+		}
 	}
 	
 	/**

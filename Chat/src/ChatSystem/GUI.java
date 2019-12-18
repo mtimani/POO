@@ -177,6 +177,9 @@ public class GUI extends JFrame {
 								setIpSelected((InetAddress) comboBox.getSelectedItem());
 								setStatusConnexion(true);
 								setVisible(false);
+								GUIMain mainWindow = new GUIMain(gui);
+								mainWindow.getFrame().setVisible(true);
+								gui.frmChatConnection.setVisible(false);
 							}
 							else {
 								GUI.showError("The login does not exist. Please Sign Up if you do not have an account.");
