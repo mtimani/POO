@@ -6,9 +6,6 @@ import java.net.*;
 import java.util.*;
 import javax.swing.*;
 
-import javax.swing.JFrame;
-
-import ChatSystem.GUI.CreateUserListener;
 
 public class GUISignup {
 
@@ -37,6 +34,7 @@ public class GUISignup {
 		panel.add(lblLogin);
 		
 		textField = new JTextField(20);
+		textField.addKeyListener(new KeyAdapter());
 		textField.setBounds(238, 27, 224, 19);
 		panel.add(textField);
 		textField.setColumns(10);
@@ -87,5 +85,23 @@ public class GUISignup {
 				}
 			});
 		}
+	}
+	
+	public class KeyAdapter implements KeyListener {
+
+		/**
+		 * Pour gerer la taille de l'username
+		 */
+		public void keyTyped(KeyEvent e) {
+			if (textField.getText().length() >= 20)
+				e.consume();
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {}
+
+		@Override
+		public void keyReleased(KeyEvent e) {}
+	
 	}
 }

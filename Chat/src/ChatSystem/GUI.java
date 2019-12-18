@@ -82,6 +82,7 @@ public class GUI extends JFrame {
 		panel.add(lblTypeYourLogin);
 		
 		loginField = new JTextField(20);
+		loginField.addKeyListener(new KeyAdapter());
 		loginField.setBounds(12, 89, 137, 25);
 		panel.add(loginField);
 		loginField.setColumns(10);
@@ -235,6 +236,27 @@ public class GUI extends JFrame {
 	
 	public static void showError(String error) {	
 		JOptionPane.showMessageDialog(null, error, "Erreur", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * Permet de limiter le nombre de caracteres des zones de texte
+	 */
+	public class KeyAdapter implements KeyListener {
+
+		/**
+		 * Pour gerer la taille de l'username
+		 */
+		public void keyTyped(KeyEvent e) {
+			if (loginField.getText().length() >= 20)
+				e.consume();
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {}
+
+		@Override
+		public void keyReleased(KeyEvent e) {}
+	
 	}
 	
 }
