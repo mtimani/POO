@@ -32,7 +32,7 @@ public class GUISignup {
 		frmChatSignup.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JLabel lblLogin = new JLabel("login (max. 20 caracters )");
+		JLabel lblLogin = new JLabel("login (max. 20 characters)");
 		lblLogin.setBounds(12, 29, 208, 15);
 		panel.add(lblLogin);
 		
@@ -69,7 +69,13 @@ public class GUISignup {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					String textFieldContent = textField.getText();
-					if (textFieldContent.length()>0) {
+					if (textFieldContent.length()>20) {
+						GUI.showError("Your login must not be longer than 20 characters.");
+					}
+					else if (textFieldContent.length()==0){
+						GUI.showError("Please enter a username");
+					}
+					else {
 						try {
 							DataManager.createUser(textFieldContent);
 							getGUI().getFrame().setVisible(true);
@@ -77,9 +83,6 @@ public class GUISignup {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}
-					else {
-						GUI.showError("Please enter a username");
 					}
 				}
 			});

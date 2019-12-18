@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
 import java.util.*;
+import java.nio.*;
 import java.math.*;
 import javax.swing.*;
 
@@ -12,8 +13,14 @@ public class GUI extends JFrame {
 	private JFrame frmChatConnection;
 	private static final long serialVersionUID = 1L;
 	private static Controller controller;
-	private JTextField textField;
-	private JComboBox comboBox;
+	private JTextField loginField;
+	private JComboBox<Object> comboBox;
+	private ArrayList<InetAddress> ipListMachines = new ArrayList<InetAddress>(Controller.getAllIpAndBroadcast().keySet());;
+	private volatile InetAddress ipSelected;
+	private volatile String login = null;
+	private volatile int id = -1;
+	private volatile boolean statusConnexion = false;
+	
 
 	/**
 	 * Launch the application.
@@ -65,11 +72,8 @@ public class GUI extends JFrame {
 		btnNewButton.addActionListener(new CreateUserListener(this));
 		panel.add(btnNewButton);
 		
-		ArrayList<InetAddress> allIP = new ArrayList<InetAddress>(Controller.getAllIpAndBroadcast().keySet());
-		@SuppressWarnings("rawtypes")
-		JComboBox comboBox = new JComboBox(allIP.toArray());
+		comboBox = new JComboBox<Object>(ipListMachines.toArray());
 		comboBox.setBounds(12, 12, 340, 25);
-		this.comboBox = comboBox;
 		panel.add(comboBox);
 		
 		JLabel lblTypeYourLogin = new JLabel("Type your login");
@@ -77,14 +81,14 @@ public class GUI extends JFrame {
 		lblTypeYourLogin.setBounds(12, 49, 137, 15);
 		panel.add(lblTypeYourLogin);
 		
-		textField = new JTextField(20);
-		textField.setBounds(12, 89, 137, 25);
-		panel.add(textField);
-		textField.setColumns(10);
+		loginField = new JTextField(20);
+		loginField.setBounds(12, 89, 137, 25);
+		panel.add(loginField);
+		loginField.setColumns(10);
 		
-		JLabel lblmaxCaracters = new JLabel("(max. 20 caracters)");
+		JLabel lblmaxCaracters = new JLabel("(max. 20 characters)");
 		lblmaxCaracters.setHorizontalAlignment(SwingConstants.CENTER);
-		lblmaxCaracters.setBounds(12, 62, 137, 15);
+		lblmaxCaracters.setBounds(0, 62, 154, 15);
 		panel.add(lblmaxCaracters);
 		
 		frmChatConnection.getRootPane().setDefaultButton(btnConnexion);
@@ -94,8 +98,60 @@ public class GUI extends JFrame {
 		return this.frmChatConnection;
 	}
 	
-	public JComboBox getComboBox() {
-		return this.comboBox;
+	/**
+	 * @return the ipSelected
+	 */
+	public InetAddress getIpSelected() {
+		return ipSelected;
+	}
+
+	/**
+	 * @param ipSelected the ipSelected to set
+	 */
+	public void setIpSelected(InetAddress ipSelected) {
+		this.ipSelected = ipSelected;
+	}
+
+	/**
+	 * @return the login
+	 */
+	public String getLogin() {
+		return login;
+	}
+
+	/**
+	 * @param login the login to set
+	 */
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the statusConnexion
+	 */
+	public boolean isStatusConnexion() {
+		return statusConnexion;
+	}
+
+	/**
+	 * @param statusConnexion the statusConnexion to set
+	 */
+	public void setStatusConnexion(boolean statusConnexion) {
+		this.statusConnexion = statusConnexion;
 	}
 	
 	public class ConnectListener implements ActionListener {
@@ -109,16 +165,17 @@ public class GUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					String textFieldContent = textField.getText();
-					if (textFieldContent.length()>0) {
+					String loginFieldContent = loginField.getText();
+					if (loginFieldContent.length()>0) {
 						try {
 							int id = -1;
-							id = DataManager.checkUser(textFieldContent);
+							id = DataManager.checkUser(loginFieldContent);
 							if (id!=-1) {
-								byte[] bytes = BigInteger.valueOf(gui.comboBox.getSelectedIndex()).toByteArray();
-								InetAddress address = InetAddress.getByAddress(bytes);
-								controller.connection(id, textFieldContent, address);
-								gui.getFrame().setVisible(false);
+								setId(id);
+								setLogin(loginFieldContent);
+								setIpSelected((InetAddress) comboBox.getSelectedItem());
+								setStatusConnexion(true);
+								setVisible(false);
 							}
 							else {
 								GUI.showError("The login does not exist. Please Sign Up if you do not have an account.");
@@ -149,7 +206,7 @@ public class GUI extends JFrame {
 					try {
 						GUISignup signupWindow = new GUISignup(gui);
 						signupWindow.getFrame().setVisible(true);
-						gui.getFrame().setVisible(false);
+						gui.frmChatConnection.setVisible(false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -181,92 +238,3 @@ public class GUI extends JFrame {
 	}
 	
 }
-
-
-/**package ChatSystem;
-
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*; 
-
-public class GUI extends JFrame implements ActionListener {
-	private static final long serialVersionUID = 1L;
-	private JPanel panel; 
-	
-	private JTextField textArea;   
-	
-	private JButton send; 
-	private Icon icon = null; // A modifier
-
-	
-	private JButton userProfile;  
-	
-	
-	public GUI(String title, GraphicsConfiguration gc) {
-		super(title, gc); 
-		panel = new JPanel(); 
-		
-		/* Ecrire un message *
-		textArea = new JTextField("ecrire un message..."); 
-		textArea.addActionListener(this);
-		panel.add(textArea); 
-		
-		/* Envoyer un message * 
-		send = new JButton("Envoyer", icon);
-		send.addActionListener(this);
-		panel.add(send); 
-		
-		/* Editer le profil *
-		userProfile = new JButton("Profil");
-		userProfile.addActionListener(this);
-		
-		
-		JFrame frame = new JFrame("ChatSystem");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.getContentPane().add(panel, BorderLayout.CENTER);
-	    
-	    
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-	}
-	
-	public void addGroup(Group g) {	
-	}
-	
-	public void replaceUsernameInList(String oldUsername, String newUsername) {
-	}
-	
-	public void updateConnectedUsers() {	
-	}
-	
-	public void selectGroupInList(Group g) {
-	}
-	
-	public void setGroupNoRead(Group g) {
-	}
-	
-	public static void showError(String error) {	
-	}
-	
-	
-	
-	
-	public static void main(String[] args) {
-		//Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	GraphicsConfiguration gc = null; // A modifier 
-            	GUI gui1 = new GUI("bidule", gc); 
-            }
-        });
-    }
-
-}
-**/
-
