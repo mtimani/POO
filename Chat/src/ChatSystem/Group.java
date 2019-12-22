@@ -4,11 +4,12 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Classe Group : Représente une conversation entre deux ou plus Users
+ * Represente une conversation entre deux utilisateurs ou plus
+ *
  */
 public class Group implements Serializable {
-
-	private static final long serialVersionUID = 2L;
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private ArrayList<User> members;
@@ -16,131 +17,133 @@ public class Group implements Serializable {
 	private boolean online;
 	
 	/**
-	 * Création d'un groupe
-	 * @param id ID du Groupe
-	 * @param members Liste des membres du Groupe
-	 * @param origin Créateur de la conversation
+	 * Creation d'un groupe
+	 * @param id ID du groupe
+	 * @param members Liste des membres du groupe
 	 */
-	public Group(int id, ArrayList<User> members, User origin) {
+	public Group(int id, ArrayList<User> members, User starter) {
 		this.id = id;
-		this.origin = origin;
+		this.origin = starter;
 		this.online = true;
 		
 		this.members = new ArrayList<User>();
-		for (User m : this.members) {
+		for(User m : members)
 			this.members.add(m);
-		}
+		
 	}
-
-	/** 
+	
+	/**
 	 * Retourne l'ID du groupe
-	 * @return the id
+	 * @return L'ID du groupe
 	 */
 	public int getId() {
 		return id;
 	}
-
+	
 	/**
-	 * Retourne la liste des membres du groupe
-	 * @return the members
+	 * Retourne les membres du groupe
+	 * @return Les membres du groupe
 	 */
 	public ArrayList<User> getMembers() {
 		return members;
 	}
-
+	
 	/**
-	 * Retourne l'utilisateur qui initie la conversation
-	 * @return the origin
+	 * Retourne l'utilisateur qui a initie la conversation
+	 * @return l'utilisateur qui a initie la conversation
 	 */
 	public User getOrigin() {
 		return origin;
 	}
-
+	
 	/**
-	 * Spécifier l'utilisateur qui a initié la conversation
-	 * @param origin the origin to set
+	 * Indique l'utilisateur qui a initie la conversation
+	 * @param starter L'utilisateur qui a initie la conversation
 	 */
 	public void setOrigin(User origin) {
 		this.origin = origin;
 	}
-
+	
 	/**
-	 * Retourne vrai si le groupe est en ligne 
-	 * @return the online
+	 * Retourne True si le groupe est en ligne
+	 * @return True si le groupe est en ligne
 	 */
 	public boolean isOnline() {
 		return online;
 	}
-
+	
 	/**
-	 * Spécifier si le groupe est en ligne ou pas
-	 * @param online the online to set
+	 * Indique que le groupe est en ligne ou non
+	 * @param online Si le groupe est en ligne ou non
 	 */
 	public void setOnline(boolean online) {
 		this.online = online;
 	}
 	
 	/**
-	 * Retourne Vrai si l'utilisateur est un membre du groupe, Faux sinon
-	 * @param member L'utilisateur à tester
-	 * @return Vrai si l'utilisateur est un membre du groupe, Faux sinon
+	 * Retourne True si un utilisateur est membre de ce groupe
+	 * @param member L'utilisateur a tester
+	 * @return True si l'utilisateur est dans le groupe, False sinon
 	 */
 	public boolean isMember(User member) {
-		for (User m : this.members) {
-			if (m.equals(member)) {
+		for(User m : members) {
+			if(m.getId() == member.getId())
 				return true;
-			}
 		}
+		
 		return false;
 	}
 	
 	/**
-	 * Permet de mettre à jour les informations sur un membre du groupe
-	 * @param newVersionMember Nouvelle version de l'utilisateur
-	 * @return vrai si au moins un utilisateur de la liste du groupe a été modifié
+	 * Permet de mettre a jour les informations sur un membre du groupe
+	 * @param newVersionMember La nouvelle version de l'utilisateur
 	 */
 	public boolean updateMember(User newVersionMember) {
 		boolean hasChanged = false;
 		ArrayList<User> newMembers = new ArrayList<User>(members);
 		
-		for (User oldVersionMember : members) {
-			if (oldVersionMember.equals(newVersionMember)
-					|| !oldVersionMember.getUsername().equals(newVersionMember.getUsername())
-					|| oldVersionMember.getPort() != newVersionMember.getPort()) {
-				newMembers.remove(oldVersionMember);
-				newMembers.add(newVersionMember);
-				hasChanged = true;
+		for(User oldVersionMember : members) {
+			
+			if(oldVersionMember.equals(newVersionMember)) {
+				
+				if(oldVersionMember.getPort() != newVersionMember.getPort()
+						|| !oldVersionMember.getUsername().equals(newVersionMember.getUsername())) {
+					newMembers.remove(oldVersionMember);
+					newMembers.add(newVersionMember);
+					hasChanged = true;
+				}
+				
 			}
 		}
 		
 		members = newMembers;
+		
 		return hasChanged;
 	}
 	
 	/**
-	 * Renvoie le nom du groupe vu par un utilisateur en particulier
-	 * Utilisé dans l'interface graphique de l'application de Chat
+	 * Renvoie le nom d'un groupe vu par un utilisateur en particulier
+	 * Dans une conversation � deux, le nom correspond au nom du contact distant
+	 * Utilise pour faire le lien avec ce qui est affiche dans le GUI
 	 * @param user L'utilisateur qui veut obtenir le nom
-	 * @return Le nom du groupe vu par l'utilisateur qui demande
+	 * @return Le nom du groupe vu par l'utilisateur demandeur
 	 */
 	public String getGroupNameForUser(User user) {
-		if(this.members.get(0).equals(user)) {
+	
+		if(members.get(0).equals(user))
 			return members.get(1).getUsername();
-		}
-		else {
+		else
 			return members.get(0).getUsername();
-		}
+		
 	}
 	
-	/**
-	 * Redéfinition de la methode .equals()
-	 * @return Vrai si les deux Groupes sont égaux, Faux sinon
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Group)) return false;
+		if(!(obj instanceof Group))
+			return false;
+		
 		Group g = (Group) obj;
-		return g.id == this.id;
+		return g.id == id;
 	}
-	
+
 }

@@ -16,14 +16,14 @@ public class Udp extends Thread {
 	 * Header de paquets UDP, qui permet de les identifier, 
 	 * Afin de ne pas traiter les paquets d'autres applications
 	 */
-	private static final int UDP_IDENTITY = 64525789;
+	private static final int UDP_IDENTITY = 64529;
 	
 	/**
 	 * Statuts de connexion
 	 */
 	public static final int NONE_STATUS = -1;
 	public static final int CONNECTION_STATUS = 0;
-	public static final int DECONNEXION_STATUS = 1;
+	public static final int DECONNECTION_STATUS = 1;
 	public static final int CONNECTION_RESPONSE_STATUS = 2;
 	public static final int USERNAME_CHANGED_STATUS = 3;
 	
@@ -50,11 +50,11 @@ public class Udp extends Thread {
 	 */
 	public byte[] createMessage(int status, User user) throws IOException {
 		ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-		ObjectOutput out = new ObjectOutputStream(bStream);
-		out.write(UDP_IDENTITY);
-		out.write(status);
-		out.writeObject(user);
-		out.close();
+		ObjectOutput oo = new ObjectOutputStream(bStream);
+		oo.writeInt(UDP_IDENTITY);
+		oo.writeInt(status);
+		oo.writeObject(user);
+		oo.close();
 		return bStream.toByteArray();
 	}
 	
@@ -67,7 +67,7 @@ public class Udp extends Thread {
 	public void sendUdpMessage(byte[] message, InetAddress ipAddress) throws IOException {
 		DatagramPacket out = new DatagramPacket(message, message.length, ipAddress, port);
 		socket.send(out);
-		System.out.println("UDP message sent : " + message + " to " + ipAddress.toString());
+		System.out.println("message UDP envoye : " + message + " a " + ipAddress.toString());
 	}
 	
 	/**
@@ -84,55 +84,50 @@ public class Udp extends Thread {
 		User receivedUser = null;
 		int udpIdentity = -1;
 		
-		while (true) {
-			
+		while(true) {
 			try {
-				this.socket.receive(in);
+				socket.receive(in);
+			
+				// Reception des donnees
+				byte[] receivedMessage = in.getData();
+				ObjectInputStream iStream;
 				
-				//Réception des paquets
-				byte [] receivedMessage = in.getData();
-				ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(receivedMessage));
-				udpIdentity = (int) inStream.readInt();
+				iStream = new ObjectInputStream(new ByteArrayInputStream(receivedMessage));
+				udpIdentity = (int) iStream.readInt();
 				
-				//Vérification si on peut traiter le paquet
-				if (udpIdentity != UDP_IDENTITY) continue;
+				// On verifie qu'on doit traiter le paquet
+				if(udpIdentity != UDP_IDENTITY)
+					continue;
 				
-				//Récupération de la charge utile des messages
-				status = (int) inStream.readInt();
-				receivedUser = (User) inStream.readObject();
-				inStream.close();
+				// Recuperation des informations du message
+				status = (int) iStream.readInt();
+				receivedUser = (User) iStream.readObject();
+				iStream.close();
 				
-				//Choix du traîtement et traîtement du message
-				switch(status) {
-				
+				// Traitement du message recu
+				switch (status) {
+					case DECONNECTION_STATUS:
+						controller.receivedDisconnection(receivedUser);
+						break;
 					case CONNECTION_STATUS:
 						if (!controller.getUser().getIp().equals(in.getAddress())) {
 							controller.receivedConnection(receivedUser);
 							sendUdpMessage(createMessage(CONNECTION_RESPONSE_STATUS, controller.getUser()), in.getAddress());
 						}
 						break;
-					case DECONNEXION_STATUS:
-						controller.receivedDisconnection(receivedUser);
-						break;
 					case CONNECTION_RESPONSE_STATUS:
 						controller.receivedConnection(receivedUser);
 						break;
 					case USERNAME_CHANGED_STATUS:
-						if (!controller.getUser().getIp().equals(in.getAddress())) 
-							controller.receivedUsernameChanged(receivedUser);
-						break;
-						
+						if (!controller.getUser().getIp().equals(in.getAddress()))
+							controller.receivedUsernameChanged(receivedUser);		
 				}
 				
+			} catch (StreamCorruptedException | EOFException e) {
+				// Message pas pour nous, ne rien faire
+			} catch (IOException | ClassNotFoundException e1) {
+				GUI.showError("Erreur lors de la lecture d'un message UDP.");
 			}
-			catch (EOFException | StreamCorruptedException e1) {
-				//Message nous concerne pas, aucine action nécessaire
-			}
-			catch (IOException | ClassNotFoundException e2) {
-				GUI.showError("Erreur de lecture d'un message UDP.");
-			}
-			
 		}
 	}
-	
 }

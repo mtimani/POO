@@ -138,6 +138,10 @@ public class Controller {
 		return false;
 	}
 	
+	/**
+	 * Associe un GUI au controlleur
+	 * @param gui GUI à associer
+	 */
 	public void setGUI(GUI gui) {
 		this.gui = gui;
 	}
@@ -230,7 +234,7 @@ public class Controller {
 		DataManager.writeAllGroups(groups);
 		
 		//Envoi du message de déconnexion
-		udp.sendUdpMessage(udp.createMessage(Udp.DECONNEXION_STATUS, this.getUser()), this.ipBroadcast);
+		udp.sendUdpMessage(udp.createMessage(Udp.DECONNECTION_STATUS, this.getUser()), this.ipBroadcast);
 	}
 	
 	/**
@@ -239,41 +243,45 @@ public class Controller {
 	 * @throws IOException
 	 */
 	public void receivedConnection(User receivedUser) throws IOException {
-		if (receivedUser == null) return;
-		
+		if(receivedUser == null)
+			return;
+
+		//System.out.println("connexion recue! iduser=" +receivedUser.getID());
+
 		boolean listHasChanged = false;
 		boolean userHasChanged = false;
 		
-		//Vérification que le user reçu n'est pas encore connu et que l'on ne reçoit pas son propre message
-		if (!connectedUsers.contains(receivedUser) && !receivedUser.equals(this.user)) {
-			listHasChanged = true;
+		// On verifie qu'on ne recoit pas sa propre annonce et qu'on ne connait pas deja l'utilisateur
+		if(!connectedUsers.contains(receivedUser) && !receivedUser.equals(user)) {
 			userHasChanged = true;
+			listHasChanged = true;
 			connectedUsers.add(receivedUser);
 		}
 		
-		//Mise a jour des groupes avec les nouvelles informations sur le user mis-à-jour
-		String oldUsername, newUsername;
-		for (Group g : groups) {
-			oldUsername = g.getGroupNameForUser(this.user);
-			userHasChanged = userHasChanged || g.updateMember(receivedUser);
-			newUsername = g.getGroupNameForUser(this.user);
-			
-			//Mise à jour des information sur l'envoyeur du message (si c'est lui qui a changé) 
-			if (userHasChanged) {
-				listHasChanged = true;
-				for (Message m : messages) {
-					m.updateSender(receivedUser);
-				}
-			}
-			
-			//Ajout de l'utilisateur au GUI
-			if (gui != null) {
-				gui.updateConnectedUsers();
-			}
-			
-			//Mise à jour du User dans le GUI
-			if (listHasChanged) gui.replaceUsernameInList(oldUsername, newUsername);
+		// Mise a jour des groupes avec les nouvelles informations de l'utilisateur connecte
+		String oldUsername = "", newUsername = "";
+		
+		for(Group group : groups) {
+			oldUsername = group.getGroupNameForUser(user);
+			userHasChanged = userHasChanged || group.updateMember(receivedUser);
+			newUsername = group.getGroupNameForUser(user);
 		}
+		
+		if(userHasChanged) {
+			listHasChanged = true;
+			
+			// Mise a jour des messages avec les nouvelles informations de l'utilisateur
+			for(Message m : messages)
+				m.updateSender(receivedUser);
+		}
+		
+		// Ajout du nouvel utilisateur (GUI)
+		if(gui != null)
+			gui.updateConnectedUsers();
+		
+		// Mise a jour des usernames
+		if(listHasChanged)
+			gui.replaceUsernameInList(oldUsername, newUsername);
 		
 	}
 	
