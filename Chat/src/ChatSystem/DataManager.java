@@ -1,6 +1,8 @@
 package ChatSystem;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.prefs.Preferences;
 
@@ -20,13 +22,18 @@ public class DataManager {
 	private static final String PATH_GROUPS = "data/groups.bin";
 	private static final String PATH_CONFIG = "settings.ini";
 	
-	//Password code here if it appears afterwards in the project
+	/**
+	 * Erreurs
+	 */
+	@SuppressWarnings("serial")
+	public static class PasswordError extends Exception {};
 	
 	/**
 	 * Permet de sauvegarder un utilisateur sur la machine
 	 * @param username Username de l'utilisateur
+	 * @param password Mot de passe de l'utilisateur
 	 */
-	public static void createUser(String username) throws IOException {		
+	public static void createUser(String username, char[] password) throws IOException, NoSuchAlgorithmException {		
 		// Verifie que le dossier "data" existe, sinon le cree
 		File directory = new File(PATH_DATA);
 	    if(!directory.exists()) directory.mkdir();
@@ -41,6 +48,10 @@ public class DataManager {
 		out.writeInt(id);
 		out.writeObject(username);
 		
+		// Chiffrement du mot de passe avec MD5
+		byte[] passwordHashed = hashPassword(password);
+		out.writeObject(passwordHashed);
+		
 		out.close();
 		file.close();
 	}
@@ -48,11 +59,12 @@ public class DataManager {
 	/**
 	 * Permet de voir si les donnees de connexion sont correctes
 	 * @param username Username de l'utilisateur
+	 * @param password Mot de passe de l'utilisateur
 	 * @return L'ID de l'utilisateur si les donnees sont correctes, -1 sinon
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public static int checkUser(String username) throws IOException, ClassNotFoundException {
+	public static int checkUser(String username, char[] password) throws IOException, ClassNotFoundException, NoSuchAlgorithmException {
 
 		File usersFile = new File(PATH_USER);
 
@@ -63,7 +75,11 @@ public class DataManager {
 
 			int id = (int) in.readInt();
 			String usernameFile = (String) in.readObject();
-			if (usernameFile.equals(username)) {
+			byte[] passwordFileHashed = (byte[]) in.readObject();
+			
+			byte[] passwordEnterHashed = hashPassword(password);
+
+			if (usernameFile.equals(username) && Arrays.equals(passwordFileHashed, passwordEnterHashed)) {
 				in.close();
 				return id;
 			}			
@@ -89,16 +105,76 @@ public class DataManager {
 			@SuppressWarnings("unused")
 			String oldUsername = (String) in.readObject();
 
+			byte[] password = (byte[]) in.readObject();
 			in.close();
 			file_read.close();
 			
-			FileOutputStream file_write = new FileOutputStream(PATH_USER);
+			FileOutputStream file_write = new FileOutputStream(PATH_USER, false);
 			ObjectOutputStream out = new ObjectOutputStream(file_write);
 			out.writeInt(id);
 			out.writeObject(newUsername);
+			out.writeObject(password);	
 			out.close();
 			file_write.close();
 		}		
+	}
+	
+	/**
+	 * Permet de changer le mot de passe de l'utilisateur
+	 * @param oldPassword L'ancien mot de passe
+	 * @param newPassword Le nouveau mot de passe
+	 * @throws IOException Si une erreur survient
+	 * @throws ClassNotFoundException Si une erreur survient
+	 * @throws NoSuchAlgorithmException Si une erreur survient
+	 * @throws PasswordError Si l'ancien mot de passe fourni est incorrect
+	 */
+	public static void changePassword(char[] oldPassword, char[] newPassword) throws IOException, ClassNotFoundException, NoSuchAlgorithmException, PasswordError {
+		File usersFile = new File(PATH_USER);
+		
+		if (usersFile.exists()) {
+			FileInputStream file_read = new FileInputStream(PATH_USER);			
+			ObjectInputStream in = new ObjectInputStream(file_read);	
+			byte[] oldPasswordHashed = hashPassword(oldPassword);
+			
+			int id = (int) in.readInt();
+			String username = (String) in.readObject();
+			byte[] passwordFileHashed = (byte[]) in.readObject();
+			in.close();
+			file_read.close();
+			
+			if(Arrays.equals(passwordFileHashed, oldPasswordHashed)) {
+				FileOutputStream file_write = new FileOutputStream(PATH_USER, false);
+				ObjectOutputStream out = new ObjectOutputStream(file_write);
+				
+				byte[] newPasswordHashed = hashPassword(newPassword);
+				
+				out.writeInt(id);
+				out.writeObject(username);
+				out.writeObject(newPasswordHashed);			
+				out.close();
+				file_write.close();
+			}
+			else {
+				throw new PasswordError();
+			}
+		} 
+	}
+	
+	/**
+	 * Permet de chiffrer le mot de passe
+	 * @param password Le mot de passe a chiffrer
+	 * @return Le mot de passe chiffre
+	 * @throws NoSuchAlgorithmException Si une erreur survient
+	 */
+	private static byte[] hashPassword (char[] password) throws NoSuchAlgorithmException {
+		byte[] passwordBytes = new byte[password.length];
+		for (int i = 0; i < passwordBytes.length; i++)
+			passwordBytes[i] = (byte) password[i];
+		
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		byte[] passwordHashed = md.digest(passwordBytes);
+		
+		return passwordHashed;
 	}
 	
 	/**

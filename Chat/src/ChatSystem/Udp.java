@@ -26,7 +26,6 @@ public class Udp extends Thread {
 	public static final int DECONNEXION_STATUS = 1;
 	public static final int CONNECTION_RESPONSE_STATUS = 2;
 	public static final int USERNAME_CHANGED_STATUS = 3;
-	public static final int USERNAME_OCCUPIED = 4;
 	
 	/**
 	 * Création d'un Thread UDP
@@ -122,8 +121,6 @@ public class Udp extends Thread {
 						if (!controller.getUser().getIp().equals(in.getAddress())) 
 							controller.receivedUsernameChanged(receivedUser);
 						break;
-					case USERNAME_OCCUPIED:
-						controller.receivedUsernameOccupied(receivedUser);
 						
 				}
 				

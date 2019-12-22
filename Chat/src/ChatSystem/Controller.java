@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 import java.nio.file.*;
+import java.security.NoSuchAlgorithmException;
+
+import ChatSystem.DataManager.PasswordError;
 
 /**
  * Controlleur de l'application de Chat
@@ -247,9 +250,6 @@ public class Controller {
 			userHasChanged = true;
 			connectedUsers.add(receivedUser);
 		}
-		else if (receivedUser.getUsername().equals(this.user.getUsername())) {
-			udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_OCCUPIED, this.getUser()), this.ipBroadcast);
-		}
 		
 		//Mise a jour des groupes avec les nouvelles informations sur le user mis-à-jour
 		String oldUsername, newUsername;
@@ -275,18 +275,6 @@ public class Controller {
 			if (listHasChanged) gui.replaceUsernameInList(oldUsername, newUsername);
 		}
 		
-	}
-	
-	/**
-	 * Fonction qui permet de prévenir l'utilisateur qu'un login est occupé
-	 * @param receivedUser User reçu
-	 */
-	public void receivedUsernameOccupied(User receivedUser) {
-		if (receivedUser == null) return;
-		
-		if (gui != null) {
-			gui.showError("Username already in use by other user.");;
-		}
 	}
 	
 	/**
@@ -334,6 +322,19 @@ public class Controller {
 		
 		//Envoi du message signalant aux autres Users que le Username a été changé
 		udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_CHANGED_STATUS, this.user), this.ipBroadcast);
+	}
+	
+	/**
+	 * Modifie le mot de passe de l'utilisateur
+	 * @param oldPassword L'ancien mot de passe
+	 * @param newPassword Le nouveau mot de passe
+	 * @throws ClassNotFoundException Si erreur a l'ecriture du fichier
+	 * @throws NoSuchAlgorithmException Si erreur a l'ecriture du fichier
+	 * @throws IOException Si erreur a l'ecriture du fichier
+	 * @throws PasswordError Si erreur a l'ecriture du fichier
+	 */
+	public void changePassword(char[] oldPassword, char[] newPassword) throws ClassNotFoundException, NoSuchAlgorithmException, IOException, PasswordError {
+		DataManager.changePassword(oldPassword, newPassword);		
 	}
 	
 	/**

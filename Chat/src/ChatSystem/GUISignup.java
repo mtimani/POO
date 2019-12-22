@@ -2,98 +2,148 @@ package ChatSystem;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.*;
-import java.util.*;
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import javax.swing.*;
 
+/**
+ * Fenetre de creation de l'utilisateur
+ */
+public class GUISignup extends JFrame {
 
-public class GUISignup {
+	private static final long serialVersionUID = 1L;
 
-	private JFrame frmChatSignup;
-	private JTextField textField;
-	private GUI gui;
+	private JPanel createUserPanel;
+	private JLabel usernameLabel;
+	private JLabel passwordLabel;
+	private JLabel confirmPasswordLabel;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
+	private JPasswordField confirmPasswordField;
+	private JButton createUserButton;
+	private GUIConnect guiConnect;
 
-	public GUISignup(GUI gui) {
-		initialize();
-		this.gui = gui;
+	/**
+	 * Cree une fenetre pour creer un utilisateur
+	 */
+	public GUISignup(GUIConnect guiConnect) {
+		super("Creer utilisateur");
+		addWindowListener(new windowClosingListener());
+		this.guiConnect = guiConnect;
+
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setAlwaysOnTop(true);
+		setSize(new Dimension(400, 160));
+		setResizable(false);
+		setLocationRelativeTo(null);
+
+		createUserPanel = new JPanel();
+		createUserPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(3, 3, 3, 3);
+		c.fill = GridBagConstraints.BOTH;
+
+		usernameLabel = new JLabel("Login (max 20 caracteres) :");
+		c.weightx = 0.1;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+		createUserPanel.add(usernameLabel, c);
+
+		passwordLabel = new JLabel("Mot de passe : ");
+		c.gridy = 1;
+		createUserPanel.add(passwordLabel, c);
+
+		confirmPasswordLabel = new JLabel("Confirmez mot de passe : ");
+		c.gridy = 2;
+		createUserPanel.add(confirmPasswordLabel, c);
+
+		usernameField = new JTextField();
+		usernameField.addKeyListener(new KeyAdapter());
+		usernameField.addActionListener(new CreateUserListener(this.guiConnect));
+		c.weightx = 0.9;
+		c.gridx = 1;
+		c.gridy = 0;
+		createUserPanel.add(usernameField, c);
+
+		passwordField = new JPasswordField();
+		passwordField.addActionListener(new CreateUserListener(this.guiConnect));
+		c.gridy = 1;
+		createUserPanel.add(passwordField, c);
+
+		confirmPasswordField = new JPasswordField();
+		confirmPasswordField.addActionListener(new CreateUserListener(this.guiConnect));
+		c.gridy = 2;
+		createUserPanel.add(confirmPasswordField, c);
+
+		createUserButton = new JButton("CREER UTILISATEUR");
+		createUserButton.addActionListener(new CreateUserListener(this.guiConnect));
+		c.weightx = 1;
+		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridy = 3;
+		createUserPanel.add(createUserButton, c);
+
+		add(createUserPanel);
+		
+		setVisible(true);
 	}
 
-	private void initialize() {
-		frmChatSignup = new JFrame();
-		frmChatSignup.setTitle("Chat Sign Up");
-		frmChatSignup.setBounds(100, 100, 476, 131);
-		frmChatSignup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmChatSignup.setLocationRelativeTo(null);
-		
-		JPanel panel = new JPanel();
-		frmChatSignup.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		
-		JLabel lblLogin = new JLabel("login (max. 20 characters)");
-		lblLogin.setBounds(12, 29, 208, 15);
-		panel.add(lblLogin);
-		
-		textField = new JTextField(20);
-		textField.addKeyListener(new KeyAdapter());
-		textField.setBounds(238, 27, 224, 19);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnSignup = new JButton("Sign Up");
-		btnSignup.setBounds(174, 65, 114, 25);
-		btnSignup.addActionListener(new CreateUserListener(this));
-		panel.add(btnSignup);
-		
-		frmChatSignup.getRootPane().setDefaultButton(btnSignup);
-	}
-
-	public JFrame getFrame() {
-		return this.frmChatSignup;
-	}
-	
-	public GUI getGUI() {
-		return this.gui;
-	}
-	
+	/**
+	 * Listener du bouton de creation d'utilisateur
+	 */
 	public class CreateUserListener implements ActionListener {
-		private GUISignup guiSignup;
-		
-		public CreateUserListener(GUISignup guiSignup) {
+		private GUIConnect guiConnect;
+
+		public CreateUserListener(GUIConnect guiConnect) {
 			super();
-			this.guiSignup = guiSignup;
+			this.guiConnect = guiConnect;
 		}
-		
+
+		/**
+		 * Clique sur le bouton de creation
+		 */
 		public void actionPerformed(ActionEvent e) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					String textFieldContent = textField.getText();
-					if (textFieldContent.length()>20) {
-						GUI.showError("Your login must not be longer than 20 characters.");
+			// Obtient les donnees
+			String username = usernameField.getText();
+			char[] password = passwordField.getPassword();
+			char[] confirmPassword = confirmPasswordField.getPassword();
+
+			if (password.length != 0 && username.length() != 0 && confirmPassword.length != 0) {
+				if (Arrays.equals(password, confirmPassword)) {
+					try {
+						DataManager.createUser(username, password);
+						setVisible(false);
+						guiConnect.setVisible(true);
+						guiConnect.setEnabled(true);
+					} catch (IOException | NoSuchAlgorithmException e1) {
+						GUI.showError("Erreur lors de l'ecriture du fichier de donnees.");
 					}
-					else if (textFieldContent.length()==0){
-						GUI.showError("Please enter a username");
-					}
-					else {
-						try {
-							DataManager.createUser(textFieldContent);
-							getGUI().getFrame().setVisible(true);
-							guiSignup.getFrame().setVisible(false);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
+				} else {
+					setAlwaysOnTop(false);
+					GUI.showError("Les mots de passe indiques sont differents.");
+					passwordField.setText("");
+					confirmPasswordField.setText("");
 				}
-			});
+			} else {
+				setAlwaysOnTop(false);
+				GUI.showError("Veuillez remplir tous les champs.");
+			}
 		}
+
 	}
-	
+
+	/**
+	 * Permet de limiter le nombre de caracteres des zones de texte
+	 */
 	public class KeyAdapter implements KeyListener {
 
 		/**
-		 * Pour gerer la taille de l'username
+		 * Pour la longueur de l'username
 		 */
 		public void keyTyped(KeyEvent e) {
-			if (textField.getText().length() >= 20)
+			if (usernameField.getText().length() >= 20)
 				e.consume();
 		}
 
@@ -102,6 +152,29 @@ public class GUISignup {
 
 		@Override
 		public void keyReleased(KeyEvent e) {}
-	
+		
+	}
+
+	/**
+	 * Listener de fermeture de fenetre
+	 */
+	public class windowClosingListener implements WindowListener {
+
+		public void windowClosing(WindowEvent e) {
+			guiConnect.setEnabled(true);
+		}
+
+		public void windowOpened(WindowEvent arg0) {}
+
+		public void windowClosed(WindowEvent arg0) {}
+
+		public void windowIconified(WindowEvent arg0) {}
+
+		public void windowDeiconified(WindowEvent arg0) {}
+
+		public void windowActivated(WindowEvent arg0) {}
+
+		public void windowDeactivated(WindowEvent arg0) {}
+
 	}
 }
