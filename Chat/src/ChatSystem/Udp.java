@@ -67,7 +67,7 @@ public class Udp extends Thread {
 	public void sendUdpMessage(byte[] message, InetAddress ipAddress) throws IOException {
 		DatagramPacket out = new DatagramPacket(message, message.length, ipAddress, port);
 		socket.send(out);
-		System.out.println("message UDP envoye : " + message + " a " + ipAddress.toString());
+		//System.out.println("message UDP envoye : " + message + " a " + ipAddress.toString());
 	}
 	
 	/**
