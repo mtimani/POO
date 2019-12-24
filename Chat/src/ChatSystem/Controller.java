@@ -68,7 +68,7 @@ public class Controller {
 	public User getUser() {
 		return this.user;
 	}
-	
+
 	/**
 	 * Retourne la liste des messages d'un groupe donné
 	 * @param group Le groupe dont les messages sont recherchés
@@ -321,11 +321,7 @@ public class Controller {
 	 * @throws SocketException 
 	 */
 	public void receivedUsernameOccupied(User receivedUser) throws SocketException {
-		GUI.showError("Username occupied. Please choose another Username.");
-		gui.setEnabled(false);
-		Map<InetAddress, InetAddress> allIP = getAllIpAndBroadcast();
-		@SuppressWarnings("unused")
-		GUIConnect guiConnect = new GUIConnect(new ArrayList<InetAddress>(allIP.keySet()));
+		GUI.showError("Username occupied. Please choose another Username.");				
 	}
 	
 	/***************************************************************************** User Management Methods ********************************************************************************/
