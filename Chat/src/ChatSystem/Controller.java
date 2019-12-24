@@ -318,9 +318,14 @@ public class Controller {
 	/**
 	 * Traîtement du cas où le User choisi est déjà occupé
 	 * @param receivedUser User qui nous l'a indiqué
+	 * @throws SocketException 
 	 */
-	public void receivedUsernameOccupied(User receivedUser) {
-		GUI.showError("Username occupied");
+	public void receivedUsernameOccupied(User receivedUser) throws SocketException {
+		GUI.showError("Username occupied. Please choose another Username.");
+		gui.setEnabled(false);
+		Map<InetAddress, InetAddress> allIP = getAllIpAndBroadcast();
+		@SuppressWarnings("unused")
+		GUIConnect guiConnect = new GUIConnect(new ArrayList<InetAddress>(allIP.keySet()));
 	}
 	
 	/***************************************************************************** User Management Methods ********************************************************************************/
