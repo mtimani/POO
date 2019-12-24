@@ -126,8 +126,15 @@ public class Udp extends Thread {
 						controller.receivedConnection(receivedUser);
 						break;
 					case USERNAME_CHANGED_STATUS:
-						if (!controller.getUser().getIp().equals(in.getAddress()))
-							controller.receivedUsernameChanged(receivedUser);
+						if (!controller.getUser().getIp().equals(in.getAddress())) {
+							if (controller.getUser().getUsername().equals(receivedUser.getUsername())) {
+								sendUdpMessage(createMessage(USERNAME_OCCUPIED, controller.getUser()), in.getAddress());
+								System.out.println("Username Occupied Sent");
+							}
+							else {
+								controller.receivedUsernameChanged(receivedUser);
+							}
+						}
 						break;
 					case USERNAME_OCCUPIED:
 						controller.receivedUsernameOccupied(receivedUser);
