@@ -315,6 +315,14 @@ public class Controller {
 		if (gui != null) gui.updateConnectedUsers();
 	}
 	
+	/**
+	 * Traîtement du cas où le User choisi est déjà occupé
+	 * @param receivedUser User qui nous l'a indiqué
+	 */
+	public void receivedUsernameOccupied(User receivedUser) {
+		
+	}
+	
 	/***************************************************************************** User Management Methods ********************************************************************************/
 	
 	/**

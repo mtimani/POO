@@ -26,6 +26,7 @@ public class Udp extends Thread {
 	public static final int DECONNECTION_STATUS = 1;
 	public static final int CONNECTION_RESPONSE_STATUS = 2;
 	public static final int USERNAME_CHANGED_STATUS = 3;
+	public static final int USERNAME_OCCUPIED = 4;
 	
 	/**
 	 * Création d'un Thread UDP
@@ -111,8 +112,14 @@ public class Udp extends Thread {
 						break;
 					case CONNECTION_STATUS:
 						if (!controller.getUser().getIp().equals(in.getAddress())) {
-							controller.receivedConnection(receivedUser);
-							sendUdpMessage(createMessage(CONNECTION_RESPONSE_STATUS, controller.getUser()), in.getAddress());
+							if (controller.getUser().getUsername().equals(receivedUser.getUsername())) {
+								sendUdpMessage(createMessage(USERNAME_OCCUPIED, controller.getUser()), in.getAddress());
+								System.out.println("Username Occupied Sent");
+							}
+							else {
+								controller.receivedConnection(receivedUser);
+								sendUdpMessage(createMessage(CONNECTION_RESPONSE_STATUS, controller.getUser()), in.getAddress());
+							}
 						}
 						break;
 					case CONNECTION_RESPONSE_STATUS:
@@ -120,7 +127,11 @@ public class Udp extends Thread {
 						break;
 					case USERNAME_CHANGED_STATUS:
 						if (!controller.getUser().getIp().equals(in.getAddress()))
-							controller.receivedUsernameChanged(receivedUser);		
+							controller.receivedUsernameChanged(receivedUser);
+						break;
+					case USERNAME_OCCUPIED:
+						controller.receivedUsernameOccupied(receivedUser);
+						System.out.println("Username Occupied Sent");
 				}
 				
 			} catch (StreamCorruptedException | EOFException e) {
