@@ -320,7 +320,7 @@ public class Controller {
 	 * @param receivedUser User qui nous l'a indiqué
 	 */
 	public void receivedUsernameOccupied(User receivedUser) {
-		
+		GUI.showError("Username occupied");
 	}
 	
 	/***************************************************************************** User Management Methods ********************************************************************************/
