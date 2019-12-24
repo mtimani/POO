@@ -325,7 +325,7 @@ public class Controller {
 		GUI.showError("Username occupied. Please choose another Username.");
 		try {
 		    // to sleep 10 seconds
-		    Thread.sleep(5000);
+		    Thread.sleep(3000);
 		} catch (InterruptedException e) {
 		    // recommended because catching InterruptedException clears interrupt flag
 		    Thread.currentThread().interrupt();
