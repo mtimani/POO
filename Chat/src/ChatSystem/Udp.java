@@ -138,7 +138,6 @@ public class Udp extends Thread {
 						break;
 					case USERNAME_OCCUPIED:
 						controller.receivedUsernameOccupied(receivedUser);
-						System.out.println("Username Occupied Sent");
 				}
 				
 			} catch (StreamCorruptedException | EOFException e) {

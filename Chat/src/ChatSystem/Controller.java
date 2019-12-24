@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 import java.nio.file.*;
+import java.lang.Thread;
 import java.security.NoSuchAlgorithmException;
 
 import ChatSystem.DataManager.PasswordError;
@@ -321,7 +322,17 @@ public class Controller {
 	 * @throws SocketException 
 	 */
 	public void receivedUsernameOccupied(User receivedUser) throws SocketException {
-		GUI.showError("Username occupied. Please choose another Username.");				
+		GUI.showError("Username occupied. Please choose another Username.");
+		try {
+		    // to sleep 10 seconds
+		    Thread.sleep(5000);
+		} catch (InterruptedException e) {
+		    // recommended because catching InterruptedException clears interrupt flag
+		    Thread.currentThread().interrupt();
+		    // you probably want to quit if the thread is interrupted
+		    return;
+		}
+		System.exit(Controller.EXIT_WITHOUT_ERROR);
 	}
 	
 	/***************************************************************************** User Management Methods ********************************************************************************/
