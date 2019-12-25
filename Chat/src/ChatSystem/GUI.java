@@ -755,7 +755,9 @@ public class GUI extends JFrame{
 	}
 
 
-	public static void main(String[] args) throws SocketException, ClassNotFoundException, UnknownHostException {	
+	public static void main(String[] args) throws SocketException, ClassNotFoundException, UnknownHostException {
+		
+		System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
 
 		// Recupere la liste des adresses IP que possede la machine (et les adresses de broadcast correspondantes)
 		Map<InetAddress, InetAddress> allIP = Controller.getAllIpAndBroadcast();
