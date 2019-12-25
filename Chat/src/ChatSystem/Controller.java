@@ -326,6 +326,16 @@ public class Controller {
 		System.exit(Controller.EXIT_WITHOUT_ERROR);
 	}
 	
+	/**
+	 * Traîtement du cas où le User modifié est déjà occupé
+	 * @param receivedUser User qui nous l'a indiqué
+	 * @throws SocketException
+	 */
+	public void receivedModifiedUsernameOccupied(User receivedUser) throws SocketException {
+		GUI.showError("Username occupied. Please choose another one if you wish to modify it.");
+		
+	}
+	
 	/***************************************************************************** User Management Methods ********************************************************************************/
 	
 	/**
