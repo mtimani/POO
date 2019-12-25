@@ -757,8 +757,14 @@ public class GUI extends JFrame{
 
 	public static void main(String[] args) throws SocketException, ClassNotFoundException, UnknownHostException {
 		
-		System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
-
+		//Handling du SIGINT sur MAC OS X qui cause beaucoup de bugs
+		String osName = System.getProperty("os.name").toLowerCase();
+		boolean isMacOs = osName.startsWith("mac os x");
+		
+		if (isMacOs) {		
+			System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
+		}
+		
 		// Recupere la liste des adresses IP que possede la machine (et les adresses de broadcast correspondantes)
 		Map<InetAddress, InetAddress> allIP = Controller.getAllIpAndBroadcast();
 		InetAddress ipMachine;
