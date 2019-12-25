@@ -142,6 +142,9 @@ public class GUIModifyUser extends JFrame {
 		
 		add(modifUserPanel);
 		
+		/* Icone du programme */
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png")));
+		
 		setVisible(true);		
 	}
 	

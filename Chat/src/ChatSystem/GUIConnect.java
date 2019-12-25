@@ -91,6 +91,9 @@ public class GUIConnect extends JFrame {
 		connectPanel.add(createUserButton, c);
 
 		add(connectPanel);
+		
+		/* Icone du programme */
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png")));
 
 		setVisible(true);
 	}

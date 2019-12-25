@@ -143,7 +143,7 @@ public class DataManager {
 			file_read.close();
 			
 			if(Arrays.equals(passwordFileHashed, oldPasswordHashed)) {
-				FileOutputStream file_write = new FileOutputStream(PATH_USER, false);
+				FileOutputStream file_write = new FileOutputStream(PATH_USER);
 				ObjectOutputStream out = new ObjectOutputStream(file_write);
 				
 				byte[] newPasswordHashed = hashPassword(newPassword);

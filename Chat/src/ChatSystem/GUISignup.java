@@ -87,6 +87,9 @@ public class GUISignup extends JFrame {
 
 		add(createUserPanel);
 		
+		/* Icone du programme */
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png")));
+		
 		setVisible(true);
 	}
 

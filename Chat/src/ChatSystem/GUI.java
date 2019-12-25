@@ -4,9 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.sql.*;
 import java.text.*;
 import java.util.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -64,6 +64,7 @@ public class GUI extends JFrame{
 		sendButton.addActionListener(new sendMessageListener());
 		sendButton.setEnabled(false);
 		sendButton.setBackground(Color.WHITE);
+		sendButton.setIcon(new ImageIcon(getClass().getResource("/send.png")));
 		sendButton.setHorizontalAlignment(SwingConstants.LEFT);
 		sendButton.setIconTextGap(15);
 		c.fill = GridBagConstraints.BOTH;
@@ -172,6 +173,7 @@ public class GUI extends JFrame{
 		userButton = new JButton("Editer mon profil");
 		userButton.addActionListener(new editUserListener(this));
 		userButton.setBackground(Color.WHITE);
+		userButton.setIcon(new ImageIcon(getClass().getResource("/profile.png")));
 		userButton.setHorizontalAlignment(SwingConstants.LEFT);
 		userButton.setIconTextGap(15);
 		c.fill = GridBagConstraints.BOTH;
@@ -187,6 +189,7 @@ public class GUI extends JFrame{
 		sendFileButton = new JButton("Envoyer un fichier");
 		sendFileButton.setEnabled(false);
 		sendFileButton.setBackground(Color.WHITE);
+		sendFileButton.setIcon(new ImageIcon(getClass().getResource("/sendfile.png")));
 		sendFileButton.setHorizontalAlignment(SwingConstants.LEFT);
 		sendFileButton.setIconTextGap(15);
 		sendFileButton.addActionListener(new sendFileListener());
@@ -197,6 +200,10 @@ public class GUI extends JFrame{
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		panel.add(sendFileButton, c);
+		
+		
+		/* Icone du programme */
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png")));
 		
 		
 		/* Theme sombre */
@@ -397,7 +404,10 @@ public class GUI extends JFrame{
 			
 			try {
 				// Deconnexion de l'utilisateur
-				controller.disconnection();;
+				controller.disconnection();
+				//controller.sendMessage(null, 0, Message.FUNCTION_STOP);
+				
+				// Fin du programme sans erreur
 				System.exit(Controller.EXIT_WITHOUT_ERROR);
 			} catch (IOException err) {
 				showError("Une erreur est survenue lors de la deconnexion.");
@@ -755,16 +765,8 @@ public class GUI extends JFrame{
 	}
 
 
-	public static void main(String[] args) throws SocketException, ClassNotFoundException, UnknownHostException {
-		
-		//Handling du SIGINT sur MAC OS X qui cause beaucoup de bugs
-		String osName = System.getProperty("os.name").toLowerCase();
-		boolean isMacOs = osName.startsWith("mac os x");
-		
-		if (isMacOs) {		
-			System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
-		}
-		
+	public static void main(String[] args) throws SocketException, ClassNotFoundException, SQLException, UnknownHostException {	
+
 		// Recupere la liste des adresses IP que possede la machine (et les adresses de broadcast correspondantes)
 		Map<InetAddress, InetAddress> allIP = Controller.getAllIpAndBroadcast();
 		InetAddress ipMachine;
