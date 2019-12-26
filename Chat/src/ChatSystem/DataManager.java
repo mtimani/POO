@@ -16,11 +16,11 @@ public class DataManager {
 	/**
 	 * Constantes
 	 */
-	private static final String PATH_DATA = "data/";
-	private static final String PATH_USER = "data/user.bin";
-	private static final String PATH_MESSAGES = "data/messages.bin";
-	private static final String PATH_GROUPS = "data/groups.bin";
-	private static final String PATH_CONFIG = "settings.ini";
+	private static final String PATH_DATA = System.getProperty("user.dir") + "data/";
+	private static final String PATH_USER = System.getProperty("user.dir") + "data/user.bin";
+	private static final String PATH_MESSAGES = System.getProperty("user.dir") + "data/messages.bin";
+	private static final String PATH_GROUPS = System.getProperty("user.dir") + "data/groups.bin";
+	private static final String PATH_CONFIG = System.getProperty("user.dir") + "settings.ini";
 	
 	/**
 	 * Erreurs
