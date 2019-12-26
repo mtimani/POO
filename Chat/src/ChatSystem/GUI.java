@@ -222,11 +222,17 @@ public class GUI extends JFrame{
 			textField.setBackground(Color.decode(mainColor));
 			textField.setForeground(Color.decode(foreColor));
 			sendButton.setBackground(Color.decode(lightColor));
+			sendButton.setOpaque(true);
+			sendButton.setBorderPainted(false);
 			sendButton.setForeground(Color.decode(foreColor));
 			sendFileButton.setBackground(Color.decode(lightColor));
 			sendFileButton.setForeground(Color.decode(foreColor));
+			sendFileButton.setOpaque(true);
+			sendFileButton.setBorderPainted(false);
 			userButton.setBackground(Color.decode(lightColor));
 			userButton.setForeground(Color.decode(foreColor));
+			userButton.setOpaque(true);
+			userButton.setBorderPainted(false);
 		}
 		else {
 			mainColor = "#FFFFFF";
