@@ -509,6 +509,7 @@ public class GUI extends JFrame{
 				if (!bool && connectedUsersList.getSelectedIndex() != -1){
 					groupList.setSelectedValue(null, false);
 					connectedUsersList.setSelectedIndex(v);
+					textField.requestFocusInWindow();
 				}
 				
 			}
