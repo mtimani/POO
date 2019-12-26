@@ -15,11 +15,12 @@ public class DataManager {
 	/**
 	 * Constantes
 	 */
-	private static final String PATH_DATA = "data/";
-	private static final String PATH_USER = "data/user.bin";
-	private static final String PATH_MESSAGES = "data/messages.bin";
-	private static final String PATH_GROUPS = "data/groups.bin";
-	private static final String PATH_CONFIG = "settings/settings.ini";
+	
+	private static final String PATH_DATA = (new File(".")).getAbsolutePath() + "/data/";
+	private static final String PATH_USER = (new File(".")).getAbsolutePath() + "/data/user.bin";
+	private static final String PATH_MESSAGES = (new File(".")).getAbsolutePath() + "/data/messages.bin";
+	private static final String PATH_GROUPS = (new File(".")).getAbsolutePath() + "/data/groups.bin";
+	private static final String PATH_CONFIG = (new File(".")).getAbsolutePath() + "/settings/settings.ini";
 	
 	/**
 	 * Erreurs
