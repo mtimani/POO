@@ -459,7 +459,6 @@ public class GUI extends JFrame{
 				
 				if(selectedGroup != null)
 					newMessageGroups.put(selectedGroup.getId(), false);
-				
 			}
 
 		}
@@ -475,6 +474,8 @@ public class GUI extends JFrame{
 			
 			if(!e.getValueIsAdjusting()) {
 				
+				int v = connectedUsersList.getSelectedIndex();
+				
 				// (Des)activation de la zone de texte et du bouton "Envoyer"
 				if(connectedUsersList.getSelectedIndex() == -1) {
 					textField.setEditable(false);
@@ -487,15 +488,20 @@ public class GUI extends JFrame{
 					sendFileButton.setEnabled(true);
 				}
 				
-
 				// Selection du groupe corespondant
+				Boolean bool = false;
 				for(int index = 0; index < groupList.getModel().getSize(); index ++) {
 					String username = groupList.getModel().getElementAt(index);
 					
 					if (username.equals(connectedUsersList.getSelectedValue())){
 						groupList.setSelectedIndex(index);
+						bool = true;
 						break;
 					}
+				}
+				if (!bool && connectedUsersList.getSelectedIndex() != -1){
+					groupList.setSelectedValue(null, false);
+					connectedUsersList.setSelectedIndex(v);
 				}
 				
 			}
@@ -669,6 +675,7 @@ public class GUI extends JFrame{
 	private void displayMessages(Group selectedGroup) {
 		
 		if(selectedGroup != null) {
+			messagesArea.setVisible(true);
 			ArrayList<Message> groupMessages = controller.getGroupMessages(selectedGroup);
 			
 			String history = "<style type='text/css'>"
@@ -766,6 +773,13 @@ public class GUI extends JFrame{
 
 
 	public static void main(String[] args) throws SocketException, ClassNotFoundException, SQLException, UnknownHostException {	
+		
+		//Handling du SIGINT sur MAC OS X qui cause beaucoup de bugs
+		String osName = System.getProperty("os.name").toLowerCase();
+ 		boolean isMacOs = osName.startsWith("mac os x");
+ 		if (isMacOs) {		
+ 			System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
+ 		}
 
 		// Recupere la liste des adresses IP que possede la machine (et les adresses de broadcast correspondantes)
 		Map<InetAddress, InetAddress> allIP = Controller.getAllIpAndBroadcast();
@@ -776,18 +790,24 @@ public class GUI extends JFrame{
 		
 		// Attente de la connexion de l'utilisateur
 		while(guiConnect.getStatusConnexion() == false);		
-		ipMachine = guiConnect.getIPSelected();
-		username = guiConnect.getUsername();
-		id = guiConnect.getId();
-
 		
-		try {
-			controller = new Controller(allIP.get(ipMachine));
-			controller.setGUI(new GUI(username));
-			controller.connection(id, username, ipMachine);
-		} catch (IOException e) {
-			showError("Une erreur s'est produite dans la decouverte du reseau (Protocole UDP).");
-			System.exit(Controller.EXIT_GET_CONNECTED_USERS);
+		try{
+			ipMachine = guiConnect.getIPSelected();
+			username = guiConnect.getUsername();
+			id = guiConnect.getId();
+			try {
+				controller = new Controller(allIP.get(ipMachine));
+				controller.setGUI(new GUI(username));
+				controller.connection(id, username, ipMachine);
+			} catch (IOException e2) {
+				showError("Une erreur s'est produite dans la decouverte du reseau (Protocole UDP).");
+				System.exit(Controller.EXIT_GET_CONNECTED_USERS);
+			}
+		}
+		catch (NullPointerException e1) {			
+			controller.getGUI().setVisible(false);
+			GUI.showError("Aucune @IP n'est disponnible. Connectez-vous à internet et réessayez.");
+			System.exit(Controller.EXIT_WITH_ERROR);
 		}
 		
 	}

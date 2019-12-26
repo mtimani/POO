@@ -190,6 +190,7 @@ public class GUIConnect extends JFrame {
 					GUI.showError("L'identifiant ou le mot de passe est incorrect.");
 					usernameField.setText("");
 					passwordField.setText("");
+					usernameField.requestFocusInWindow();
 				}
 			} catch (ClassNotFoundException | IOException | NoSuchAlgorithmException e1) {
 				GUI.showError("Erreur lors de la lecture du fichier de donnees.");
@@ -212,6 +213,7 @@ public class GUIConnect extends JFrame {
 		 * Creation d'un utilisateur
 		 */
 		public void actionPerformed(ActionEvent e) {
+			usernameField.requestFocusInWindow();
 			setEnabled(false);
 			new GUISignup(guiConnect);
 		}

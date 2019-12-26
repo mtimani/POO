@@ -128,6 +128,7 @@ public class GUISignup extends JFrame {
 					GUI.showError("Les mots de passe indiques sont differents.");
 					passwordField.setText("");
 					confirmPasswordField.setText("");
+					passwordField.requestFocusInWindow();
 				}
 			} else {
 				setAlwaysOnTop(false);

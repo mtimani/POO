@@ -29,6 +29,7 @@ public class Controller {
 	public static final int EXIT_GET_CONNECTED_USERS = 1;
 	public static final int EXIT_ERROR_SEND_CONNECTION = 2;
 	public static final int EXIT_ERROR_SEND_DECONNECTION = 3;
+	public static final int EXIT_WITH_ERROR = 4;
 	
 	/**
 	 * Erreurs 
@@ -136,6 +137,10 @@ public class Controller {
 			if (g.equals(group)) return true;
 		}
 		return false;
+	}
+	
+	public GUI getGUI() {
+		return this.gui;
 	}
 	
 	/**

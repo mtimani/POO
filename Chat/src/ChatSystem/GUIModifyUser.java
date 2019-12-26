@@ -5,9 +5,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-
 import javax.swing.*;
-
 import ChatSystem.DataManager.PasswordError;
 
 /**
@@ -207,13 +205,14 @@ public class GUIModifyUser extends JFrame {
 						oldPasswordField.setText("");
 						newPasswordField.setText("");
 						newConfirmPasswordField.setText("");
+						oldPasswordField.requestFocusInWindow();
 					}
 				}
 				else {
 					GUI.showError("Les nouveaux mots de passe ne correspondent pas.");
-					oldPasswordField.setText("");
 					newPasswordField.setText("");
 					newConfirmPasswordField.setText("");
+					newPasswordField.requestFocusInWindow();
 				}
 			}else {
 				setAlwaysOnTop(false);
