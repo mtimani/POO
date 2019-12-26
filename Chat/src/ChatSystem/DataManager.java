@@ -304,14 +304,11 @@ public class DataManager {
 		if(!iniFile.exists() || iniFile.isDirectory()) return defaultValue;
 		
 		try {
-			Ini ini;
-			ini = new Ini(iniFile);
+			Ini ini = new Ini(iniFile);
 			Preferences prefs = new IniPreferences(ini);
-			System.out.println(prefs.node(node).get(setting, defaultValue));
 			return prefs.node(node).get(setting, defaultValue);
 		}
 		catch (Exception e) {
-			System.out.println("default");
 			return defaultValue;
 		}
 	}
