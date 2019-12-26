@@ -15,11 +15,11 @@ public class DataManager {
 	/**
 	 * Constantes
 	 */
-	private static final String PATH_DATA = System.getProperty("user.dir") + "/data/";
-	private static final String PATH_USER = System.getProperty("user.dir") + "/data/user.bin";
-	private static final String PATH_MESSAGES = System.getProperty("user.dir") + "/data/messages.bin";
-	private static final String PATH_GROUPS = System.getProperty("user.dir") + "/data/groups.bin";
-	private static final String PATH_CONFIG = System.getProperty("user.dir") + "/settings.ini";
+	private static final String PATH_DATA = "data/";
+	private static final String PATH_USER = "data/user.bin";
+	private static final String PATH_MESSAGES = "data/messages.bin";
+	private static final String PATH_GROUPS = "data/groups.bin";
+	private static final String PATH_CONFIG = "settings/settings.ini";
 	
 	/**
 	 * Erreurs
@@ -307,9 +307,11 @@ public class DataManager {
 			Ini ini;
 			ini = new Ini(iniFile);
 			Preferences prefs = new IniPreferences(ini);
+			System.out.println(prefs.node(node).get(setting, defaultValue));
 			return prefs.node(node).get(setting, defaultValue);
 		}
 		catch (Exception e) {
+			System.out.println("default");
 			return defaultValue;
 		}
 	}

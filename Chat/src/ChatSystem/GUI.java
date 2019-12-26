@@ -230,8 +230,8 @@ public class GUI extends JFrame{
 		}
 		else {
 			mainColor = "#FFFFFF";
-			backgroundColor = "#3300FF";
-			lightColor = "#3300FF";
+			backgroundColor = "#C8C8C8";
+			lightColor = "#E6E6E6";
 			foreColor = "#000000";
 		}
 		
