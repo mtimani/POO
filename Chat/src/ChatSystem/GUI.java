@@ -501,6 +501,7 @@ public class GUI extends JFrame{
 					
 					if (username.equals(connectedUsersList.getSelectedValue())){
 						groupList.setSelectedIndex(index);
+						textField.requestFocusInWindow();
 						bool = true;
 						break;
 					}
