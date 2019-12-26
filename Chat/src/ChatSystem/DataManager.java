@@ -4,8 +4,7 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-import java.util.prefs.Preferences;
-
+import java.util.prefs.*;
 import org.ini4j.*;
 
 /**
