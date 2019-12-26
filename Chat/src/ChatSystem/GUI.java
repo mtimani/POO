@@ -207,7 +207,7 @@ public class GUI extends JFrame{
 		
 		
 		/* Theme sombre */
-		if(DataManager.getSetting("general", "theme", "light").equals("dark")) {
+		if(DataManager.getSetting("general", "theme", "dark").equals("dark")) {
 			mainColor = "#3A3E43";
 			backgroundColor = "#2D3136";
 			lightColor = "#4A4E53";
