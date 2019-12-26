@@ -2,11 +2,13 @@ package ChatSystem;
 
 import java.io.*;
 import java.util.*;
+import ChatSystem.DataManager.PasswordError;
 import java.net.*;
 import java.nio.file.*;
 import java.security.NoSuchAlgorithmException;
-
-import ChatSystem.DataManager.PasswordError;
+import com.google.gson.Gson;
+import ChatSystemServer.ChatServer;
+import ChatSystemServer.ChatServer.ServerResponse;
 
 /**
  * Controlleur de l'application de Chat
@@ -22,6 +24,25 @@ public class Controller {
 	private volatile Message messageToSend = null;
 	private GUI gui;
 	
+	// Informations sur le serveur (si besoin)
+	private static boolean useServer;
+	private static String serverIP;
+	private static int serverPort;
+	private static int timeoutConnection;
+	private static int updateInterval;
+	private static String pathWebpage = null;
+		
+	// Timer utilise pour les requetes
+	private Timer timer;
+	
+	/**
+	 * Constantes
+	 */
+	// Utilise sur les machines Linux
+	private static final String PATH_WEBPAGE_LOWERCASE = "/chatsystem/ChatServer";
+	// Utilise sur les machines Windows
+	private static final String PATH_WEBPAGE_UPPERCASE = "/ChatSystem/ChatServer";
+	
 	/**
 	 * Constantes
 	 */
@@ -30,6 +51,7 @@ public class Controller {
 	public static final int EXIT_ERROR_SEND_CONNECTION = 2;
 	public static final int EXIT_ERROR_SEND_DECONNECTION = 3;
 	public static final int EXIT_WITH_ERROR = 4;
+	public static final int EXIT_ERROR_SERVER_UNAVAILABLE = 5;
 	
 	/**
 	 * Erreurs 
@@ -49,16 +71,31 @@ public class Controller {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public Controller (InetAddress ipBroadcast) throws SocketException, ClassNotFoundException, FileNotFoundException, IOException  {
+	public Controller (InetAddress ipBroadcast, String serverIP, int serverPort) throws SocketException, ClassNotFoundException, FileNotFoundException, IOException  {
 		this.connectedUsers = new ArrayList<User>();
 		this.groups = new ArrayList<Group>();
 		this.messages = new ArrayList<Message>();
 		this.messages = DataManager.readAllMessages();
 		this.groups = DataManager.readAllGroups();
 		
-		int udpPort = Integer.parseInt(DataManager.getSetting("udp", "port", "25000"));
-		this.ipBroadcast = ipBroadcast;
-		udp = new Udp(this,udpPort);
+		// On utilise le serveur
+		if(serverPort > 0) {
+			useServer = true;
+			Controller.serverIP = serverIP;
+			Controller.serverPort = serverPort;	
+			timeoutConnection = Integer.parseInt(DataManager.getSetting("server", "timeout", "5000"));
+			updateInterval = Integer.parseInt(DataManager.getSetting("server", "update_interval", "1000"));
+		}
+				
+		// On utilise le service UDP
+		else {
+			useServer = false;
+			Controller.serverIP = null;
+			Controller.serverPort = -1;	
+			int udpPort = Integer.parseInt(DataManager.getSetting("udp", "port", "5000"));
+			this.ipBroadcast = ipBroadcast;
+			udp = new Udp(this, udpPort);
+		}
 	}
 	
 	/********************************************************************* Getters/Setters/Search and existance functions ******************************************************************/
@@ -216,9 +253,20 @@ public class Controller {
 		ServerSocketWaiter serverSocketWaiter = new ServerSocketWaiter(serverSocket,this);
 		serverSocketWaiter.start();
 		
-		//Démarage du service UDP et l'envoi du message de connexion
-		udp.start();
-		udp.sendUdpMessage(udp.createMessage(Udp.CONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+		// Si on utilise le serveur
+		if(useServer) {
+			// Lancement du timer
+			// Ce timer sert a recuperer les utilisateurs connectes et a indiquer sa presence de facon reguliere
+			timer = new Timer();
+			timer.scheduleAtFixedRate(new RequestTimer(this), 0, updateInterval);
+		}
+				
+		// Si on utilise UDP
+		else {
+			// Demarrage du service UDP et envoi du message de presence
+			udp.start();
+			udp.sendUdpMessage(udp.createMessage(Udp.CONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+		}
 		
 		//Ajout des groupes sauvegardés auparavant au GUI
 		for(Group g : groups) gui.addGroup(g);
@@ -227,8 +275,10 @@ public class Controller {
 	/**
 	 * Déconnexion de l'Utilisateur de l'application et envoi d'un message de signalisation de son départ
 	 * @throws IOException
+	 * @throws ConnectionError 
+	 * @throws SendDeconnectionError 
 	 */
-	public void disconnection() throws IOException {
+	public void disconnection() throws IOException, ConnectionError, SendDeconnectionError {
 		//Tous les groupes du User passent en mode hors-ligne
 		for (Group g : groups) {
 			g.setOnline(false);
@@ -238,8 +288,37 @@ public class Controller {
 		DataManager.writeAllMessages(messages);
 		DataManager.writeAllGroups(groups);
 		
-		//Envoi du message de déconnexion
-		udp.sendUdpMessage(udp.createMessage(Udp.DECONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+		// Si on utilise le serveur
+		if(useServer) {
+			Gson gson = new Gson();
+			
+			// Connexion au serveur et envoie des donnees au format JSON
+			String paramValue = "userdata=" + gson.toJson(user);
+			
+			// Test de la connexion
+			if(!testConnectionServer())
+				throw new ConnectionError();
+			
+			// Connexion au serveur et traitement de la reponse
+			HttpURLConnection con = sendRequestToServer(ChatSystemServer.ChatServer.ACTION_USER_DECONNECTION, paramValue);		
+					
+			int status = con.getResponseCode();
+			if(status != HttpURLConnection.HTTP_OK)
+				throw new SendDeconnectionError();
+					
+			// On recupere les donnees
+			String jsonResponse = getResponseContent(con);
+			ServerResponse serverResponse = gson.fromJson(jsonResponse, ServerResponse.class);
+		
+			if(serverResponse.getCode() != ChatServer.NO_ERROR)
+				throw new SendDeconnectionError();
+		}
+				
+		// Si on utilise le service UDP
+		else {
+			udp.sendUdpMessage(udp.createMessage(Udp.DECONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+		}
+				
 	}
 	
 	/**
@@ -354,8 +433,9 @@ public class Controller {
 		DataManager.changeUsername(newUsername);
 		this.user.setUsername(newUsername);
 		
-		//Envoi du message signalant aux autres Users que le Username a été changé
-		udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_CHANGED_STATUS, this.user), this.ipBroadcast);
+		if(!useServer)
+			//Envoi du message signalant aux autres Users que le Username a été changé
+			udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_CHANGED_STATUS, this.user), this.ipBroadcast);
 	}
 	
 	/**
@@ -545,4 +625,198 @@ public class Controller {
 		gui.setGroupNoRead(group);
 	}
 	
+	/***************************** Methodes liees a l'utilisation du serveur *****************************/
+
+	/**
+	 * Envoie une requete au serveur
+	 * @param action L'action demandee au serveur
+	 * @param paramValue La valeur du parametre passe
+	 * @return La connexion au serveur (contenant le status, la reponse, etc.)
+	 * @throws IOException Si le serveur est inaccessible
+	 */
+	public static HttpURLConnection sendRequestToServer(int action, String paramValue) throws IOException {
+		
+		// Creation de l'URL
+		URL url = new URL("http://" + serverIP + ":" + serverPort + pathWebpage +"?action=" + action + "&" + paramValue);
+		
+		// Envoi de la requete
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Content-Type", "application/json");
+		con.setConnectTimeout(timeoutConnection);
+		//con.setReadTimeout(500);
+			
+		return con;
+	}
+	
+	/**
+	 * Teste si le serveur est accessible
+	 * @param ip L'IP du serveur
+	 * @param port Le port sur lequel se connecter
+	 * @return True si le serveur est accessible, False sinon
+	 */
+	public static boolean testConnectionServer() {
+		
+		// On a deja teste la connexion et on connait l'URL correcte
+		if(pathWebpage != null) {
+			
+			try {
+				
+				// Creation de l'URL
+				URL url = new URL("http://" + serverIP + ":" + serverPort + pathWebpage);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("HEAD");
+				con.setConnectTimeout(timeoutConnection);
+				
+				// Renvoie True si tout se passe bien
+				return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+			}
+			
+			// Permet de detecter un timeout
+			catch (IOException e) {
+				return false;
+			}
+			
+		}
+
+		// On teste les URL avec et sans majuscules (configuration differente selon Windows ou Linux)
+		else {
+			boolean connectionOK = false;
+			
+			// Test pour Linux (sans majuscule)
+			try {
+				// Creation de l'URL
+				URL url = new URL("http://" + serverIP + ":" + serverPort + PATH_WEBPAGE_LOWERCASE);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("HEAD");
+				con.setConnectTimeout(timeoutConnection);
+				
+				if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					connectionOK = true;
+					pathWebpage = PATH_WEBPAGE_LOWERCASE;
+				}
+			}
+			// Permet de detecter un timeout
+			catch (IOException e) {}
+
+			// Test pour Windows (avec majuscules) si le premier test a echoue
+			if(!connectionOK) {
+				try {
+					// Creation de l'URL
+					URL url = new URL("http://" + serverIP + ":" + serverPort + PATH_WEBPAGE_UPPERCASE);
+					HttpURLConnection con = (HttpURLConnection) url.openConnection();
+					con.setRequestMethod("HEAD");
+					con.setConnectTimeout(timeoutConnection);
+					
+					if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+						connectionOK = true;
+						pathWebpage = PATH_WEBPAGE_UPPERCASE;
+					}
+
+				}
+				// Permet de detecter un timeout
+				catch (IOException e) {}
+			}
+			
+			return connectionOK;
+		}
+
+	}
+	
+	/**
+	 * Retourne le contenu texte d'une reponse du serveur
+	 * @param con La connexion au serveur
+	 * @return Le contenu texte de la reponse
+	 * @throws IOException Si une erreur dans la connexion survient
+	 */
+	public static String getResponseContent(HttpURLConnection con) throws IOException {
+		
+		int responseCode = con.getResponseCode();
+		InputStream inputStream;
+		
+		if(200 <= responseCode && responseCode <= 299)
+			inputStream = con.getInputStream();
+		else
+			inputStream = con.getErrorStream();
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+		
+		StringBuilder content = new StringBuilder();
+		String currentLine;
+		
+		while((currentLine = in.readLine()) != null)
+			content.append(currentLine);
+		
+		in.close();
+		
+		return content.toString();
+	}
+	
+	/**
+	 * Met a jour la liste des utilisateurs connectes (et leurs informations)
+	 * Les donnees sont envoyees par le serveur
+	 * @param receivedUsers La liste des utilisateurs connectes sur le serveur
+	 */
+	public void receiveConnectedUsersFromServer(ArrayList<User> receivedUsers) {
+	
+		boolean hasNewUser = false;
+		boolean listHasChanged = false;
+		
+		String oldUsername = "", newUsername = "";
+		
+		// Utilise pour supprimer les utilisateurs deconnectes
+		ArrayList<User> disconnectedUsers = new ArrayList<User>(connectedUsers);
+		
+		// On traite chaque utilisateur recu
+		for(User u : receivedUsers) {
+			
+			disconnectedUsers.remove(u);
+			
+			boolean userHasChanged = false;
+			
+			// On verifie qu'on ne recoit pas sa propre annonce et qu'on ne connait pas deja l'utilisateur
+			if(!connectedUsers.contains(u) && !u.equals(user)) {
+				userHasChanged = true;
+				hasNewUser = true;
+				listHasChanged = true;
+				connectedUsers.add(u);
+			}
+			
+			// Mise a jour des groupes avec les nouvelles informations de l'utilisateur connecte
+			for(Group group : groups) {
+				oldUsername = group.getGroupNameForUser(user);
+				userHasChanged = userHasChanged || group.updateMember(u);
+				newUsername = group.getGroupNameForUser(user);
+			}
+			
+			if(userHasChanged) {
+				listHasChanged = true;
+				
+				// Mise a jour des messages avec les nouvelles informations de l'utilisateur
+				for(Message m : messages)
+					m.updateSender(u);
+			}
+		}
+		
+		// Gestion des utilisateurs deconnectes
+		if(!disconnectedUsers.isEmpty()) {
+			hasNewUser = true;
+			
+			for(User u : disconnectedUsers)
+				connectedUsers.remove(u);
+		}
+		
+		if(hasNewUser) {
+			// Ajout du nouvel utilisateur (GUI)
+			if(gui != null)
+				gui.updateConnectedUsers();
+		}
+		
+		// Mise a jour des usernames
+		if(listHasChanged)
+			gui.replaceUsernameInList(oldUsername, newUsername);
+		
+	}
 }
+
+

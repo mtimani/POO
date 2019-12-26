@@ -10,6 +10,9 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+
+import ChatSystem.Controller.ConnectionError;
+import ChatSystem.Controller.SendDeconnectionError;
 	
 /**
  * Fenetre principale du programme
@@ -411,10 +414,12 @@ public class GUI extends JFrame{
 			try {
 				// Deconnexion de l'utilisateur
 				controller.disconnection();
-				//controller.sendMessage(null, 0, Message.FUNCTION_STOP);
 				
 				// Fin du programme sans erreur
 				System.exit(Controller.EXIT_WITHOUT_ERROR);
+			} catch (ConnectionError | SendDeconnectionError err) {
+				showError("Une erreur est survenue lors de la connexion au serveur.");
+				System.exit(Controller.EXIT_ERROR_SEND_DECONNECTION);
 			} catch (IOException err) {
 				showError("Une erreur est survenue lors de la deconnexion.");
 				System.exit(Controller.EXIT_ERROR_SEND_DECONNECTION);
@@ -798,24 +803,42 @@ public class GUI extends JFrame{
 		
 		// Attente de la connexion de l'utilisateur
 		while(guiConnect.getStatusConnexion() == false);		
+		ipMachine = guiConnect.getIPSelected();
+		username = guiConnect.getUsername();
+		id = guiConnect.getId();
 		
-		try{
-			ipMachine = guiConnect.getIPSelected();
-			username = guiConnect.getUsername();
-			id = guiConnect.getId();
-			try {
-				controller = new Controller(allIP.get(ipMachine));
-				controller.setGUI(new GUI(username));
-				controller.connection(id, username, ipMachine);
-			} catch (IOException e2) {
-				showError("Une erreur s'est produite dans la decouverte du reseau (Protocole UDP).");
-				System.exit(Controller.EXIT_GET_CONNECTED_USERS);
+		try {
+
+			// On teste la connexion du serveur ici pour ne pas afficher la fenetre principale s'il y a une erreur
+			boolean useServer = (DataManager.getSetting("general", "use_server", "0").equals("1")) ? true : false;
+			
+			if(useServer) {
+				String serverIP = DataManager.getSetting("server", "ip", "0.0.0.0");
+				int serverPort = Integer.parseInt(DataManager.getSetting("server", "port", "-1"));
+				
+				// Cree le controller en utilisant le serveur
+				controller = new Controller(allIP.get(ipMachine), serverIP, serverPort);
+				
+				if(!Controller.testConnectionServer()) {
+					showError("Impossible de se connecter au serveur.\nVerifiez la configuration de la connexion ou utilisez le protocole UDP.");
+					System.exit(Controller.EXIT_ERROR_SERVER_UNAVAILABLE);
+				}
 			}
-		}
-		catch (NullPointerException e1) {			
-			controller.getGUI().setVisible(false);
-			GUI.showError("Aucune @IP n'est disponnible. Connectez-vous à internet et réessayez.");
-			System.exit(Controller.EXIT_WITH_ERROR);
+			else {
+				// Cree le controller sans serveur (utilisation de UDP)
+				controller = new Controller(allIP.get(ipMachine), null, -1);
+			}
+			
+			controller.setGUI(new GUI(username));
+			controller.connection(id, username, ipMachine);
+
+		} catch (NumberFormatException e) {
+			// Mauvaise configuration du timeout dans le fichier ini
+			showError("Impossible de se connecter au chat.\nVerifiez la configuration de la connexion au serveur ou du protocole UDP.");
+			System.exit(Controller.EXIT_ERROR_SERVER_UNAVAILABLE);
+		} catch (IOException e) {
+			showError("Une erreur s'est produite dans la decouverte du reseau (Protocole UDP).");
+			System.exit(Controller.EXIT_GET_CONNECTED_USERS);
 		}
 		
 	}
