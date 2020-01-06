@@ -293,10 +293,12 @@ public class GUI extends JFrame{
 	        	setFont(getFont().deriveFont(Font.BOLD));
 	        	if (controller.getGroupByName(groupList.getSelectedValue())!=null && selectedGroup.getId() == controller.getGroupByName(groupList.getSelectedValue()).getId() && nbMessagesGroups.containsKey(selectedGroup.getId())) {
 					nbMessagesGroups.remove(selectedGroup.getId());
+					setText(value.toString());
 		        }
 	        }
 	        else {
 	        	setFont(getFont().deriveFont(Font.PLAIN));
+	        	setText(value.toString());
 	        }
 
 	        // Coloration de l'item selectionne
