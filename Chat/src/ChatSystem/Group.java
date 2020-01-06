@@ -58,7 +58,7 @@ public class Group implements Serializable {
 	
 	/**
 	 * Indique l'utilisateur qui a initie la conversation
-	 * @param starter L'utilisateur qui a initie la conversation
+	 * @param origin L'utilisateur qui a initie la conversation
 	 */
 	public void setOrigin(User origin) {
 		this.origin = origin;

@@ -291,7 +291,9 @@ public class GUI extends JFrame{
 	        		setText(value.toString() + " " + i);
 	        	}
 	        	setFont(getFont().deriveFont(Font.BOLD));
-	        	if (controller.getGroupByName(groupList.getSelectedValue())!=null && selectedGroup.getId() == controller.getGroupByName(groupList.getSelectedValue()).getId() && nbMessagesGroups.containsKey(selectedGroup.getId())) {
+	        	if (controller.getGroupByName(groupList.getSelectedValue())!=null && 
+	        			selectedGroup.getId() == controller.getGroupByName(groupList.getSelectedValue()).getId() && 
+	        			nbMessagesGroups.containsKey(selectedGroup.getId())) {
 					nbMessagesGroups.remove(selectedGroup.getId());
 					setText(value.toString());
 		        }

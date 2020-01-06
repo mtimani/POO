@@ -66,6 +66,8 @@ public class Controller {
 	/**
 	 * Constructeur du controlleur de l'application
 	 * @param ipBroadcast L'adresse IP de la machine hôte
+	 * @param serverIP L'adresse IP du serveur
+	 * @param serverPort Le port d'écoute du serveur
 	 * @throws SocketException
 	 * @throws ClassNotFoundException
 	 * @throws FileNotFoundException
@@ -651,8 +653,6 @@ public class Controller {
 	
 	/**
 	 * Teste si le serveur est accessible
-	 * @param ip L'IP du serveur
-	 * @param port Le port sur lequel se connecter
 	 * @return True si le serveur est accessible, False sinon
 	 */
 	public static boolean testConnectionServer() {
