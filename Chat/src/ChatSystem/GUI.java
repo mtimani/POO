@@ -24,6 +24,7 @@ public class GUI extends JFrame{
 
 	private static Controller controller;
 	private Map<Integer, Boolean> newMessageGroups = new HashMap<Integer, Boolean>();
+	private Map<Integer, Integer> nbMessagesGroups = new HashMap<Integer, Integer>();
 	
 	private JPanel panel; // Panel principal
 	private JButton sendButton; // Bouton Envoyer 
@@ -281,14 +282,22 @@ public class GUI extends JFrame{
 
 	        String groupName = list.getModel().getElementAt(index).toString();
 	        Group selectedGroup = controller.getGroupByName(groupName);
-	        
+
 	        // On met en gras dans la liste des groupes si nouveau message
 	        if(style == STYLE_GROUP && selectedGroup != null &&
-	        	newMessageGroups.containsKey(selectedGroup.getId()) && newMessageGroups.get(selectedGroup.getId()))
-	        	
+	        	newMessageGroups.containsKey(selectedGroup.getId()) && newMessageGroups.get(selectedGroup.getId())) {
+	        	if (nbMessagesGroups.containsKey(selectedGroup.getId())) {
+	        		int i = nbMessagesGroups.get(selectedGroup.getId());
+	        		setText(value.toString() + " " + i);
+	        	}
 	        	setFont(getFont().deriveFont(Font.BOLD));
-	        else
+	        	if (controller.getGroupByName(groupList.getSelectedValue())!=null && selectedGroup.getId() == controller.getGroupByName(groupList.getSelectedValue()).getId() && nbMessagesGroups.containsKey(selectedGroup.getId())) {
+					nbMessagesGroups.remove(selectedGroup.getId());
+		        }
+	        }
+	        else {
 	        	setFont(getFont().deriveFont(Font.PLAIN));
+	        }
 
 	        // Coloration de l'item selectionne
 	        if(isSelected)
@@ -562,6 +571,14 @@ public class GUI extends JFrame{
 		
 		// Indique qu'il y a un nouveau message pour updatedGroup
 		newMessageGroups.put(updatedGroup.getId(), true);
+		
+		if (nbMessagesGroups.containsKey(updatedGroup.getId())) {
+			int j = nbMessagesGroups.get(updatedGroup.getId());
+			nbMessagesGroups.put(updatedGroup.getId(),j+1);
+		}
+		else {
+			nbMessagesGroups.put(updatedGroup.getId(),1);
+		}
 		
 		DefaultListModel<String> groupNames = new DefaultListModel<String>();
 		
