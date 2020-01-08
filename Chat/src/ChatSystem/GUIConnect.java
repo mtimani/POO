@@ -96,6 +96,7 @@ public class GUIConnect extends JFrame {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png")));
 
 		setVisible(true);
+		usernameField.requestFocusInWindow();
 	}
 
 	/**

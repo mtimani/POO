@@ -133,6 +133,12 @@ public class GUISignup extends JFrame {
 			} else {
 				setAlwaysOnTop(false);
 				GUI.showError("Veuillez remplir tous les champs.");
+				if (usernameField.getText().equals(""))
+					usernameField.requestFocusInWindow();
+				else if (password.length == 0)
+					passwordField.requestFocusInWindow();
+				else if (confirmPassword.length == 0)
+					confirmPasswordField.requestFocusInWindow();
 			}
 		}
 
