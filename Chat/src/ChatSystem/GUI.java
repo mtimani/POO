@@ -37,7 +37,6 @@ public class GUI extends JFrame{
 	private JLabel labelConnectedUsers; // Label "Utilisateurs connectes"
 	private JButton userButton; // Bouton "Profil"
 	private JButton sendFileButton; // Bouton "Envoyer un fichier"
-	private JButton deleteButton; // Bouton "Supprimer la conversation"
 	
 	/* Gestion du theme */
 	public static String mainColor;
@@ -168,7 +167,7 @@ public class GUI extends JFrame{
 		c.weightx = 0.1;
 		c.weighty = 0.01;
 		c.gridx = 3;
-		c.gridy = 3;
+		c.gridy = 2;
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		panel.add(labelConnectedUsers, c);
@@ -190,23 +189,6 @@ public class GUI extends JFrame{
 		panel.add(userButton, c);
 		
 		
-		/* Bouton "Supprimer la conversation" */
-		deleteButton = new JButton("Supprimer la conversation");
-		deleteButton.addActionListener(new deleteConversationListener(this));
-		deleteButton.setBackground(Color.WHITE);
-		deleteButton.setIcon(new ImageIcon(getClass().getResource("/delete.png")));
-		deleteButton.setHorizontalAlignment(SwingConstants.LEFT);
-		deleteButton.setIconTextGap(15);
-		deleteButton.setEnabled(false);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.1;
-		c.gridx = 3;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		panel.add(deleteButton, c);
-		
-		
 		/* Bouton "Envoyer un fichier" */
 		sendFileButton = new JButton("Envoyer un fichier");
 		sendFileButton.setEnabled(false);
@@ -218,7 +200,7 @@ public class GUI extends JFrame{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.1;
 		c.gridx = 3;
-		c.gridy = 2;
+		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		panel.add(sendFileButton, c);
@@ -255,10 +237,6 @@ public class GUI extends JFrame{
 			userButton.setForeground(Color.decode(foreColor));
 			userButton.setOpaque(true);
 			userButton.setBorderPainted(false);
-			deleteButton.setBackground(Color.decode(lightColor));
-			deleteButton.setForeground(Color.decode(foreColor));
-			deleteButton.setOpaque(true);
-			deleteButton.setBorderPainted(false);
 		}
 		else {
 			mainColor = "#FFFFFF";
@@ -357,23 +335,6 @@ public class GUI extends JFrame{
 		public void actionPerformed(ActionEvent e) {			
 			setEnabled(false);
 			new GUIModifyUser(gui, controller);			
-		}
-	}
-	
-	/**
-	 * Listener du bouton "Supprimer la conversation"
-	 */
-	public class deleteConversationListener implements ActionListener {
-		private GUI gui;
-		
-		public deleteConversationListener(GUI gui) {
-			super();
-			this.gui = gui;
-		}
-		
-		public void actionPerformed(ActionEvent e) {
-			setEnabled(false);
-			
 		}
 	}
 	
@@ -547,7 +508,6 @@ public class GUI extends JFrame{
 				}
 				else {
 					textField.setEditable(true);
-					deleteButton.setEnabled(true);
 					sendButton.setEnabled(true);
 					sendFileButton.setEnabled(true);
 				}
