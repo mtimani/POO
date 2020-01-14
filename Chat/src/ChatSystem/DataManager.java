@@ -294,53 +294,6 @@ public class DataManager {
 	}
 	
 	/**
-	 * Fonction permettant de supprimer un groupe dans la liste
-	 * @param grp Groupe à supprimer
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 */
-	public static void removeGroupAndMessages(Group grp) throws FileNotFoundException, IOException, ClassNotFoundException {
-		//Partie groupes
-		ArrayList<Group> groups = readAllGroups();
-		groups.remove(grp);
-
-	    FileOutputStream file = new FileOutputStream(PATH_GROUPS,false);
-		ObjectOutputStream out = new ObjectOutputStream(file);
-		
-		// Ecriture de chaque groupe
-		for(Group g : groups) {
-			out.writeObject(g);
-		}
-
-		out.close();
-		file.close();
-		
-		//Partie messages
-		ArrayList<Message> messages = readAllMessages();
-		ArrayList<Message> newMessages = new ArrayList<Message>();
-		for (Message m : messages) {
-			if (m.getReceiverGroup().equals(grp)) {
-				newMessages.add(m);
-			}
-		}
-		for (Message m : newMessages) {
-			messages.remove(m);
-		}
-		
-		FileOutputStream file2 = new FileOutputStream(PATH_MESSAGES,false);
-		ObjectOutputStream out2 = new ObjectOutputStream(file2);
-		
-		//Ecriture de chaque message
-		for (Message m : messages) {
-			out2.writeObject(m);
-		}
-		
-		out2.close();
-		file2.close();
-	}
-	
-	/**
 	 * Permet de lire un paramètre du fichier ini
 	 * @param node Section du fichier
 	 * @param setting Nom du paramètre

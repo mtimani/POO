@@ -370,13 +370,7 @@ public class GUI extends JFrame{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			String groupName = groupList.getSelectedValue();
-			try {
-				DataManager.removeGroupAndMessages(controller.getGroupByName(groupName));
-				displayMessages(controller.getGroupByName(groupName));
-			} catch (ClassNotFoundException | IOException e1) {
-				showError("Conversation ne peut pas être supprimée !");
-			}
+			groupList.remove(groupList.getSelectedIndex());
 		}
 	}
 	
@@ -755,90 +749,85 @@ public class GUI extends JFrame{
 		
 		if(selectedGroup != null) {
 			messagesArea.setVisible(true);
-			ArrayList<Message> groupMessages;
-			try {
-				groupMessages = controller.getGroupMessages(selectedGroup);
-				String history = "<style type='text/css'>"
-						+ ".message-sent{margin:3px 5px 3px 50px;padding:0 5px 5px 5px;background:#FF8075;color:white;font-size:14pt;}"
-						+ ".message-received{margin:3px 50px 3px 5px;padding:0 5px 5px 5px;background:#eeeeee;color:black;font-size:14pt;}"
-						+ ".date-sent{font-size:11pt;color:white;}"
-						+ ".date-received{font-size:11pt;color:black;}"
-						+ ".user-sent{font-size:11pt;color:#888888;margin:3px 0 0 55px;}"
-						+ ".user-received{font-size:11pt;color:#888888;margin:3px 0 0 10px;}"
-						+ "</style>";
-					
-				// Utilise pour ne pas repeter le nom de l'utilisateur si plusieurs messages consecutifs
-				User prevSender = null;
+			ArrayList<Message> groupMessages = controller.getGroupMessages(selectedGroup);
+			
+			String history = "<style type='text/css'>"
+					+ ".message-sent{margin:3px 5px 3px 50px;padding:0 5px 5px 5px;background:#FF8075;color:white;font-size:14pt;}"
+					+ ".message-received{margin:3px 50px 3px 5px;padding:0 5px 5px 5px;background:#eeeeee;color:black;font-size:14pt;}"
+					+ ".date-sent{font-size:11pt;color:white;}"
+					+ ".date-received{font-size:11pt;color:black;}"
+					+ ".user-sent{font-size:11pt;color:#888888;margin:3px 0 0 55px;}"
+					+ ".user-received{font-size:11pt;color:#888888;margin:3px 0 0 10px;}"
+					+ "</style>";
+			
+			// Utilise pour ne pas repeter le nom de l'utilisateur si plusieurs messages consecutifs
+			User prevSender = null;
+			
+			for(Message m : groupMessages) {
+				String username, date, content = m.getContent();
 				
-				for(Message m : groupMessages) {
-					String username, date, content = m.getContent();
-						
-					// Format du contenu
-					// Si image
-					if(m.getFunction() == Message.FUNCTION_IMAGE) {
-						File file = new File(content);
-							
-						// On l'affiche si elle existe encore sur le disque
-						if(file.exists()) {
-							content = "<img src='file:" + content + "' width='300' height='300' alt='image' />";
-						}
-						else {
-							if(m.getSender().equals(controller.getUser()))
-								content = "Vous avez envoye une image :<br/>";
-							else
-								content = "Vous avez recu une image :<br/>";
-							
-							content += "<strong>" + file.getName() + "</strong>";
-						}
-							
+				// Format du contenu
+				// Si image
+				if(m.getFunction() == Message.FUNCTION_IMAGE) {
+					File file = new File(content);
+					
+					// On l'affiche si elle existe encore sur le disque
+					if(file.exists()) {
+						content = "<img src='file:" + content + "' width='300' height='300' alt='image' />";
 					}
-						
-					// Si fichier
-					else if(m.getFunction() == Message.FUNCTION_FILE) {
-						File file = new File(content);
-						
+					else {
 						if(m.getSender().equals(controller.getUser()))
-							content = "Vous avez envoye un fichier :<br/>";
+							content = "Vous avez envoye une image :<br/>";
 						else
-							content = "Vous avez recu un fichier :<br/>";
-							
+							content = "Vous avez recu une image :<br/>";
+						
 						content += "<strong>" + file.getName() + "</strong>";
 					}
-						
-					// Format de la date
-					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-					date = dateFormat.format(m.getDate());
-						
-					// Message envoye par moi
-					if(m.getSender().equals(controller.getUser())) {
-						username = "<div class='user-sent'>Moi</div>";
-						date = "<span class='date-sent'>" + date + "</span>";
-						content = "<div class='message-sent'>" + date + "<br>" + content + "</div>";
-					}
-					// Message envoye par l'autre utilisateur
-					else {
-						username = "<div class='user-received'>" + m.getSender().getUsername() + "</div>";
-						date = "<span class='date-received'>" + date + "</span>";
-						content = "<div class='message-received'>" + date + "<br>" + content + "</div>";
-					}
 					
-					
-					if(m.getSender().equals(prevSender))
-						history += content;
-					else
-						history += username + content;
-						
-					prevSender = m.getSender();
 				}
-		
-				// Affichage des messages
-				messagesArea.setText(history);
+				
+				// Si fichier
+				else if(m.getFunction() == Message.FUNCTION_FILE) {
+					File file = new File(content);
 					
-				// Scroll a la fin des messages
-				messagesArea.setCaretPosition(messagesArea.getDocument().getLength());
-			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+					if(m.getSender().equals(controller.getUser()))
+						content = "Vous avez envoye un fichier :<br/>";
+					else
+						content = "Vous avez recu un fichier :<br/>";
+						
+					content += "<strong>" + file.getName() + "</strong>";
+				}
+				
+				// Format de la date
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				date = dateFormat.format(m.getDate());
+				
+				// Message envoye par moi
+				if(m.getSender().equals(controller.getUser())) {
+					username = "<div class='user-sent'>Moi</div>";
+					date = "<span class='date-sent'>" + date + "</span>";
+					content = "<div class='message-sent'>" + date + "<br>" + content + "</div>";
+				}
+				// Message envoye par l'autre utilisateur
+				else {
+					username = "<div class='user-received'>" + m.getSender().getUsername() + "</div>";
+					date = "<span class='date-received'>" + date + "</span>";
+					content = "<div class='message-received'>" + date + "<br>" + content + "</div>";
+				}
+				
+				if(m.getSender().equals(prevSender))
+					history += content;
+				else
+					history += username + content;
+				
+				prevSender = m.getSender();
 			}
+
+			// Affichage des messages
+			messagesArea.setText(history);
+			
+			// Scroll a la fin des messages
+			messagesArea.setCaretPosition(messagesArea.getDocument().getLength());
 			
 		}
 		else {

@@ -113,15 +113,10 @@ public class Controller {
 	 * Retourne la liste des messages d'un groupe donné
 	 * @param group Le groupe dont les messages sont recherchés
 	 * @return Liste des messages du groupe souhaité
-	 * @throws ClassNotFoundException
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
 	 */
-	public ArrayList<Message> getGroupMessages(Group group) throws ClassNotFoundException, FileNotFoundException, IOException {
-		ArrayList<Message> msg = DataManager.readAllMessages();
-		messages = msg;
+	public ArrayList<Message> getGroupMessages(Group group) {
 		ArrayList<Message> groupMessages = new ArrayList<Message>();
-		for (Message m : msg) {
+		for (Message m : messages) {
 			if (m.getReceiverGroup().equals(group)) groupMessages.add(m);
 		}
 		return groupMessages;
