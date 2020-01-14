@@ -367,7 +367,6 @@ public class GUI extends JFrame{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Clicked");
 			String groupName = groupList.getSelectedValue();
 			controller.removeMessagesGroup(controller.getGroupByName(groupName));
 			displayMessages(controller.getGroupByName(groupName));
