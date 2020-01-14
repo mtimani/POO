@@ -364,13 +364,16 @@ public class GUI extends JFrame{
 	 * Listener du bouton "Supprimer la conversation"
 	 */
 	public class deleteConversationListener implements ActionListener {
+		private GUI gui;
 		
 		public deleteConversationListener(GUI gui) {
 			super();
+			this.gui = gui;
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			groupList.remove(groupList.getSelectedIndex());
+			setEnabled(false);
+			
 		}
 	}
 	
@@ -512,9 +515,6 @@ public class GUI extends JFrame{
 					sendButton.setEnabled(false);
 					sendFileButton.setEnabled(false);
 				}
-				else {
-					deleteButton.setEnabled(true);
-				}
 				
 				
 				// Rafraichissement des messages
@@ -548,6 +548,7 @@ public class GUI extends JFrame{
 				else {
 					textField.setEditable(true);
 					deleteButton.setEnabled(true);
+					sendButton.setEnabled(true);
 					sendFileButton.setEnabled(true);
 				}
 				
