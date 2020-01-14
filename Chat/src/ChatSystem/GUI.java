@@ -190,23 +190,6 @@ public class GUI extends JFrame{
 		panel.add(userButton, c);
 		
 		
-		/* Bouton "Supprimer la conversation" */
-		deleteButton = new JButton("Supprimer la conversation");
-		deleteButton.addActionListener(new deleteConversationListener(this));
-		deleteButton.setBackground(Color.WHITE);
-		deleteButton.setIcon(new ImageIcon(getClass().getResource("/delete.png")));
-		deleteButton.setHorizontalAlignment(SwingConstants.LEFT);
-		deleteButton.setIconTextGap(15);
-		deleteButton.setEnabled(false);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.1;
-		c.gridx = 3;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		panel.add(deleteButton, c);
-		
-		
 		/* Bouton "Envoyer un fichier" */
 		sendFileButton = new JButton("Envoyer un fichier");
 		sendFileButton.setEnabled(false);
@@ -218,10 +201,27 @@ public class GUI extends JFrame{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.1;
 		c.gridx = 3;
-		c.gridy = 2;
+		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		panel.add(sendFileButton, c);
+		
+		
+		/* Bouton "Supprimer la conversation" */
+		deleteButton = new JButton("Supprimer la conversation");
+		deleteButton.addActionListener(new deleteConversationListener(this));
+		deleteButton.setBackground(Color.WHITE);
+		deleteButton.setIcon(new ImageIcon(getClass().getResource("/delete.png")));
+		deleteButton.setHorizontalAlignment(SwingConstants.LEFT);
+		deleteButton.setIconTextGap(15);
+		deleteButton.setEnabled(false);
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.1;
+		c.gridx = 3;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		panel.add(deleteButton, c);
 		
 		
 		/* Icone du programme */
@@ -510,6 +510,9 @@ public class GUI extends JFrame{
 					sendButton.setEnabled(false);
 					sendFileButton.setEnabled(false);
 				}
+				else {
+					deleteButton.setEnabled(true);
+				}
 				
 				
 				// Rafraichissement des messages
@@ -543,6 +546,7 @@ public class GUI extends JFrame{
 				else {
 					textField.setEditable(true);
 					sendButton.setEnabled(true);
+					deleteButton.setEnabled(true);
 					sendFileButton.setEnabled(true);
 				}
 				
