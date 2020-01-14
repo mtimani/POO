@@ -255,6 +255,10 @@ public class GUI extends JFrame{
 			userButton.setForeground(Color.decode(foreColor));
 			userButton.setOpaque(true);
 			userButton.setBorderPainted(false);
+			deleteButton.setBackground(Color.decode(lightColor));
+			deleteButton.setForeground(Color.decode(foreColor));
+			deleteButton.setOpaque(true);
+			deleteButton.setBorderPainted(false);
 		}
 		else {
 			mainColor = "#FFFFFF";
