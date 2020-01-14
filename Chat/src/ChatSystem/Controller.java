@@ -122,6 +122,14 @@ public class Controller {
 		return groupMessages;
 	}
 	
+	public void removeMessagesGroup(Group group) {
+		ArrayList<Message> groupMessages = new ArrayList<Message>();
+		for (Message m : messages) {
+			if (!m.getReceiverGroup().equals(group)) groupMessages.add(m);
+		}
+		messages = groupMessages;
+	}
+	
 	/**
 	 * Retourne la liste d'utilisateurs connectés
 	 * @return connectedUsers
