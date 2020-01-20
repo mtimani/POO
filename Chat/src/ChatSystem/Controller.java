@@ -294,6 +294,17 @@ public class Controller {
 			g.setOnline(false);
 		}
 		
+		//Suppression de groupes vides
+		ArrayList<Group> groupsCopy = new ArrayList<Group>();
+		for (Message m : messages) {
+			if (!groups.contains(m.getReceiverGroup())) {
+				groupsCopy.add(m.getReceiverGroup());
+			}
+		}
+		for (Group g : groupsCopy) {
+			groups.remove(g);
+		}
+		
 		//Enregistrement de toutes les données
 		DataManager.writeAllMessages(messages);
 		DataManager.writeAllGroups(groups);
