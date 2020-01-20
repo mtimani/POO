@@ -474,6 +474,7 @@ public class Controller {
 	 */
 	public void receivedUsernameChanged(User receivedUser) {
 		String oldUsername = "";
+		boolean changed = false;
 		
 		//Mise à jour du User dans la liste des Users connectés
 		for (User u : this.connectedUsers) {
@@ -487,7 +488,18 @@ public class Controller {
 		
 		//Mise à jour des groupes avec les nouvelles informations sur le User
 		for (Group g : groups) {
-			g.updateMember(receivedUser);
+			changed = false;
+			if(g.updateMember(receivedUser)) {
+				for (Group g1 : groupsToRemove) {
+					if (g1.getId() == g.getId()) {
+						groupsToRemove.remove(g1);
+						changed = true;
+					}
+				}
+				if (changed) {
+					groupsToRemove.add(g);
+				}
+			}
 		}
 		
 		//Mise à jour des messages avec les nouvelles informations sur le User
