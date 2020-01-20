@@ -183,7 +183,7 @@ public class Controller {
 	 */
 	public boolean groupKnownByController(Group group) {
 		for (Group g : this.groups) {
-			if (g.equals(group)) return true;
+			if (g.getGroupNameForUser(getUser()).equals(group.getGroupNameForUser(getUser()))) return true;
 		}
 		return false;
 	}
