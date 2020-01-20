@@ -40,9 +40,9 @@ public class Controller {
 	 * Constantes
 	 */
 	// Utilise sur les machines Linux
-	private static final String PATH_WEBPAGE_LOWERCASE = "/servPresence/";
+	private static final String PATH_WEBPAGE_LOWERCASE = "/chat/ChatServer";
 	// Utilise sur les machines Windows
-	private static final String PATH_WEBPAGE_UPPERCASE = "/servPresence/";
+	private static final String PATH_WEBPAGE_UPPERCASE = "/Chat/ChatServer";
 	
 	/**
 	 * Constantes
@@ -696,7 +696,6 @@ public class Controller {
 				
 				// Creation de l'URL
 				URL url = new URL("http://" + serverIP + ":" + serverPort + pathWebpage);
-				//URL url = new URL("http://localhost:8080/servPresence/ChatServer");
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
 				con.setRequestMethod("HEAD");
 				con.setConnectTimeout(timeoutConnection);

@@ -11,5 +11,7 @@
 	<classpathentry kind="lib" path="jars/ini4j-0.5.4.jar"/>
 	<classpathentry kind="lib" path="jars/gson-2.6.2.jar"/>
 	<classpathentry kind="lib" path="jars/javax.servlet.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
