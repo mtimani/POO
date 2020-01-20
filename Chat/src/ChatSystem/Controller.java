@@ -19,6 +19,7 @@ public class Controller {
 	private volatile ArrayList<User> connectedUsers;
 	private ArrayList<Message> messages;
 	private ArrayList<Group> groups;
+	private ArrayList<Group> groupsToRemove = new ArrayList<Group>();
 	private Udp udp;
 	private InetAddress ipBroadcast;
 	private volatile Message messageToSend = null;
@@ -128,6 +129,7 @@ public class Controller {
 			if (!m.getReceiverGroup().equals(group)) groupMessages.add(m);
 		}
 		messages = groupMessages;
+		this.groupsToRemove.add(group);
 	}
 	
 	/**
@@ -295,13 +297,7 @@ public class Controller {
 		}
 		
 		//Suppression de groupes vides
-		ArrayList<Group> groupsCopy = new ArrayList<Group>();
-		for (Message m : messages) {
-			if (!groups.contains(m.getReceiverGroup())) {
-				groupsCopy.add(m.getReceiverGroup());
-			}
-		}
-		for (Group g : groupsCopy) {
+		for (Group g : groupsToRemove) {
 			groups.remove(g);
 		}
 		

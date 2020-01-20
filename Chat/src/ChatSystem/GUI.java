@@ -401,7 +401,6 @@ public class GUI extends JFrame{
 				
 				// RAZ de la zone de texte
 				textField.setText(null);
-				
 				displayMessages(controller.getGroupByName(groupName));
 			
 			} catch (Exception e1) {
