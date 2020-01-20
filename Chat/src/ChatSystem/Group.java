@@ -41,6 +41,14 @@ public class Group implements Serializable {
 	}
 	
 	/**
+	 * Permet de changer l'id du groupe
+	 * @param id Nouveau id du groupe
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	/**
 	 * Retourne les membres du groupe
 	 * @return Les membres du groupe
 	 */

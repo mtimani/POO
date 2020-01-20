@@ -632,6 +632,11 @@ public class Controller {
 		}
 		else {
 			// Si le groupe est connu, on le set online
+			for (Group g : groups) {
+				if (group.getGroupNameForUser(this.getUser()).equals(g.getGroupNameForUser(this.getUser()))){
+					g.setId(group.getId());
+				}
+			}
 			Group groupToUpdate = getGroupByID(group.getId());
 			groupToUpdate.setOnline(true);
 		}
