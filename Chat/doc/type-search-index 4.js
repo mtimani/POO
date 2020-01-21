@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ChatSystem","l":"Controller.ConnectionError"},{"p":"ChatSystem","l":"Controller"},{"p":"ChatSystem","l":"Controller.SendConnectionError"},{"p":"ChatSystem","l":"Controller.SendDeconnectionError"}]

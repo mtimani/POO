@@ -515,7 +515,7 @@ public class Controller {
 
 	/**
 	 * Démarage d'une nouvelle conversation
-	 * @param members Membres de la communication
+	 * @param groupMembers Membres de la communication
 	 * @return Groupe crée
 	 * @throws IOException
 	 */
@@ -671,8 +671,8 @@ public class Controller {
 	public static HttpURLConnection sendRequestToServer(int action, String paramValue) throws IOException {
 		
 		// Creation de l'URL
-		URL url = new URL("http://" + serverIP + ":" + serverPort + pathWebpage +"?action=" + action + "&" + paramValue);
-		
+		URL url = new URL(URLEncoder.encode("http://" + serverIP + ":" + serverPort + pathWebpage +"?action=" + action + "&" + paramValue, "UTF-8"));
+		System.out.println(url);
 		// Envoi de la requete
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("POST");
@@ -695,7 +695,8 @@ public class Controller {
 			try {
 				
 				// Creation de l'URL
-				URL url = new URL("http://" + serverIP + ":" + serverPort + pathWebpage);
+				@SuppressWarnings("deprecation")
+				URL url = new URL(URLEncoder.encode("http://" + serverIP + ":" + serverPort + pathWebpage));
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
 				con.setRequestMethod("HEAD");
 				con.setConnectTimeout(timeoutConnection);
@@ -718,7 +719,8 @@ public class Controller {
 			// Test pour Linux (sans majuscule)
 			try {
 				// Creation de l'URL
-				URL url = new URL("http://" + serverIP + ":" + serverPort + PATH_WEBPAGE_LOWERCASE);
+				@SuppressWarnings("deprecation")
+				URL url = new URL(URLEncoder.encode("http://" + serverIP + ":" + serverPort + PATH_WEBPAGE_LOWERCASE));
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
 				con.setRequestMethod("HEAD");
 				con.setConnectTimeout(timeoutConnection);
@@ -735,7 +737,8 @@ public class Controller {
 			if(!connectionOK) {
 				try {
 					// Creation de l'URL
-					URL url = new URL("http://" + serverIP + ":" + serverPort + PATH_WEBPAGE_UPPERCASE);
+					@SuppressWarnings("deprecation")
+					URL url = new URL(URLEncoder.encode("http://" + serverIP + ":" + serverPort + PATH_WEBPAGE_UPPERCASE));
 					HttpURLConnection con = (HttpURLConnection) url.openConnection();
 					con.setRequestMethod("HEAD");
 					con.setConnectTimeout(timeoutConnection);

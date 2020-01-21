@@ -360,6 +360,9 @@ public class GUI extends JFrame{
 		}
 	}
 	
+	/**
+	 * Listener du bouton de suppression de conversation
+	 */
 	public class deleteConversationListener implements ActionListener {
 		
 		public deleteConversationListener(GUI gui) {
