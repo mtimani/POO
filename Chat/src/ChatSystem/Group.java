@@ -11,49 +11,41 @@ public class Group implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
-	private ArrayList<User> members;
+	private int groupId;
 	private User origin;
+	private ArrayList<User> groupMembers;
 	private boolean online;
 	
 	/**
 	 * Creation d'un groupe
-	 * @param id ID du groupe
-	 * @param members Liste des membres du groupe
+	 * @param groupId ID du groupe
+	 * @param origin Origine de la conversation
+	 * @param groupMembers Liste des membres du groupe
 	 */
-	public Group(int id, ArrayList<User> members, User starter) {
-		this.id = id;
-		this.origin = starter;
+	public Group(int groupId, User origin, ArrayList<User> groupMembers) {
+		this.groupId = groupId;
+		this.origin = origin;
 		this.online = true;
-		
-		this.members = new ArrayList<User>();
-		for(User m : members)
-			this.members.add(m);
-		
+		this.groupMembers = new ArrayList<User>();
+		for(User m : groupMembers) {
+			this.groupMembers.add(m);
+		}
 	}
 	
 	/**
 	 * Retourne l'ID du groupe
 	 * @return L'ID du groupe
 	 */
-	public int getId() {
-		return id;
+	public int getGroupId() {
+		return groupId;
 	}
 	
 	/**
 	 * Permet de changer l'id du groupe
-	 * @param id Nouveau id du groupe
+	 * @param groupId Nouveau id du groupe
 	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	/**
-	 * Retourne les membres du groupe
-	 * @return Les membres du groupe
-	 */
-	public ArrayList<User> getMembers() {
-		return members;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 	
 	/**
@@ -70,6 +62,14 @@ public class Group implements Serializable {
 	 */
 	public void setOrigin(User origin) {
 		this.origin = origin;
+	}
+	
+	/**
+	 * Retourne les membres du groupe
+	 * @return Les membres du groupe
+	 */
+	public ArrayList<User> getGroupMembers() {
+		return groupMembers;
 	}
 	
 	/**
@@ -93,9 +93,9 @@ public class Group implements Serializable {
 	 * @param member L'utilisateur a tester
 	 * @return True si l'utilisateur est dans le groupe, False sinon
 	 */
-	public boolean isMember(User member) {
-		for(User m : members) {
-			if(m.getId() == member.getId())
+	public boolean isAMember(User member) {
+		for(User m : groupMembers) {
+			if(m.getUserId() == member.getUserId())
 				return true;
 		}
 		
@@ -105,26 +105,27 @@ public class Group implements Serializable {
 	/**
 	 * Permet de mettre a jour les informations sur un membre du groupe
 	 * @param newVersionMember La nouvelle version de l'utilisateur
+	 * @return booleen pour indiquer si la mise a jour s'est bien deroulee
 	 */
-	public boolean updateMember(User newVersionMember) {
+	public boolean updateAMember(User newVersionMember) {
 		boolean hasChanged = false;
-		ArrayList<User> newMembers = new ArrayList<User>(members);
+		ArrayList<User> newGroupMembers = new ArrayList<User>(groupMembers);
 		
-		for(User oldVersionMember : members) {
+		for(User oldVersionMember : groupMembers) {
 			
 			if(oldVersionMember.equals(newVersionMember)) {
 				
-				if(oldVersionMember.getPort() != newVersionMember.getPort()
+				if(oldVersionMember.getPortNum() != newVersionMember.getPortNum()
 						|| !oldVersionMember.getUsername().equals(newVersionMember.getUsername())) {
-					newMembers.remove(oldVersionMember);
-					newMembers.add(newVersionMember);
+					newGroupMembers.remove(oldVersionMember);
+					newGroupMembers.add(newVersionMember);
 					hasChanged = true;
 				}
 				
 			}
 		}
 		
-		members = newMembers;
+		groupMembers = newGroupMembers;
 		
 		return hasChanged;
 	}
@@ -136,12 +137,12 @@ public class Group implements Serializable {
 	 * @param user L'utilisateur qui veut obtenir le nom
 	 * @return Le nom du groupe vu par l'utilisateur demandeur
 	 */
-	public String getGroupNameForUser(User user) {
+	public String getGroupNameForAUser(User user) {
 	
-		if(members.get(0).equals(user))
-			return members.get(1).getUsername();
+		if(groupMembers.get(0).equals(user))
+			return groupMembers.get(1).getUsername();
 		else
-			return members.get(0).getUsername();
+			return groupMembers.get(0).getUsername();
 		
 	}
 	
@@ -151,7 +152,7 @@ public class Group implements Serializable {
 			return false;
 		
 		Group g = (Group) obj;
-		return g.id == id;
+		return g.groupId == groupId;
 	}
 
 }

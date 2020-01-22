@@ -24,17 +24,17 @@ import ChatSystem.User;
 public class ChatServer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public static final int ACTION_TEST_SERVER = 0;
-	public static final int ACTION_USER_CONNECTION = 1;
-	public static final int ACTION_USER_DECONNECTION = 2;
+	public static final int TEST_SERVER_ACTION = 0;
+	public static final int USER_CONNECTION_ACTION = 1;
+	public static final int USER_DISCONNECTION_ACTION = 2;
 
 	// Delai de deconnexion automatique : 5 secondes
 	public static final int AUTO_DECONNECTION_DELAY = 5000;
 	
 	public static final int NO_ERROR = 0;
-	public static final int ERROR_NO_ACTION = 1;
-	public static final int ERROR_NO_USER_DATA = 2;
-	public static final int ERROR_JSON_FORMAT = 10;
+	public static final int NO_ACTION_ERROR = 1;
+	public static final int NO_USER_DATA_ERROR = 2;
+	public static final int JSON_FORMAT_ERROR = 10;
 
 	// Liste des utilisateurs connectes sur le serveur
 	private ArrayList<User> connectedUsers;
@@ -121,7 +121,7 @@ public class ChatServer extends HttpServlet {
 				 * Met a jour les donnees sur cet utilisateur
 				 * et renvoie la liste des autres utilisateurs connectes
 				 */
-				if(action == ACTION_USER_CONNECTION) {
+				if(action == USER_CONNECTION_ACTION) {
 					
 					if(parameters.containsKey("userdata")) {
 						
@@ -130,7 +130,7 @@ public class ChatServer extends HttpServlet {
 						
 						// Gestion de la deconnexion automatique
 						deconnectOldUsers();
-						newUser.setLastVisit(new Date());
+						newUser.setLastVisitDate(new Date());
 						
 						// On se met a la fin (et on n'apparait pas a soi-meme)
 						if(connectedUsers.contains(newUser))
@@ -144,7 +144,7 @@ public class ChatServer extends HttpServlet {
 						
 					}
 					else {
-						serverResponse.setCode(ERROR_NO_USER_DATA);
+						serverResponse.setCode(NO_USER_DATA_ERROR);
 					}
 
 				}
@@ -152,7 +152,7 @@ public class ChatServer extends HttpServlet {
 				/**
 				 * Supprime l'utilisateur de la liste des utilisateurs connectes
 				 */
-				else if(action == ACTION_USER_DECONNECTION) {
+				else if(action == USER_DISCONNECTION_ACTION) {
 					
 					if(parameters.containsKey("userdata")) {
 						
@@ -165,14 +165,14 @@ public class ChatServer extends HttpServlet {
 						
 					}
 					else {
-						serverResponse.setCode(ERROR_NO_USER_DATA);
+						serverResponse.setCode(NO_USER_DATA_ERROR);
 					}
 					
 				}
 				
 			}
 			catch (JsonSyntaxException e) {
-				serverResponse.setCode(ERROR_JSON_FORMAT);
+				serverResponse.setCode(JSON_FORMAT_ERROR);
 			}
 			finally {
 				jsonData = gson.toJson(serverResponse);
@@ -181,7 +181,7 @@ public class ChatServer extends HttpServlet {
 			
 		}
 		else {
-			serverResponse.setCode(ERROR_NO_ACTION);
+			serverResponse.setCode(NO_ACTION_ERROR);
 			jsonData = gson.toJson(serverResponse);
 			out.write(jsonData);
 		}
@@ -221,7 +221,7 @@ public class ChatServer extends HttpServlet {
 		ArrayList<User> stillConnectedUsers = new ArrayList<User>();
 		
 		for(User u : connectedUsers) {
-			if(currentTime.getTime() - u.getLastVisit().getTime() < AUTO_DECONNECTION_DELAY)
+			if(currentTime.getTime() - u.getLastVisitDate().getTime() < AUTO_DECONNECTION_DELAY)
 				stillConnectedUsers.add(u);
 		}
 		

@@ -10,58 +10,50 @@ public class Message implements Serializable {
 	
 	private static final long serialVersionUID = 3L;
 
-	private Date date;
-	private String content;
+	private String msg;
 	private User sender; 
-	private Group receiverGroup;
+	private Group destinationGroup;
+	private Date dateMsg;
 	private int function;
 	
 	/**
 	 * Fonctions du message
 	 */
-	public static final int FUNCTION_NORMAL = 0;
-	public static final int FUNCTION_STOP = 1;
-	public static final int FUNCTION_FILE = 2;
-	public static final int FUNCTION_IMAGE = 3;
+	public static final int NORMAL_FUNCTION = 0;
+	public static final int STOP_FUNCTION = 1;
+	public static final int FILE_FUNCTION = 2;
+	public static final int IMAGE_FUNCTION = 3;
 	
 	/**
 	 * Crée un message
-	 * @param date Date du message
-	 * @param content Contenu du message
+	 * @param msg Contenu du message
 	 * @param sender ID de l'envoyeur du message
-	 * @param receiverGroup ID du groupe du receveur du message
+	 * @param destinationGroup ID du groupe du receveur du message
+	 * @param dateMsg Date du message
 	 * @param function Fonction à implémenter
 	 */
-	public Message(Date date, String content, User sender, Group receiverGroup, int function) {
-		this.date = date;
-		this.content = content;
+	public Message(String msg, User sender, Group destinationGroup, Date dateMsg, int function) {
+		this.msg = msg;
 		this.sender = sender;
-		this.receiverGroup = receiverGroup;
+		this.destinationGroup = destinationGroup;
+		this.dateMsg = dateMsg;
 		this.function = function;
-	}
-
-	/**
-	 * Retourne la date du message
-	 * @return the date
-	 */
-	public Date getDate() {
-		return this.date;
 	}
 
 	/**
 	 * Retourne le contenu du message
 	 * @return the content
 	 */
-	public String getContent() {
-		return this.content;
+	public String getMsg() {
+		return this.msg;
 	}
 	
 	/**
 	 * Modifie le contenu du message
 	 * @param content Contenu du message
 	 */
-	public void setContent(String content) {
-		this.content = content;
+	public void setMsg(String content) {
+		this.msg = content;
 	}
 
 	/**
@@ -76,10 +68,18 @@ public class Message implements Serializable {
 	 * Retourne le groupe de l'envoyeur du message
 	 * @return the receiverGroup
 	 */
-	public Group getReceiverGroup() {
-		return this.receiverGroup;
+	public Group getDestinationGroup() {
+		return this.destinationGroup;
 	}
 
+	/**
+	 * Retourne la date du message
+	 * @return the date
+	 */
+	public Date getDateMsg() {
+		return this.dateMsg;
+	}
+	
 	/**
 	 * Retourne la fonction du message
 	 * @return the function
@@ -96,7 +96,7 @@ public class Message implements Serializable {
 		if (this.sender.equals(newVersionSender)) {
 			this.sender = newVersionSender;
 		}
-		receiverGroup.updateMember(newVersionSender);
+		destinationGroup.updateAMember(newVersionSender);
 	}
 	
 }

@@ -26,6 +26,7 @@ public class GUISignup extends JFrame {
 
 	/**
 	 * Cree une fenetre pour creer un utilisateur
+	 * @param guiConnect Fenetre de connexion associee
 	 */
 	public GUISignup(GUIConnect guiConnect) {
 		super("Creer utilisateur");
@@ -116,7 +117,7 @@ public class GUISignup extends JFrame {
 			if (password.length != 0 && username.length() != 0 && confirmPassword.length != 0) {
 				if (Arrays.equals(password, confirmPassword)) {
 					try {
-						DataManager.createUser(username, password);
+						DataManager.createAUser(username, password);
 						setVisible(false);
 						guiConnect.setVisible(true);
 						guiConnect.setEnabled(true);

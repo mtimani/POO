@@ -11,30 +11,30 @@ public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private int userId;
 	private String username;
-	private InetAddress ip;
-	private int port;
-	private Date lastVisit;
+	private Date lastVisitDate;
+	private int portNum;
+	private InetAddress ipAddr;
 	
 	/**
 	 * Crée un Utilisateur
-	 * @param id ID de l'Utilisateur
+	 * @param userId ID de l'Utilisateur
 	 * @param username Username de l'Utilisateur
-	 * @param ip IP de l'Utilisateur
+	 * @param ipAddr IP de l'Utilisateur
 	 */
-	public User(int id, String username, InetAddress ip) {
-		this.id = id;
+	public User(int userId, String username, InetAddress ipAddr) {
+		this.userId = userId;
 		this.username = username;
-		this.ip = ip;
+		this.ipAddr = ipAddr;
 	}
 
 	/**
 	 * Retourne l'ID de l'Utilisateur
 	 * @return l'ID de l'Utilisateur
 	 */
-	public int getId() {
-		return this.id;
+	public int getUserId() {
+		return this.userId;
 	}
 
 	/**
@@ -52,45 +52,45 @@ public class User implements Serializable{
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	/**
+	 * Retourne la Date de la dernière connexion de l'Utilisateur
+	 * @return La Date de la dernière connexion de l'Utilisateur
+	 */
+	public Date getLastVisitDate() {
+		return this.lastVisitDate;
+	}
 
 	/**
-	 * Retourne l'adresse IP de l'Utilisateur
-	 * @return l'adresse IP de l'Utilisateur
+	 * Modifie la Dare de la dernière connexion de l'Utilisateur
+	 * @param lastVisitDate La Date de la dernière connexion de l'Utilisateur
 	 */
-	public InetAddress getIp() {
-		return this.ip;
+	public void setLastVisitDate(Date lastVisitDate) {
+		this.lastVisitDate = lastVisitDate;
 	}
 
 	/**
 	 * Retourne le numéro de Port de l'Utilisateur
 	 * @return le numéro de Port de l'Utilisateur
 	 */
-	public int getPort() {
-		return this.port;
+	public int getPortNum() {
+		return this.portNum;
 	}
 
 	/**
 	 * Modifie le numéro de Port de l'Utilisateur
-	 * @param port Le nouveau numéro de Port
+	 * @param portNum Le nouveau numéro de Port
 	 */
-	public void setPort(int port) {
-		this.port = port;
+	public void setPortNum(int portNum) {
+		this.portNum = portNum;
 	}
-
+	
 	/**
-	 * Retourne la Date de la dernière connexion de l'Utilisateur
-	 * @return La Date de la dernière connexion de l'Utilisateur
+	 * Retourne l'adresse IP de l'Utilisateur
+	 * @return l'adresse IP de l'Utilisateur
 	 */
-	public Date getLastVisit() {
-		return this.lastVisit;
-	}
-
-	/**
-	 * Modifie la Dare de la dernière connexion de l'Utilisateur
-	 * @param lastVisit La Date de la dernière connexion de l'Utilisateur
-	 */
-	public void setLastVisit(Date lastVisit) {
-		this.lastVisit = lastVisit;
+	public InetAddress getIpAddr() {
+		return this.ipAddr;
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public class User implements Serializable{
 	public boolean equals(Object obj) {
 		if(!(obj instanceof User)) return false;
 		User u = (User) obj;
-		return u.id == this.id;
+		return u.userId == this.userId;
 	}
 	
 	/**
@@ -109,7 +109,7 @@ public class User implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "[" + Integer.toString(this.id) + this.username + "]";
+		return "[" + Integer.toString(this.userId) + this.username + "]";
 	}
 	
 }

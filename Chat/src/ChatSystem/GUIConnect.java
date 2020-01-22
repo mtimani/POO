@@ -34,7 +34,7 @@ public class GUIConnect extends JFrame {
 	/**
 	 * Constructeur du GUI de connexion
 	 * @param allIPMachine La liste de toutes les adresses IP de la machine
-	 * @throws SocketException
+	 * @throws SocketException Exception de socket
 	 */
 	public GUIConnect(ArrayList<InetAddress> allIPMachine) throws SocketException {
 		super("Connexion au chat");
@@ -178,7 +178,7 @@ public class GUIConnect extends JFrame {
 			int id = -1;
 			
 			try {
-				if ((id = DataManager.checkUser(username, password)) != -1) {
+				if ((id = DataManager.checkAUser(username, password)) != -1) {
 					
 					// On indique les informations de l'utilisateur
 					setId(id);

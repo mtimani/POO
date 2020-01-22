@@ -69,10 +69,10 @@ public class Controller {
 	 * @param ipBroadcast L'adresse IP de la machine hôte
 	 * @param serverIP L'adresse IP du serveur
 	 * @param serverPort Le port d'écoute du serveur
-	 * @throws SocketException
-	 * @throws ClassNotFoundException
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @throws SocketException Exception de socket
+	 * @throws ClassNotFoundException Exception de classe inexistante
+	 * @throws FileNotFoundException Exception de disponibilite de fichier
+	 * @throws IOException Exception d'entrees-sorties
 	 */
 	public Controller (InetAddress ipBroadcast, String serverIP, int serverPort) throws SocketException, ClassNotFoundException, FileNotFoundException, IOException  {
 		this.connectedUsers = new ArrayList<User>();
@@ -86,8 +86,8 @@ public class Controller {
 			useServer = true;
 			Controller.serverIP = serverIP;
 			Controller.serverPort = serverPort;	
-			timeoutConnection = Integer.parseInt(DataManager.getSetting("server", "timeout", "5000"));
-			updateInterval = Integer.parseInt(DataManager.getSetting("server", "update_interval", "1000"));
+			timeoutConnection = Integer.parseInt(DataManager.getASetting("server", "timeout", "5000"));
+			updateInterval = Integer.parseInt(DataManager.getASetting("server", "update_interval", "1000"));
 		}
 				
 		// On utilise le service UDP
@@ -95,7 +95,7 @@ public class Controller {
 			useServer = false;
 			Controller.serverIP = null;
 			Controller.serverPort = -1;	
-			int udpPort = Integer.parseInt(DataManager.getSetting("udp", "port", "5000"));
+			int udpPort = Integer.parseInt(DataManager.getASetting("udp", "port", "5000"));
 			this.ipBroadcast = ipBroadcast;
 			udp = new Udp(this, udpPort);
 		}
@@ -118,7 +118,7 @@ public class Controller {
 	public ArrayList<Message> getGroupMessages(Group group) {
 		ArrayList<Message> groupMessages = new ArrayList<Message>();
 		for (Message m : messages) {
-			if (m.getReceiverGroup().equals(group)) groupMessages.add(m);
+			if (m.getDestinationGroup().equals(group)) groupMessages.add(m);
 		}
 		return groupMessages;
 	}
@@ -126,7 +126,7 @@ public class Controller {
 	public void removeMessagesGroup(Group group) {
 		ArrayList<Message> groupMessages = new ArrayList<Message>();
 		for (Message m : messages) {
-			if (!m.getReceiverGroup().equals(group)) groupMessages.add(m);
+			if (!m.getDestinationGroup().equals(group)) groupMessages.add(m);
 		}
 		messages = groupMessages;
 		this.groupsToRemove.add(group);
@@ -159,7 +159,7 @@ public class Controller {
 	 */
 	public Group getGroupByName(String groupname) {
 		for (Group g : this.groups) {
-			if (g.getGroupNameForUser(this.user).equals(groupname)) return g;
+			if (g.getGroupNameForAUser(this.user).equals(groupname)) return g;
 		}
 		return null;
 	}
@@ -171,7 +171,7 @@ public class Controller {
 	 */
 	public Group getGroupByID(int groupID) {
 		for (Group g : this.groups) {
-			if (g.getId() == groupID) return g;
+			if (g.getGroupId() == groupID) return g;
 		}
 		return null;
 	}
@@ -183,7 +183,7 @@ public class Controller {
 	 */
 	public boolean groupKnownByController(Group group) {
 		for (Group g : this.groups) {
-			if (g.getGroupNameForUser(getUser()).equals(group.getGroupNameForUser(getUser()))) return true;
+			if (g.getGroupNameForAUser(getUser()).equals(group.getGroupNameForAUser(getUser()))) return true;
 		}
 		return false;
 	}
@@ -222,7 +222,7 @@ public class Controller {
 	/**
 	 * Recupere toutes les adresses IP de la machine et les adresses de broadcast associées
 	 * @return Map avec toutes les addresses IP
-	 * @throws SocketException
+	 * @throws SocketException Exception de Socket
 	 */
 	public static Map<InetAddress, InetAddress> getAllIpAndBroadcast() throws SocketException {
 		
@@ -248,7 +248,7 @@ public class Controller {
 	 * @param id ID de l'Utilisateur
 	 * @param username Username de l'Utilisateur
 	 * @param ip L'adresse IP de l'Utilisateur
-	 * @throws IOException
+	 * @throws IOException Exception d'entrees-sorties
 	 */
 	public void connection(int id, String username, InetAddress ip) throws IOException {
 		//Création du User associé au controlleur
@@ -257,10 +257,10 @@ public class Controller {
 		//Choix du port random pour le nouveau User, compris entre 20000 et 65500
 		Random rand = new Random();
 		int randomUserPort = rand.nextInt(65500 - 20000 + 1) + 20000;
-		user.setPort(randomUserPort);
+		user.setPortNum(randomUserPort);
 		
 		// Démarage du serveur d'écoute (Cas dans lequel un autre User veuille communiquer avec notre User)
-		int serverPort = user.getPort();
+		int serverPort = user.getPortNum();
 		ServerSocket serverSocket = new ServerSocket(serverPort);
 		ServerSocketWaiter serverSocketWaiter = new ServerSocketWaiter(serverSocket,this);
 		serverSocketWaiter.start();
@@ -286,9 +286,9 @@ public class Controller {
 	
 	/**
 	 * Déconnexion de l'Utilisateur de l'application et envoi d'un message de signalisation de son départ
-	 * @throws IOException
-	 * @throws ConnectionError 
-	 * @throws SendDeconnectionError 
+	 * @throws IOException Exception d'entrees-sorties
+	 * @throws ConnectionError Exception de connection
+	 * @throws SendDeconnectionError Exception de deconnection
 	 */
 	public void disconnection() throws IOException, ConnectionError, SendDeconnectionError {
 		//Tous les groupes du User passent en mode hors-ligne
@@ -317,7 +317,7 @@ public class Controller {
 				throw new ConnectionError();
 			
 			// Connexion au serveur et traitement de la reponse
-			HttpURLConnection con = sendRequestToServer(ChatSystemServer.ChatServer.ACTION_USER_DECONNECTION, paramValue);		
+			HttpURLConnection con = sendRequestToServer(ChatSystemServer.ChatServer.USER_DISCONNECTION_ACTION, paramValue);		
 					
 			int status = con.getResponseCode();
 			if(status != HttpURLConnection.HTTP_OK)
@@ -341,7 +341,7 @@ public class Controller {
 	/**
 	 * Récéption et traîtement du packet qui signale la connexion d'un nouvel utilisateur
 	 * @param receivedUser User qui signale sa connexion 
-	 * @throws IOException
+	 * @throws IOException Exception d'entrees-sorties
 	 */
 	public void receivedConnection(User receivedUser) throws IOException {
 		if(receivedUser == null)
@@ -363,9 +363,9 @@ public class Controller {
 		String oldUsername = "", newUsername = "";
 		
 		for(Group group : groups) {
-			oldUsername = group.getGroupNameForUser(user);
-			userHasChanged = userHasChanged || group.updateMember(receivedUser);
-			newUsername = group.getGroupNameForUser(user);
+			oldUsername = group.getGroupNameForAUser(user);
+			userHasChanged = userHasChanged || group.updateAMember(receivedUser);
+			newUsername = group.getGroupNameForAUser(user);
 		}
 		
 		if(userHasChanged) {
@@ -406,7 +406,7 @@ public class Controller {
 		
 		//Mise à jour des groupes, ce dernier passe en mode offline
 		for (Group g : groups) {
-			if (g.isMember(receivedUser)) {
+			if (g.isAMember(receivedUser)) {
 				g.setOnline(false);
 				g.setOrigin(this.user);
 			}
@@ -419,7 +419,7 @@ public class Controller {
 	/**
 	 * Traîtement du cas où le User choisi est déjà occupé
 	 * @param receivedUser User qui nous l'a indiqué
-	 * @throws SocketException 
+	 * @throws SocketException Exception de socket
 	 */
 	public void receivedUsernameOccupied(User receivedUser) throws SocketException {
 		gui.setVisible(false);
@@ -430,7 +430,7 @@ public class Controller {
 	/**
 	 * Traîtement du cas où le User modifié est déjà occupé
 	 * @param receivedUser User qui nous l'a indiqué
-	 * @throws SocketException
+	 * @throws SocketException Exception de socket
 	 */
 	public void receivedModifiedUsernameOccupied(User receivedUser) throws SocketException {
 		GUI.showError("Username occupied. Please choose another one if you wish to modify it.");
@@ -442,12 +442,12 @@ public class Controller {
 	/**
 	 * Modifie le Username de l'Utilisateur
 	 * @param newUsername Le nouveau Username
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @throws IOException Exception d'entrees-sorties
+	 * @throws ClassNotFoundException Exception de classe inexistante
 	 */
 	public void changeUsername(String newUsername) throws IOException, ClassNotFoundException {
 		//Sauvegarde du nouveau Username
-		DataManager.changeUsername(newUsername);
+		DataManager.changeAUsername(newUsername);
 		this.user.setUsername(newUsername);
 		
 		if(!useServer)
@@ -465,7 +465,7 @@ public class Controller {
 	 * @throws PasswordError Si erreur a l'ecriture du fichier
 	 */
 	public void changePassword(char[] oldPassword, char[] newPassword) throws ClassNotFoundException, NoSuchAlgorithmException, IOException, PasswordError {
-		DataManager.changePassword(oldPassword, newPassword);		
+		DataManager.changeAPassword(oldPassword, newPassword);		
 	}
 	
 	/**
@@ -489,9 +489,9 @@ public class Controller {
 		//Mise à jour des groupes avec les nouvelles informations sur le User
 		for (Group g : groups) {
 			changed = false;
-			if(g.updateMember(receivedUser)) {
+			if(g.updateAMember(receivedUser)) {
 				for (Group g1 : groupsToRemove) {
-					if (g1.getId() == g.getId()) {
+					if (g1.getGroupId() == g.getGroupId()) {
 						groupsToRemove.remove(g1);
 						changed = true;
 					}
@@ -517,7 +517,7 @@ public class Controller {
 	 * Démarage d'une nouvelle conversation
 	 * @param groupMembers Membres de la communication
 	 * @return Groupe crée
-	 * @throws IOException
+	 * @throws IOException Exception d'entrees-sorties
 	 */
 	private Group startGroup(ArrayList<User> groupMembers) throws IOException {
 		User contact = groupMembers.get(0);
@@ -527,12 +527,12 @@ public class Controller {
 		int idGroup = rand.nextInt(999999999);
 		
 		// Demarrage d'un groupe
-		Group group = new Group(idGroup, groupMembers, user);
+		Group group = new Group(idGroup, user, groupMembers);
 		groups.add(group);
 		
 		
 		// Creation d'un socket client : l'utilisateur se connecte a l'utilisateur distant
-		Socket socket = new Socket(contact.getIp(), contact.getPort());
+		Socket socket = new Socket(contact.getIpAddr(), contact.getPortNum());
 		
 		SocketWriter socketWriter = new SocketWriter("clientSocketWriter",socket, this, group);
 		SocketReader socketReader = new SocketReader("clientSocketReader", socket, this);
@@ -548,14 +548,14 @@ public class Controller {
 	/**
 	 * Fonction permettant de relancer une conversation déjà existante
 	 * @param group Groupe à restart
-	 * @throws IOException
+	 * @throws IOException Exception d'entrees-sorties
 	 */
 	private void restartGroup(Group group) throws IOException {
 		// On passe le groupe est mode actif
 		group.setOrigin(user);
 		group.setOnline(true);
 					
-		ArrayList<User> groupMembers = group.getMembers();
+		ArrayList<User> groupMembers = group.getGroupMembers();
 		User contact;
 				
 		if(groupMembers.get(0).equals(user))
@@ -564,7 +564,7 @@ public class Controller {
 			contact = groupMembers.get(0);
 				
 		// On recree un socket client : l'utilisateur se reconnecte a l'utilisateur distant
-		Socket socket = new Socket(contact.getIp(), contact.getPort());
+		Socket socket = new Socket(contact.getIpAddr(), contact.getPortNum());
 				
 		SocketWriter socketWriter = new SocketWriter("restartclientSocketWriter",socket, this, group);
 		SocketReader socketReader = new SocketReader("restartclientSocketReader", socket, this);
@@ -577,14 +577,14 @@ public class Controller {
 	 * @param textToSend Charge Utile du message a envoyer
 	 * @param receiverGroupNameForThisUser Le groupe destinataire du message
 	 * @param function Fonction du message
-	 * @throws IOException
+	 * @throws IOException Exception d'entrees-sorties
 	 */
 	public void sendMessage(String textToSend, String receiverGroupNameForThisUser, int function) throws IOException {
 		Group group = getGroupByName(receiverGroupNameForThisUser);
 		
 		if (group != null) {
 			//Liste de Users membres du groupe
-			ArrayList<User> groupMembers = group.getMembers();
+			ArrayList<User> groupMembers = group.getGroupMembers();
 			
 			User destinataire;
 			if (groupMembers.get(0).equals(this.user)) {
@@ -608,7 +608,7 @@ public class Controller {
 		
 		// Transformation d'un message "FILE" en message "IMAGE" si besoin
 		// Dans le cas d'un fichier, le contenu est son chemin vers le fichier
-		if(function == Message.FUNCTION_FILE) {
+		if(function == Message.FILE_FUNCTION) {
 			File file = new File(textToSend);
 			String mimeType = Files.probeContentType(file.toPath());
 						
@@ -617,13 +617,13 @@ public class Controller {
 					case "image/jpeg":
 					case "image/png":
 					case "image/gif":
-						function = Message.FUNCTION_IMAGE;
+						function = Message.IMAGE_FUNCTION;
 				}
 			}
 		}
 					
 		// Envoi du message
-		Message message = new Message(new Date(), textToSend, this.user, group, function);
+		Message message = new Message(textToSend, this.user, group, new Date(), function);
 		messageToSend = message;
 					
 		// Enregsitrement du message
@@ -636,7 +636,7 @@ public class Controller {
 	 */
 	public void receiveMessage(Message message) {
 		//Création et ajout du groupe si ce dernier n'existe pas
-		Group group = message.getReceiverGroup();
+		Group group = message.getDestinationGroup();
 				
 		if(!groupKnownByController(group)) {
 			this.groups.add(group);
@@ -645,11 +645,11 @@ public class Controller {
 		else {
 			// Si le groupe est connu, on le set online
 			for (Group g : groups) {
-				if (group.getGroupNameForUser(this.getUser()).equals(g.getGroupNameForUser(this.getUser()))){
-					g.setId(group.getId());
+				if (group.getGroupNameForAUser(this.getUser()).equals(g.getGroupNameForAUser(this.getUser()))){
+					g.setGroupId(group.getGroupId());
 				}
 			}
-			Group groupToUpdate = getGroupByID(group.getId());
+			Group groupToUpdate = getGroupByID(group.getGroupId());
 			groupToUpdate.setOnline(true);
 		}
 				
@@ -816,9 +816,9 @@ public class Controller {
 			
 			// Mise a jour des groupes avec les nouvelles informations de l'utilisateur connecte
 			for(Group group : groups) {
-				oldUsername = group.getGroupNameForUser(user);
-				userHasChanged = userHasChanged || group.updateMember(u);
-				newUsername = group.getGroupNameForUser(user);
+				oldUsername = group.getGroupNameForAUser(user);
+				userHasChanged = userHasChanged || group.updateAMember(u);
+				newUsername = group.getGroupNameForAUser(user);
 			}
 			
 			if(userHasChanged) {
