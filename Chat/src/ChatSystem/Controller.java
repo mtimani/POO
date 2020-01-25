@@ -20,7 +20,7 @@ public class Controller {
 	private ArrayList<Message> messages;
 	private ArrayList<Group> groups;
 	private ArrayList<Group> groupsToRemove = new ArrayList<Group>();
-	private Udp udp;
+	private UdpControlHandler udp;
 	private InetAddress ipBroadcast;
 	private volatile Message messageToSend = null;
 	private GUIMain gui;
@@ -97,7 +97,7 @@ public class Controller {
 			Controller.serverPort = -1;	
 			int udpPort = Integer.parseInt(DataManager.getASetting("udp", "port", "5000"));
 			this.ipBroadcast = ipBroadcast;
-			udp = new Udp(this, udpPort);
+			udp = new UdpControlHandler(this, udpPort);
 		}
 	}
 	
@@ -277,7 +277,7 @@ public class Controller {
 		else {
 			// Demarrage du service UDP et envoi du message de presence
 			udp.start();
-			udp.sendUdpMessage(udp.createMessage(Udp.CONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+			udp.sendUdpMessage(udp.createMessage(UdpControlHandler.CONNECTION_STATUS, this.getUser()), this.ipBroadcast);
 		}
 		
 		//Ajout des groupes sauvegardés auparavant au GUI
@@ -333,7 +333,7 @@ public class Controller {
 				
 		// Si on utilise le service UDP
 		else {
-			udp.sendUdpMessage(udp.createMessage(Udp.DECONNECTION_STATUS, this.getUser()), this.ipBroadcast);
+			udp.sendUdpMessage(udp.createMessage(UdpControlHandler.DECONNECTION_STATUS, this.getUser()), this.ipBroadcast);
 		}
 				
 	}
@@ -423,7 +423,7 @@ public class Controller {
 	 */
 	public void receivedUsernameOccupied(User receivedUser) throws SocketException {
 		gui.setVisible(false);
-		GUI.showError("Username occupied. Please choose another Username and reopen the program");
+		GUIMain.showError("Username occupied. Please choose another Username and reopen the program");
 		System.exit(Controller.EXIT_WITHOUT_ERROR);
 	}
 	
@@ -433,7 +433,7 @@ public class Controller {
 	 * @throws SocketException Exception de socket
 	 */
 	public void receivedModifiedUsernameOccupied(User receivedUser) throws SocketException {
-		GUI.showError("Username occupied. Please choose another one if you wish to modify it.");
+		GUIMain.showError("Username occupied. Please choose another one if you wish to modify it.");
 		
 	}
 	
@@ -452,7 +452,7 @@ public class Controller {
 		
 		if(!useServer)
 			//Envoi du message signalant aux autres Users que le Username a été changé
-			udp.sendUdpMessage(udp.createMessage(Udp.USERNAME_CHANGED_STATUS, this.user), this.ipBroadcast);
+			udp.sendUdpMessage(udp.createMessage(UdpControlHandler.USERNAME_CHANGED_STATUS, this.user), this.ipBroadcast);
 	}
 	
 	/**
