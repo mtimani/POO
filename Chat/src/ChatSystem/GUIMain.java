@@ -898,7 +898,7 @@ public class GUIMain extends JFrame{
 				controller = new Controller(allIP.get(ipMachine), null, -1);
 			}
 			
-			controller.setGUI(new GUI(username));
+			controller.setGUIMain(new GUIMain(username));
 			controller.connection(id, username, ipMachine);
 
 		} catch (NumberFormatException e) {

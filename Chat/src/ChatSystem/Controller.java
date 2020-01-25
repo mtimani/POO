@@ -23,7 +23,7 @@ public class Controller {
 	private Udp udp;
 	private InetAddress ipBroadcast;
 	private volatile Message messageToSend = null;
-	private GUI gui;
+	private GUIMain gui;
 	
 	// Informations sur le serveur (si besoin)
 	private static boolean useServer;
@@ -188,7 +188,7 @@ public class Controller {
 		return false;
 	}
 	
-	public GUI getGUI() {
+	public GUIMain getGUIMain() {
 		return this.gui;
 	}
 	
@@ -196,7 +196,7 @@ public class Controller {
 	 * Associe un GUI au controlleur
 	 * @param gui GUI à associer
 	 */
-	public void setGUI(GUI gui) {
+	public void setGUIMain(GUIMain gui) {
 		this.gui = gui;
 	}
 	
