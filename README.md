@@ -6,11 +6,7 @@ Il contient l'ensemble des fichiers JAVA (dossier `src`), des ressources (dossie
 
 Le fichier `chatsystem.jar` correspond à l'application prête à être utilisée.
 
-Un **manuel utilisateur** décrit en détails le fonctionnement du logiciel ; toutefois, un rappel des procédures d'utilisation est présenté ci-dessous.
-
-# Extrait du manuel utilisateur : 4. Procédures d’utilisation
-
-Cette partie du manuel indique comment installer, configurer et utiliser le chat.
+# Procédures d’utilisation
 
 ## Installation et configuration préalable
 
@@ -35,15 +31,16 @@ ChatSystem/
 2. **Configuration du fichier `settings.ini`**
 
 Le fichier `settings.ini` permet de paramétrer l'utilisation de l'application. Voici la structure de ce fichier :
+
 ```ini
 [general]
 use_server=1
-theme=light
+theme=dark
 
 [server]
-ip=192.168.0.35
+ip=10.1.5.299
 port=8080
-timeout=3000
+timeout=5000
 update_interval=1000
 
 [udp]
@@ -74,41 +71,24 @@ Pour utiliser le **mode serveur**, une machine du réseau doit être choisie pou
 Le dossier `ChatSystem_Tomcat` fourni contient les données nécessaires pour faire fonctionner l'application avec le moteur de servlets libre **Tomcat**. Voici son contenu :
 
 ```
-chatsystem/
+Chat/
     |— WEB-INF/
-        |— classes/
-            |— ChatSystem/
-                |— User.class
-            |— ChatSystemServer/
-                |— ChatServer$ServerResponse.class
-                |— ChatServer.class
         |— lib/
+            |- ChatSystem.jar
+            |- ChatSystem.war
             |— gson-2.6.2.jar
-        |— src/
-            |— ChatSystem/
-                |— User.java
-            |— ChatSystemServer/
-                |— ChatServer.java
+            |- ini4j-0.5.4.jar
+            |- javax.servlet.jar
         |— web.xml
+    |- META-INF/
+        |- MANIFEST.MF
 ```
-Le répertoire `chatsystem` doit être copié entièrement dans le dossier `webapps` du dossier d'installation de Tomcat.
+Le répertoire `Chat` doit être copié entièrement dans le dossier `webapps` du dossier d'installation de Tomcat.
 
-- Le sous-dossier `classes` contient les dossiers et fichiers compilés nécessaires au bon fonctionnement de la servlet ;
-- Le sous-dossier `lib` contient les librairies externes utilisées ;
-- Le sous-dossier `src` contient le code source de la servlet **(*)**. 
+- Le sous-dossier `lib` contient les librairies externes utilisées, ainsi que le code source de l'application ;
 - Enfin, le fichier `web.xml` contient les informations de configuration de la servlet.
 
 Si vous utilisez Tomcat, vous ne devriez pas avoir à faire plus de configurations.
-
-**(*)** : Il n'est pas utile de recompiler la servlet pour qu'elle fonctionne ; toutefois, il est possible de le faire avec les commandes suivantes :
-```bash
-cd "$CATALINA_HOME/webapps/chatsystem/WEB-INF/src"
-javac
-    -cp "$CATALINA_HOME/lib/servlet-api.jar:$CATALINA_HOME/webapps/chatsystem/WEB-INF/lib/*"
-    -d ../classes/
-    ChatSystem/User.java ChatSystemServer/*
-```
-_Remarque : sous Windows, remplacez `:` par `;` de l'option `-cp` pour effectuer la compilation._
 
 #### Configuration du serveur
 
@@ -126,11 +106,11 @@ Une fois le serveur installé et correctement configuré, vous pouvez le lancer.
 sudo $CATALINA_HOME/bin/startup.sh
 ```
 Une fois le serveur lancé, vous pouvez tester son bon fonctionnement. Pour cela, ouvrez un navigateur internet et allez à l'adresse suivante (dans cet exemple, le port `8080` est utilisé) :
-- http://localhost:8080/chatsystem/ChatServer?test depuis la machine déployant le serveur ;
+- http://localhost:8080/chat/ChatServer?test depuis la machine déployant le serveur ;
 
 ou bien
 
-- http://X.X.X.X:8080/chatsystem/ChatServer?test (où `X.X.X.X` est l'adresse IP de la machine supportant le serveur) depuis tout autre machine souhaitant utiliser l'application.
+- http://X.X.X.X:8080/chat/ChatServer?test (où `X.X.X.X` est l'adresse IP de la machine supportant le serveur) depuis tout autre machine souhaitant utiliser l'application.
 
 Dans les deux cas, vous devriez avoir comme réponse l'élément _json_ suivant :
 ```json
@@ -145,7 +125,7 @@ sudo $CATALINA_HOME/bin/shutdown.sh
 #### Sources d'erreurs possibles
 
 Si après avoir configuré et démarré le serveur, vous ne parvenez pas à obtenir le résultat correct du test, vérifiez les points suivants :
-- Assurez-vous d'avoir copié correctement tout le dossier `chatsystem` dans le dossier `webapps` de **Tomcat** ;
+- Assurez-vous d'avoir copié correctement tout le dossier `Chat` dans le dossier `webapps` de **Tomcat** ;
 - Vérifiez que les configurations de **Tomcat** et du chat sont les mêmes ;
 - Si une erreur `404` survient, c'est que les fichiers `.class` sont manquants où que le descripteur de la servlet (`web.xml`) contient des données incorrectes ;
 - Si une erreur `500` survient (et que tous les fichiers `.class` ont été correctement copiés), il est probable que le fichier `gson-2.6.2.jar` soit manquant dans le dossier `$CATALINA_HOME/webapps/chatsystem/WEB-INF/lib/` ;

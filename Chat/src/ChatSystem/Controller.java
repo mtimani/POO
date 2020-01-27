@@ -32,7 +32,7 @@ public class Controller {
 	private static int timeoutConnection;
 	private static int updateInterval;
 	private static String pathWebpage = null;
-		
+	
 	// Timer utilise pour les requetes
 	private Timer timer;
 	
