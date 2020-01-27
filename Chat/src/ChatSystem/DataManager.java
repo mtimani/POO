@@ -189,17 +189,23 @@ public class DataManager {
 	 * @throws NoSuchAlgorithmException Exception d'algorithme inexistant
 	 */
 	public static void createAUser(String username, char[] password) throws IOException, NoSuchAlgorithmException {		
+		/** Suppression d'anciennes données dans le cas où un nouvel utilisateur est crée
+	    directory = new File(USER_PATH);
+	    if(directory.exists()) directory.delete();
+	    directory = new File(MESSAGES_PATH);
+	    if(directory.exists()) directory.delete();
+	    directory = new File(GROUPS_PATH);
+	    if(directory.exists()) directory.delete();
+	    */
+		
 		// Verifie que le dossier "data" existe, sinon le cree
 		File directory = new File(DATA_PATH);
 	    if(!directory.exists()) directory.mkdir();
-	    
-	    // Suppression d'anciennes données dans le cas où un nouvel utilisateur est crée
-	    directory = new File(USER_PATH);
-	    if(!directory.exists()) directory.delete();
-	    directory = new File(MESSAGES_PATH);
-	    if(!directory.exists()) directory.delete();
-	    directory = new File(GROUPS_PATH);
-	    if(!directory.exists()) directory.delete();
+	    else {
+	    	directory.delete();
+	    	File newDirectory = new File(DATA_PATH);
+	    	newDirectory.mkdir();
+	    }
 		    
 	    FileOutputStream file = new FileOutputStream(USER_PATH);
 		ObjectOutputStream out = new ObjectOutputStream(file);   
