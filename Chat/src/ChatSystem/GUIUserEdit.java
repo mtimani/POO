@@ -60,7 +60,7 @@ public class GUIUserEdit extends JFrame {
 		
 		modifUsernameField = new JTextField();
 		modifUsernameField.addKeyListener(new KeyAdapter());
-		modifUsernameField.addActionListener(new EditUsernameListener(gui2, controller));
+		modifUsernameField.addActionListener(new UsernameEditListener(gui2, controller));
 		c.weightx = 0.5;
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -69,7 +69,7 @@ public class GUIUserEdit extends JFrame {
 		
 		
 		modifUsernameButton = new JButton("Changer nom d'utilisateur");
-		modifUsernameButton.addActionListener(new EditUsernameListener(gui2, controller));
+		modifUsernameButton.addActionListener(new UsernameEditListener(gui2, controller));
 		c.weightx = 1;
 		c.gridwidth = 3;
 		c.gridx = 0;
@@ -93,7 +93,7 @@ public class GUIUserEdit extends JFrame {
 		modifUserPanel.add(oldPasswordLabel, c);
 		
 		oldPasswordField = new JPasswordField();
-		oldPasswordField.addActionListener(new EditPasswordListener(gui2, controller));
+		oldPasswordField.addActionListener(new PasswordEditListener(gui2, controller));
 		c.weightx = 0.5;
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -115,7 +115,7 @@ public class GUIUserEdit extends JFrame {
 		modifUserPanel.add(newConfirmPasswordLabel, c);		
 		
 		newPasswordField = new JPasswordField();
-		newPasswordField.addActionListener(new EditPasswordListener(gui2, controller));
+		newPasswordField.addActionListener(new PasswordEditListener(gui2, controller));
 		c.weightx = 0.5;
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -123,7 +123,7 @@ public class GUIUserEdit extends JFrame {
 		modifUserPanel.add(newPasswordField, c);
 		
 		newConfirmPasswordField = new JPasswordField();
-		newConfirmPasswordField.addActionListener(new EditPasswordListener(gui2, controller));
+		newConfirmPasswordField.addActionListener(new PasswordEditListener(gui2, controller));
 		c.weightx = 0.5;
 		c.gridwidth = 1;
 		c.gridx = 1;
@@ -131,7 +131,7 @@ public class GUIUserEdit extends JFrame {
 		modifUserPanel.add(newConfirmPasswordField, c);
 		
 		modifPasswordButton = new JButton("Changer mot de passe");
-		modifPasswordButton.addActionListener(new EditPasswordListener(gui2, controller));
+		modifPasswordButton.addActionListener(new PasswordEditListener(gui2, controller));
 		c.weightx = 1;
 		c.gridwidth = 3;
 		c.gridx = 0;
@@ -149,11 +149,11 @@ public class GUIUserEdit extends JFrame {
 	/**
 	 * Listener du bouton de modification de l'username
 	 */
-	public class EditUsernameListener implements ActionListener {
+	public class UsernameEditListener implements ActionListener {
 		private GUIMain gui;
 		private Controller controller;
 		
-		public EditUsernameListener(GUIMain gui2, Controller controller) {
+		public UsernameEditListener(GUIMain gui2, Controller controller) {
 			super();
 			this.gui = gui2;
 			this.controller = controller;
@@ -173,13 +173,36 @@ public class GUIUserEdit extends JFrame {
 	}	
 	
 	/**
+	 * Listener de fermeture de fenetre
+	 */
+	public class windowClosingListener implements WindowListener {
+
+		public void windowClosing(WindowEvent e) {
+			gui.setEnabled(true);
+		}
+
+		public void windowOpened(WindowEvent arg0) {}
+
+		public void windowClosed(WindowEvent arg0) {}
+
+		public void windowIconified(WindowEvent arg0) {}
+
+		public void windowDeiconified(WindowEvent arg0) {}
+
+		public void windowActivated(WindowEvent arg0) {}
+
+		public void windowDeactivated(WindowEvent arg0) {}
+
+	}
+	
+	/**
 	 * Listener du bouton de modification du mot de passe
 	 */
-	public class EditPasswordListener implements ActionListener {
+	public class PasswordEditListener implements ActionListener {
 		private GUIMain gui;
 		private Controller controller;
 		
-		public EditPasswordListener(GUIMain gui2, Controller controller) {
+		public PasswordEditListener(GUIMain gui2, Controller controller) {
 			super();
 			this.gui = gui2;
 			this.controller = controller;
@@ -241,29 +264,6 @@ public class GUIUserEdit extends JFrame {
 		@Override
 		public void keyReleased(KeyEvent e) {}
 		
-	}
-	
-	/**
-	 * Listener de fermeture de fenetre
-	 */
-	public class windowClosingListener implements WindowListener {
-
-		public void windowClosing(WindowEvent e) {
-			gui.setEnabled(true);
-		}
-
-		public void windowOpened(WindowEvent arg0) {}
-
-		public void windowClosed(WindowEvent arg0) {}
-
-		public void windowIconified(WindowEvent arg0) {}
-
-		public void windowDeiconified(WindowEvent arg0) {}
-
-		public void windowActivated(WindowEvent arg0) {}
-
-		public void windowDeactivated(WindowEvent arg0) {}
-
 	}
 
 }
