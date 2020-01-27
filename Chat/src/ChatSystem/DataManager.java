@@ -192,6 +192,14 @@ public class DataManager {
 		// Verifie que le dossier "data" existe, sinon le cree
 		File directory = new File(DATA_PATH);
 	    if(!directory.exists()) directory.mkdir();
+	    
+	    // Suppression d'anciennes données dans le cas où un nouvel utilisateur est crée
+	    directory = new File(USER_PATH);
+	    if(!directory.exists()) directory.delete();
+	    directory = new File(MESSAGES_PATH);
+	    if(!directory.exists()) directory.delete();
+	    directory = new File(GROUPS_PATH);
+	    if(!directory.exists()) directory.delete();
 		    
 	    FileOutputStream file = new FileOutputStream(USER_PATH);
 		ObjectOutputStream out = new ObjectOutputStream(file);   
