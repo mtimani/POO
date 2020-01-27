@@ -1,3 +1,0 @@
-Question A :
-    Soit on extend la classe Thread, soit on implémente une interface runnable
-    
