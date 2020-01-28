@@ -68,7 +68,7 @@ _La variable `$CATALINA_HOME` correspond au répertoire d'installation de **Tomc
 
 Pour utiliser le **mode serveur**, une machine du réseau doit être choisie pour faire office de serveur. Un moteur de servlets (ou conteneur servlets) doit être installé au préalable sur cette machine.
 
-Le dossier `ChatSystem_Tomcat` fourni contient les données nécessaires pour faire fonctionner l'application avec le moteur de servlets libre **Tomcat**. Voici son contenu :
+Le dossier `Chat` fourni contient les données nécessaires pour faire fonctionner l'application avec le moteur de servlets libre **Tomcat**. Voici son contenu :
 
 ```
 Chat/
