@@ -128,7 +128,7 @@ Si après avoir configuré et démarré le serveur, vous ne parvenez pas à obte
 - Assurez-vous d'avoir copié correctement tout le dossier `Chat` dans le dossier `webapps` de **Tomcat** ;
 - Vérifiez que les configurations de **Tomcat** et du chat sont les mêmes ;
 - Si une erreur `404` survient, c'est que les fichiers `.class` sont manquants où que le descripteur de la servlet (`web.xml`) contient des données incorrectes ;
-- Si une erreur `500` survient (et que tous les fichiers `.class` ont été correctement copiés), il est probable que le fichier `gson-2.6.2.jar` soit manquant dans le dossier `$CATALINA_HOME/webapps/chatsystem/WEB-INF/lib/` ;
+- Si une erreur `500` survient (et que tous les fichiers `.class` ont été correctement copiés), il est probable que le fichier `gson-2.6.2.jar` soit manquant dans le dossier `$CATALINA_HOME/webapps/Chat/WEB-INF/lib/` ;
 - Si le test fonctionne sur une machine mais pas sur une autre, vérifiez les paramètres du pare-feu, qui pourrait bloquer certaines connexions (notamment sur le port `8080`).
 
 
