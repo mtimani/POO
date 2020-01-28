@@ -1,930 +1,924 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.3" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
-  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.2.3" icons="false" automaticImage="JPEG" always-add-relationships="false" 
+  generalizations="false" realizations="false" associations="true" dependencies="true" nesting-relationships="false" 
+  router="FAN">  
   <class id="1" language="java" name="ChatSystem.GUIConnect.ConnectListener" project="chat" 
     file="/chat/src/ChatSystem/GUIConnect.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="212" x="573" y="1158"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="119" x="2386" y="380"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="ChatSystem.Controller" project="chat" file="/chat/src/ChatSystem/Controller.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="911" width="357" x="2345" y="1158"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="473" width="215" x="1834" y="380"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="3" language="java" name="ChatSystem.GUISignup" project="chat" file="/chat/src/ChatSystem/GUISignup.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="236" x="900" y="-255"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="81" x="2750" y="-309"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="ChatSystem.GUIMain.connectedUsersListSelectionChange" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="272" x="1255" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="256" x="436" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="5" language="java" name="ChatSystem.SocketWaiter" project="chat" 
     file="/chat/src/ChatSystem/SocketWaiter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="233" x="1213" y="30"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="97" x="743" y="-85"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="6" language="java" name="ChatSystem.Controller.SendDeconnectionError" project="chat" 
     file="/chat/src/ChatSystem/Controller.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="186" x="2691" y="2109"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="170" x="1916" y="893"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="7" language="java" name="ChatSystem.SocketReader" project="chat" 
     file="/chat/src/ChatSystem/SocketReader.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="173" width="294" x="615" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="99" width="102" x="294" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="8" language="java" name="ChatSystem.GUIUserEdit.KeyAdapter" project="chat" 
     file="/chat/src/ChatSystem/GUIUserEdit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="181" x="679" y="-255"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="116" width="88" x="1590" y="-309"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="9" language="java" name="ChatSystem.GUISignup.CreateUserListener" project="chat" 
     file="/chat/src/ChatSystem/GUISignup.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="212" x="940" y="30"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="138" x="2715" y="-85"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="10" language="java" name="ChatSystem.DataManager.PasswordError" project="chat" 
     file="/chat/src/ChatSystem/DataManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="125" x="1570" y="2502"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="109" x="2113" y="998"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="11" language="java" name="ChatSystem.GUIMain.groupListSelectionChange" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="236" x="2153" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="187" x="1697" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="12" language="java" name="ChatSystem.ServerRequestsHandler" project="chat" 
     file="/chat/src/ChatSystem/ServerRequestsHandler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="215" x="1588" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="167" x="87" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="13" language="java" name="ChatSystem.GUISignup.KeyAdapter" project="chat" 
     file="/chat/src/ChatSystem/GUISignup.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="181" x="169" y="30"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="116" width="88" x="2587" y="-85"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="14" language="java" name="ChatSystem.GUIMain" project="chat" file="/chat/src/ChatSystem/GUIMain.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="569" width="464" x="2496" y="30"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="150" width="145" x="1905" y="-85"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="15" language="java" name="ChatSystem.GUIMain.sendFileListener" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="212" x="3833" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="120" x="888" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="16" language="java" name="ChatSystem.GUIUserEdit" project="chat" 
     file="/chat/src/ChatSystem/GUIUserEdit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="317" width="261" x="2754" y="-612"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="91" x="2052" y="-431"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="17" language="java" name="ChatSystem.GUIMain.editUserListener" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="212" x="2429" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="119" x="2052" y="-553"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="18" language="java" name="ChatSystem.GUIUserEdit.windowClosingListener" project="chat" 
     file="/chat/src/ChatSystem/GUIUserEdit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="237" x="2496" y="-255"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="184" width="166" x="1718" y="-309"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="19" language="java" name="ChatSystem.GUIConnect.KeyAdapter" project="chat" 
     file="/chat/src/ChatSystem/GUIConnect.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="181" x="900" y="1158"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="116" width="88" x="2761" y="380"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="20" language="java" name="ChatSystem.Group" project="chat" file="/chat/src/ChatSystem/Group.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="335" width="228" x="2303" y="2895"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="252" width="152" x="1296" y="1222"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="21" language="java" name="ChatSystem.Message" project="chat" file="/chat/src/ChatSystem/Message.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="353" width="224" x="2364" y="2502"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="184" width="129" x="1573" y="998"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="22" language="java" name="ChatSystem.GUIMain.windowClosingListener" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="237" x="2723" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="184" width="166" x="1048" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="23" language="java" name="ChatSystem.User" project="chat" file="/chat/src/ChatSystem/User.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="371" width="175" x="2609" y="3270"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="235" width="106" x="1834" y="1514"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="24" language="java" name="ChatSystem.SocketWriter" project="chat" 
     file="/chat/src/ChatSystem/SocketWriter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="155" width="266" x="949" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="95" x="753" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="25" language="java" name="ChatSystem.GUIUserEdit.PasswordEditListener" project="chat" 
     file="/chat/src/ChatSystem/GUIUserEdit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="253" x="1845" y="-255"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="156" x="2142" y="-309"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="26" language="java" name="ChatSystem.GUIConnect" project="chat" file="/chat/src/ChatSystem/GUIConnect.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="479" width="231" x="900" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="201" width="127" x="2761" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="27" language="java" name="ChatSystem.GUIMain.sendMessageListener" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="212" x="4085" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="155" x="1481" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="28" language="java" name="ChatSystem.GUISignup.windowClosingListener" project="chat" 
     file="/chat/src/ChatSystem/GUISignup.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="237" x="390" y="30"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="184" width="166" x="2893" y="-85"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="29" language="java" name="ChatSystem.DataManager" project="chat" 
     file="/chat/src/ChatSystem/DataManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="353" width="292" x="1530" y="2109"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="96" x="2126" y="893"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="30" language="java" name="ChatSystem.GUIUserEdit.UsernameEditListener" project="chat" 
     file="/chat/src/ChatSystem/GUIUserEdit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="256" x="2803" y="-255"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="157" x="1945" y="-309"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="31" language="java" name="ChatSystem.GUIConnect.CreateUserListener" project="chat" 
     file="/chat/src/ChatSystem/GUIConnect.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="212" x="667" y="30"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="138" x="2750" y="-431"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="32" language="java" name="ChatSystem.GUIMain.deleteConversationListener" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="228" x="1885" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="193" x="1945" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="33" language="java" name="ChatSystem.UdpControlHandler" project="chat" 
     file="/chat/src/ChatSystem/UdpControlHandler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="317" width="272" x="3521" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="116" width="138" x="2346" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="34" language="java" name="ChatSystem.Controller.SendConnectionError" project="chat" 
     file="/chat/src/ChatSystem/Controller.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="170" x="1988" y="2109"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="154" x="119" y="380"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="35" language="java" name="ChatSystem.Controller.ConnectionError" project="chat" 
     file="/chat/src/ChatSystem/Controller.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="136" x="2917" y="2109"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="65" width="120" x="1113" y="893"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="36" language="java" name="ChatSystem.GUIMain.MyListCellThing" project="chat" 
     file="/chat/src/ChatSystem/GUIMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="173" width="439" x="3021" y="639"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    <position height="82" width="187" x="1254" y="139"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <nesting id="37">    
+  <association id="37">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="38" name="guiConnect"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="40">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="32"/>  
-  </nesting>  
-  <nesting id="38">    
+  </dependency>  
+  <association id="41">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="42" name="gui"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="44">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="13"/>  
-  </nesting>  
-  <association id="39">    
-    <bendpoint x="2763" y="-255"/>    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="40" name="gui"/>      
-      <multiplicity id="41" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="42">    
-    <bendpoint x="1789" y="1158"/>    
-    <bendpoint x="1852" y="2109"/>    
-    <bendpoint x="1852" y="2502"/>    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="43" name="group"/>      
-      <multiplicity id="44" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="45">    
-    <bendpoint x="2692" y="639"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="46" name="gui"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
-    <bendpoint x="1457" y="1158"/>    
-    <bendpoint x="1499" y="2109"/>    
-    <bendpoint x="1499" y="2502"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="49" name="group"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="51">    
+  </dependency>  
+  <dependency id="45">    
     <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="26"/>  
+    <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="52">    
-    <bendpoint x="1182" y="30"/>    
-    <bendpoint x="542" y="639"/>    
-    <bendpoint x="542" y="1158"/>    
-    <bendpoint x="563" y="2109"/>    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <dependency id="53">    
-    <bendpoint x="1873" y="1158"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="34"/>  
-  </dependency>  
-  <association id="54">    
-    <bendpoint x="2354" y="2109"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="55" name="messageToSend"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="57">    
-    <bendpoint x="2561" y="2895"/>    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="58" name="sender"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="60">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
-  <association id="61">    
-    <bendpoint x="1833" y="639"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="62" name="controller"/>      
-      <multiplicity id="63" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="64">    
-    <bendpoint x="3104" y="1158"/>    
-    <bendpoint x="3104" y="2109"/>    
-    <bendpoint x="2639" y="2502"/>    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <dependency id="65">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="66">    
-    <bendpoint x="2465" y="30"/>    
-    <bendpoint x="2465" y="-255"/>    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="16"/>  
-  </dependency>  
-  <dependency id="67">    
-    <bendpoint x="815" y="1158"/>    
-    <bendpoint x="542" y="2109"/>    
-    <bendpoint x="542" y="2502"/>    
-    <bendpoint x="542" y="2895"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="68">    
-    <bendpoint x="2732" y="1158"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="35"/>  
-  </dependency>  
-  <nesting id="69">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="19"/>  
-  </nesting>  
-  <nesting id="70">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="18"/>  
-  </nesting>  
-  <dependency id="71">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="26"/>  
-  </dependency>  
-  <nesting id="72">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="35"/>  
-  </nesting>  
-  <dependency id="73">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="14"/>  
-  </dependency>  
-  <association id="74">    
-    <bendpoint x="2671" y="639"/>    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="75" name="controller"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="77">    
-    <bendpoint x="1478" y="1158"/>    
-    <bendpoint x="1478" y="2109"/>    
-    <bendpoint x="1478" y="2502"/>    
-    <bendpoint x="1478" y="2895"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="78">    
-    <bendpoint x="4327" y="639"/>    
-    <bendpoint x="4073" y="1158"/>    
-    <bendpoint x="3417" y="2109"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="79">    
-    <bendpoint x="1894" y="1158"/>    
-    <bendpoint x="1894" y="2109"/>    
-    <bendpoint x="1894" y="2502"/>    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <nesting id="80">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="36"/>  
-  </nesting>  
-  <dependency id="81">    
-    <bendpoint x="4369" y="639"/>    
-    <bendpoint x="4369" y="1158"/>    
-    <bendpoint x="4369" y="2109"/>    
-    <bendpoint x="4369" y="2502"/>    
-    <bendpoint x="4369" y="2895"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="82">    
-    <bendpoint x="1557" y="639"/>    
-    <bendpoint x="1831" y="1158"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="29"/>  
-  </dependency>  
-  <dependency id="83">    
-    <bendpoint x="3438" y="1158"/>    
-    <bendpoint x="3438" y="2109"/>    
-    <bendpoint x="3438" y="2502"/>    
+  <dependency id="46">    
+    <bendpoint x="1082" y="380"/>    
+    <bendpoint x="1082" y="893"/>    
+    <bendpoint x="1082" y="998"/>    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <dependency id="84">    
-    <bendpoint x="3459" y="1158"/>    
-    <bendpoint x="3083" y="2109"/>    
+  <dependency id="47">    
+    <bendpoint x="1563" y="380"/>    
+    <bendpoint x="1563" y="893"/>    
     <end type="SOURCE" refId="27"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  
-  <nesting id="85">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="30"/>  
-  </nesting>  
-  <nesting id="86">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </nesting>  
-  <nesting id="87">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="28"/>  
-  </nesting>  
-  <nesting id="88">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="10"/>  
-  </nesting>  
-  <dependency id="89">    
+  <association id="48">    
+    <bendpoint x="1914" y="-309"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="49" name="gui"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="51">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <association id="52">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="53" name="controller"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="55">    
+    <bendpoint x="680" y="380"/>    
+    <bendpoint x="680" y="893"/>    
+    <bendpoint x="680" y="998"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="56" name="group"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="58">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="59">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="60">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="29"/>  
   </dependency>  
-  <dependency id="90">    
-    <bendpoint x="1539" y="2502"/>    
+  <association id="61">    
+    <bendpoint x="3089" y="-85"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="62" name="guiConnect"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="64">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="65">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="66">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="67">    
+    <bendpoint x="2535" y="139"/>    
+    <bendpoint x="2334" y="380"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="68">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="69">    
+    <bendpoint x="1738" y="893"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="70" name="messageToSend"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="72">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <association id="73">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="74" name="udp"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="76">    
+    <bendpoint x="2328" y="-85"/>    
+    <bendpoint x="2514" y="139"/>    
+    <bendpoint x="2355" y="380"/>    
+    <bendpoint x="2355" y="893"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="77">    
+    <bendpoint x="1666" y="139"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="78" name="controller"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="80">    
     <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="81">    
+    <bendpoint x="1584" y="380"/>    
+    <bendpoint x="1542" y="893"/>    
+    <bendpoint x="1542" y="998"/>    
+    <end type="SOURCE" refId="32"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <dependency id="91">    
+  <dependency id="82">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="29"/>  
   </dependency>  
-  <dependency id="92">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="2"/>  
+  <association id="83">    
+    <bendpoint x="2168" y="139"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="84" name="controller"/>      
+      <multiplicity id="85" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="86">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
   </dependency>  
+  <association id="87">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="88" name="gui"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="90">    
+    <bendpoint x="2231" y="-85"/>    
+    <bendpoint x="2231" y="139"/>    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="91" name="controller"/>      
+      <multiplicity id="92" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
   <association id="93">    
-    <bendpoint x="909" y="30"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="94" name="guiConnect"/>      
+    <bendpoint x="2189" y="139"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="94" name="gui"/>      
       <multiplicity id="95" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
   </association>  
   <dependency id="96">    
-    <bendpoint x="2753" y="1158"/>    
-    <bendpoint x="2639" y="2109"/>    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="21"/>  
+    <bendpoint x="88" y="380"/>    
+    <bendpoint x="88" y="893"/>    
+    <bendpoint x="88" y="998"/>    
+    <bendpoint x="88" y="1222"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="23"/>  
   </dependency>  
-  <association id="97">    
-    <bendpoint x="2375" y="2109"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="98" name="messages"/>      
-      <multiplicity id="99" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="100">    
-    <bendpoint x="4348" y="639"/>    
-    <bendpoint x="4271" y="1158"/>    
-    <bendpoint x="4193" y="2109"/>    
-    <bendpoint x="4115" y="2502"/>    
-    <end type="SOURCE" refId="14"/>    
+  <dependency id="97">    
+    <bendpoint x="1822" y="998"/>    
+    <end type="SOURCE" refId="29"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <association id="101">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="102" name="groupMembers"/>      
-      <multiplicity id="103" minimum="0" maximum="2147483647"/>    
+  <association id="98">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="99" name="controller"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
   </association>  
+  <dependency id="101">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="102">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="103">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
   <dependency id="104">    
-    <bendpoint x="1852" y="1158"/>    
-    <bendpoint x="1957" y="2109"/>    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="21"/>  
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="34"/>  
   </dependency>  
   <association id="105">    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="106" name="gui"/>      
+    <bendpoint x="2273" y="-85"/>    
+    <bendpoint x="2273" y="139"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="106" name="controller"/>      
       <multiplicity id="107" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="108">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="109" name="gui"/>      
-      <multiplicity id="110" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="109">    
+    <bendpoint x="303" y="380"/>    
+    <bendpoint x="303" y="893"/>    
+    <bendpoint x="303" y="998"/>    
+    <bendpoint x="303" y="1222"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="110">    
+    <bendpoint x="2210" y="139"/>    
+    <bendpoint x="2210" y="380"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
   <dependency id="111">    
-    <bendpoint x="4390" y="-255"/>    
-    <bendpoint x="4390" y="30"/>    
-    <bendpoint x="4390" y="639"/>    
-    <bendpoint x="4390" y="1158"/>    
-    <bendpoint x="4390" y="2109"/>    
-    <bendpoint x="4390" y="2502"/>    
-    <bendpoint x="4390" y="2895"/>    
+    <bendpoint x="2556" y="-309"/>    
+    <bendpoint x="2556" y="-85"/>    
+    <bendpoint x="2556" y="139"/>    
+    <bendpoint x="2556" y="380"/>    
+    <bendpoint x="2556" y="893"/>    
+    <bendpoint x="2556" y="998"/>    
+    <bendpoint x="2556" y="1222"/>    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="23"/>  
   </dependency>  
   <dependency id="112">    
-    <bendpoint x="2262" y="1158"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="35"/>  
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
   </dependency>  
   <dependency id="113">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="3"/>  
+    <bendpoint x="722" y="139"/>    
+    <bendpoint x="722" y="380"/>    
+    <bendpoint x="722" y="893"/>    
+    <bendpoint x="722" y="998"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
   <association id="114">    
-    <bendpoint x="2660" y="2109"/>    
-    <bendpoint x="2660" y="2502"/>    
-    <bendpoint x="2660" y="2895"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="115" name="user"/>      
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="115" name="origin"/>      
       <multiplicity id="116" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="117">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="118" name="controller"/>      
-      <multiplicity id="119" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="120">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="121" name="controller"/>      
-      <multiplicity id="122" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="123">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="124" name="gui"/>      
-      <multiplicity id="125" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="126">    
+  <dependency id="117">    
+    <bendpoint x="1347" y="380"/>    
+    <bendpoint x="1347" y="893"/>    
+    <bendpoint x="1347" y="998"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="118">    
+    <bendpoint x="1759" y="893"/>    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="127" name="udp"/>      
-      <multiplicity id="128" minimum="0" maximum="1"/>    
+      <attribute id="119" name="messages"/>      
+      <multiplicity id="120" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
   </association>  
-  <dependency id="129">    
+  <dependency id="121">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="122">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="123">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="124">    
+    <bendpoint x="1319" y="380"/>    
+    <bendpoint x="1305" y="893"/>    
+    <bendpoint x="1305" y="998"/>    
     <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="125">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="126" name="controller"/>      
+      <multiplicity id="127" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="128">    
+    <bendpoint x="1263" y="380"/>    
+    <bendpoint x="1263" y="893"/>    
+    <bendpoint x="1263" y="998"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="129">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
   </dependency>  
   <dependency id="130">    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="16"/>  
   </dependency>  
   <dependency id="131">    
-    <bendpoint x="3490" y="-255"/>    
-    <bendpoint x="3490" y="30"/>    
-    <bendpoint x="3490" y="639"/>    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="2"/>  
+    <bendpoint x="1298" y="380"/>    
+    <bendpoint x="1368" y="893"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="132">    
-    <bendpoint x="584" y="639"/>    
-    <bendpoint x="836" y="1158"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="29"/>  
+    <bendpoint x="701" y="380"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="35"/>  
   </dependency>  
   <association id="133">    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="134" name="guiConnect"/>      
-      <multiplicity id="135" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="136">    
-    <bendpoint x="1854" y="30"/>    
-    <bendpoint x="1854" y="639"/>    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="137" name="controller"/>      
-      <multiplicity id="138" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="139">    
-    <bendpoint x="563" y="639"/>    
-    <bendpoint x="521" y="1158"/>    
-    <bendpoint x="521" y="2109"/>    
-    <bendpoint x="563" y="2502"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <association id="140">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="141" name="controller"/>      
-      <multiplicity id="142" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="143">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <nesting id="144">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="17"/>  
-  </nesting>  
-  <dependency id="145">    
-    <bendpoint x="4052" y="1158"/>    
-    <bendpoint x="4094" y="2109"/>    
-    <bendpoint x="4136" y="2502"/>    
-    <bendpoint x="4136" y="2895"/>    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <nesting id="146">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="8"/>  
-  </nesting>  
-  <association id="147">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="148" name="origin"/>      
-      <multiplicity id="149" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="150">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="1"/>  
-  </nesting>  
-  <association id="151">    
-    <bendpoint x="2990" y="30"/>    
-    <bendpoint x="2990" y="639"/>    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="152" name="controller"/>      
-      <multiplicity id="153" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="154">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <nesting id="155">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="22"/>  
-  </nesting>  
-  <association id="156">    
-    <bendpoint x="2312" y="2109"/>    
-    <bendpoint x="2312" y="2502"/>    
+    <bendpoint x="1780" y="893"/>    
+    <bendpoint x="1780" y="998"/>    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="157" name="groups"/>      
-      <multiplicity id="158" minimum="0" maximum="2147483647"/>    
+      <attribute id="134" name="groupsToRemove"/>      
+      <multiplicity id="135" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="159">    
-    <bendpoint x="2618" y="2109"/>    
-    <bendpoint x="2618" y="2502"/>    
-    <bendpoint x="2618" y="2895"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="160" name="connectedUsers"/>      
-      <multiplicity id="161" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="162">    
-    <bendpoint x="1873" y="2109"/>    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <dependency id="163">    
-    <bendpoint x="4094" y="1158"/>    
-    <bendpoint x="4094" y="2109"/>    
-    <bendpoint x="4094" y="2502"/>    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <dependency id="164">    
-    <bendpoint x="1936" y="1158"/>    
-    <bendpoint x="1936" y="2109"/>    
-    <bendpoint x="1936" y="2502"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <dependency id="165">    
-    <end type="SOURCE" refId="11"/>    
+  <dependency id="136">    
+    <bendpoint x="2349" y="-431"/>    
+    <bendpoint x="2349" y="-309"/>    
+    <bendpoint x="2349" y="-85"/>    
+    <bendpoint x="2315" y="139"/>    
+    <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <nesting id="166">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="34"/>  
-  </nesting>  
-  <dependency id="167">    
-    <bendpoint x="1810" y="1158"/>    
-    <bendpoint x="1915" y="2109"/>    
+  <dependency id="137">    
+    <bendpoint x="1061" y="380"/>    
+    <bendpoint x="1284" y="893"/>    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  
-  <dependency id="168">    
-    <end type="SOURCE" refId="29"/>    
+  <dependency id="138">    
+    <bendpoint x="1242" y="380"/>    
+    <bendpoint x="1326" y="893"/>    
+    <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  
-  <association id="169">    
-    <bendpoint x="2333" y="2109"/>    
-    <bendpoint x="2333" y="2502"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="170" name="groupsToRemove"/>      
-      <multiplicity id="171" minimum="0" maximum="2147483647"/>    
+  <association id="139">    
+    <bendpoint x="1034" y="380"/>    
+    <bendpoint x="1034" y="893"/>    
+    <bendpoint x="1034" y="998"/>    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="140" name="group"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="172">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="173" name="controller"/>      
-      <multiplicity id="174" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="175">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="24"/>  
+  <dependency id="142">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="2"/>  
   </dependency>  
-  <nesting id="176">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="27"/>  
-  </nesting>  
-  <nesting id="177">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="31"/>  
-  </nesting>  
-  <dependency id="178">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <nesting id="179">    
+  <dependency id="143">    
+    <bendpoint x="2328" y="-309"/>    
+    <bendpoint x="2307" y="-85"/>    
+    <bendpoint x="2294" y="139"/>    
     <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="25"/>  
-  </nesting>  
-  <association id="180">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="181" name="destinationGroup"/>      
-      <multiplicity id="182" minimum="0" maximum="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="144">    
+    <bendpoint x="1801" y="893"/>    
+    <bendpoint x="1801" y="998"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="145" name="groups"/>      
+      <multiplicity id="146" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="183">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="184" name="guiConnect"/>      
-      <multiplicity id="185" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="186">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="4"/>  
-  </nesting>  
-  <nesting id="187">    
+  <dependency id="147">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="148">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="149">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="11"/>  
-  </nesting>  
-  <nesting id="188">    
+  </dependency>  
+  <dependency id="150">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="151">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="152">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="153" name="destinationGroup"/>      
+      <multiplicity id="154" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="155">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="156">    
+    <bendpoint x="1103" y="380"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="157">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="15"/>  
-  </nesting>  
-  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-    sort-features="false" accessors="true" visibility="true">    
-    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
-    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </dependency>  
+  <association id="158">    
+    <bendpoint x="3110" y="-309"/>    
+    <bendpoint x="3110" y="-85"/>    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="159" name="guiConnect"/>      
+      <multiplicity id="160" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="161">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="162" name="controller"/>      
+      <multiplicity id="163" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="164">    
+    <bendpoint x="1712" y="1222"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="165" name="sender"/>      
+      <multiplicity id="166" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="167">    
+    <bendpoint x="56" y="139"/>    
+    <bendpoint x="67" y="380"/>    
+    <bendpoint x="196" y="893"/>    
+    <bendpoint x="324" y="998"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="168">    
+    <bendpoint x="1559" y="-431"/>    
+    <bendpoint x="1559" y="-309"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="169" name="gui"/>      
+      <multiplicity id="170" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="171">    
+    <bendpoint x="1914" y="139"/>    
+    <bendpoint x="1803" y="380"/>    
+    <bendpoint x="1717" y="893"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="172">    
+    <bendpoint x="1864" y="893"/>    
+    <bendpoint x="1864" y="998"/>    
+    <bendpoint x="1864" y="1222"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="173" name="connectedUsers"/>      
+      <multiplicity id="174" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="175">    
+    <bendpoint x="1843" y="893"/>    
+    <bendpoint x="1843" y="998"/>    
+    <bendpoint x="1843" y="1222"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="176" name="user"/>      
+      <multiplicity id="177" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="178">    
+    <bendpoint x="1885" y="893"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="179">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="180">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="181" name="groupMembers"/>      
+      <multiplicity id="182" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="183">    
+    <bendpoint x="2252" y="139"/>    
+    <bendpoint x="2252" y="380"/>    
+    <bendpoint x="2252" y="893"/>    
+    <bendpoint x="2252" y="998"/>    
+    <bendpoint x="2252" y="1222"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="184">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="185">    
+    <bendpoint x="2535" y="380"/>    
+    <bendpoint x="2534" y="893"/>    
+    <bendpoint x="2534" y="998"/>    
+    <bendpoint x="2535" y="1222"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    sort-features="false" accessors="true" visibility="false">    
+    <attributes public="true" package="false" protected="false" private="false" static="false"/>    
+    <operations public="true" package="false" protected="false" private="false" static="false"/>  
   </classifier-display>  
-  <association-display labels="true" multiplicity="true"/>
+  <association-display labels="false" multiplicity="false"/>
 </class-diagram>
